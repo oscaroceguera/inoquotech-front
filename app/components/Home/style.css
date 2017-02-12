@@ -1,0 +1,7 @@
+.Home {
+  &_header {
+    background-image: url('commons/sushy.jpeg');
+    height: 500px;
+    background-size: cover;
+  }
+}
