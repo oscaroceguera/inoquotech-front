@@ -1,0 +1,2 @@
+# inoquotech-front
+Inoquotech frontend
