@@ -1,23 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
 import {RadioButton, RadioButtonGroup} from 'material-ui'
 import * as Colors from 'material-ui/styles/colors'
-
-const IsClientContainer = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 1.5em;
-`
-
-const IsClientAsk = styled.p`
-  color: ${Colors.grey900};
-`
+import {FormRadiobuttomGeneric} from 'components'
 
 function IsClientForm () {
   return (
-    <IsClientContainer>
-      <IsClientAsk>{'¿Ya eres cliente?'}</IsClientAsk>
-      <RadioButtonGroup name='isClient' style={{display: 'flex', width: '300px', marginLeft: '1em'}}>
+    <FormRadiobuttomGeneric title={'¿Ya eres cliente?'}>
+      <RadioButtonGroup name='isClient' style={{display: 'flex', width: '300px'}}>
         <RadioButton
           value='true'
           label='Si'
@@ -30,7 +19,7 @@ function IsClientForm () {
           labelStyle={{color: Colors.grey500}}
         />
       </RadioButtonGroup>
-    </IsClientContainer>
+    </FormRadiobuttomGeneric>
   )
 }
 

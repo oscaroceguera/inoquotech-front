@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import * as Colors from 'material-ui/styles/colors'
 import styled from 'styled-components'
 import {
-  IsClientForm, SolicitudRFC, SolicitudGeneralesEmpresa, SolicitudServicioRequerido
+  IsClientForm, SolicitudRFC, SolicitudGeneralesEmpresa, SolicitudServicioRequerido,
+  SolicitudServicioAgricola
 } from 'components'
 
 const FormsContainer = styled.div`
@@ -78,6 +79,8 @@ class SolicitudServicioContainer extends Component {
         />
 
         {/* Agricola */}
+        <SolicitudServicioAgricola />
+        
         {/* Acuicola */}
         {/* Procesadora */}
         {/* Distribuidora */}

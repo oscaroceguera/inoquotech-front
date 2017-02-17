@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormRequestWrapper } from 'components'
+import { FormRequestWrapper, FormRadiobuttomGeneric } from 'components'
 import { RadioButton, RadioButtonGroup, TextField, AutoComplete } from 'material-ui'
 import * as Colors from 'material-ui/styles/colors'
 import EmpresaIcon from 'material-ui/svg-icons/communication/business'
@@ -47,9 +47,8 @@ function SolicitudGeneralesEmpresa ({dataSource, handle}) {
       <TextField floatingLabelText={'Teléfono de contacto'} />
       <TextField floatingLabelText={'Email de contacto'} />
       <TextField floatingLabelText={'Cargo de contacto'} />
-      <div>
-        <p>Giro de la empresa:</p>
-        <RadioButtonGroup name='giro'>
+      <FormRadiobuttomGeneric title='Giro de la empresa'>
+        <RadioButtonGroup name='giro' style={{display: 'flex', width: '300px'}}>
           <RadioButton
             value='a'
             label='Agrícola'
@@ -93,7 +92,7 @@ function SolicitudGeneralesEmpresa ({dataSource, handle}) {
             labelStyle={{color: Colors.grey500}}
           />
         </RadioButtonGroup>
-      </div>
+      </FormRadiobuttomGeneric>
     </FormRequestWrapper>
   )
 }
