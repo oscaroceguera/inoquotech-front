@@ -2,7 +2,6 @@ import React from 'react'
 import { FormRequestWrapper, FormRadiobuttomGeneric } from 'components'
 import { RadioButton, RadioButtonGroup, TextField, AutoComplete } from 'material-ui'
 import * as Colors from 'material-ui/styles/colors'
-import EmpresaIcon from 'material-ui/svg-icons/communication/business'
 
 const AUTOCOMPLETE = {
   marginRight: '.5em'
@@ -11,7 +10,7 @@ const AUTOCOMPLETE = {
 function SolicitudGeneralesEmpresa ({dataSource, handle}) {
   return (
     <FormRequestWrapper
-      icon={<EmpresaIcon color={Colors.pink500} />}
+      icon={'empresa'}
       title={'Datos de la empresa'}
     >
       <TextField floatingLabelText={'Nombre de la empresa'} />

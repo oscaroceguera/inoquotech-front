@@ -2,12 +2,22 @@ import React, { PropTypes } from 'react'
 import * as Colors from 'material-ui/styles/colors'
 import styled from 'styled-components'
 
+import EmpresaIcon from 'material-ui/svg-icons/communication/business'
+import AgricolaIcon from 'material-ui/svg-icons/places/spa'
+
+const ICONS = {
+  empresa: <EmpresaIcon color={Colors.pink500} />,
+  agricola: <AgricolaIcon color={Colors.green500} />
+}
+
 const Hero = styled.div`
   margin-top: 1.5em;
 `
+
 const Header = styled.div`
   display: flex;
 `
+
 const Icon = styled.div`
   margin-right: .5em;
 `
@@ -21,7 +31,7 @@ function FormRequestWrapper ({icon, title, children}) {
   return (
     <Hero>
       <Header>
-        <Icon>{icon}</Icon>
+        <Icon>{ICONS[icon]}</Icon>
         <Title>{title}</Title>
       </Header>
       <div>

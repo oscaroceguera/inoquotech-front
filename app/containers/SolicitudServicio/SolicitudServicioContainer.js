@@ -80,7 +80,7 @@ class SolicitudServicioContainer extends Component {
 
         {/* Agricola */}
         <SolicitudServicioAgricola />
-        
+
         {/* Acuicola */}
         {/* Procesadora */}
         {/* Distribuidora */}
@@ -89,7 +89,7 @@ class SolicitudServicioContainer extends Component {
         {/* Laboratorio */}
 
         {/*  Servicio Requerido */}
-        <SolicitudServicioRequerido />
+        {/* <SolicitudServicioRequerido /> */}
 
       </FormsContainer>
     )
