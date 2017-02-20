@@ -3,8 +3,12 @@ import * as Colors from 'material-ui/styles/colors'
 import styled from 'styled-components'
 import {
   IsClientForm, SolicitudRFC, SolicitudGeneralesEmpresa, SolicitudServicioRequerido,
-  SolicitudServicioAgricola
+  SolicitudServicioAgricola, SolicitudServicioAcuicola, SolicitudServicioProcesadora,
+  SolicitudServiciodistrbuidora, SolicitudServicioRestaurante, SolicitudServicioLaboratorio,
+  SolicitudServicioTransporte
 } from 'components'
+
+import Logo from 'commons/logo.svg'
 
 const FormsContainer = styled.div`
   max-width: 1000px;
@@ -14,32 +18,14 @@ const FormsContainer = styled.div`
   }
 `
 
+const IconHeaderContainer = styled.div`
+  text-align: center;
+`
+
 const H1 = styled.h1`
   color: ${Colors.deepPurple500};
 `
 
-// const TextFieldLarge = styled(TextField)`
-//   margin-right: .5em;
-//   width: 25em !important;
-//   @media (max-width: 420px) {
-//     width: 100% !important;
-//   }
-// `
-// const TextFieldMedium = styled(TextField)`
-//   margin-right: .5em;
-//   width: 15em !important;
-//   @media (max-width: 420px) {
-//     width: 100% !important;
-//   }
-// `
-//
-// const TextFieldSmall = styled(TextField)`
-//   margin-right: .5em;
-//   width: 10em !important;
-//   @media (max-width: 420px) {
-//     width: 100% !important;
-//   }
-// `
 
 class SolicitudServicioContainer extends Component {
 
@@ -64,33 +50,34 @@ class SolicitudServicioContainer extends Component {
   render () {
     return (
       <FormsContainer>
+        <IconHeaderContainer>
+          <img src={Logo} />
+        </IconHeaderContainer>
         <H1>{'Solicitud de Servicio'}</H1>
-
-        {/* Es cliente */}
         <IsClientForm />
-
         {/* RFC si es cliente */}
         <SolicitudRFC />
-
         {/* Generales de la empresa */}
         <SolicitudGeneralesEmpresa
           dataSource={this.state.dataSource}
           handle={this.handleUpdateInput}
-        />
-
+          />
         {/* Agricola */}
         <SolicitudServicioAgricola />
-
         {/* Acuicola */}
+        <SolicitudServicioAcuicola />
         {/* Procesadora */}
+        <SolicitudServicioProcesadora />
         {/* Distribuidora */}
+        <SolicitudServiciodistrbuidora />
         {/* Restaurante */}
+        <SolicitudServicioRestaurante />
         {/* Transporte */}
+        <SolicitudServicioTransporte />
         {/* Laboratorio */}
-
+        <SolicitudServicioLaboratorio />
         {/*  Servicio Requerido */}
-        {/* <SolicitudServicioRequerido /> */}
-
+        <SolicitudServicioRequerido />
       </FormsContainer>
     )
   }

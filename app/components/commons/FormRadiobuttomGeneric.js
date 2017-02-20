@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import * as Colors from 'material-ui/styles/colors'
 
 const Title = styled.p`
-  color: ${Colors.grey900};
+  color: ${Colors.grey700};
   font-size: 1.5em;
 `
 

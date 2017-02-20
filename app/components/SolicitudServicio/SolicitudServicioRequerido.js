@@ -2,12 +2,11 @@ import React from 'react'
 import { FormRequestWrapper } from 'components'
 import { TextField, Checkbox } from 'material-ui'
 import * as Colors from 'material-ui/styles/colors'
-import SolicitudIcon from 'material-ui/svg-icons/action/add-shopping-cart'
 
 function SolicitudServicioRequerido () {
   return (
     <FormRequestWrapper
-      icon={<SolicitudIcon color={Colors.indigo500} />}
+      icon={'servicio'}
       title={'Solicitud de servicio'}
     >
       <div>
