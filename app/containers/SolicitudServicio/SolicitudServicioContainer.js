@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import * as Colors from 'material-ui/styles/colors'
 import styled from 'styled-components'
 import {
@@ -82,4 +83,11 @@ class SolicitudServicioContainer extends Component {
   }
 }
 
-export default SolicitudServicioContainer
+function mapStateToProps ({services}) {
+  console.log('esss', services.toJS());
+  return {
+    hola: 'holaaa'
+  }
+}
+
+export default connect(mapStateToProps, null)(SolicitudServicioContainer)
