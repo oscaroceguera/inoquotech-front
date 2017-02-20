@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as Colors from 'material-ui/styles/colors'
 import styled from 'styled-components'
+
 import {
   IsClientForm, SolicitudRFC, SolicitudGeneralesEmpresa, SolicitudServicioRequerido,
   SolicitudServicioAgricola, SolicitudServicioAcuicola, SolicitudServicioProcesadora,
@@ -9,7 +10,9 @@ import {
   SolicitudServicioTransporte
 } from 'components'
 
-import {getRequiredFields} from 'selectors/example'
+import {servicesActions} from 'reducers/services'
+
+// import {getRequiredFields} from 'selectors/example'
 
 import Logo from 'commons/logo.svg'
 
@@ -49,6 +52,10 @@ class SolicitudServicioContainer extends Component {
     })
   }
 
+  onTextChange (e, value, section, field) {
+    this.props.listendFields(section, field, value)
+  }
+
   render () {
     return (
       <FormsContainer>
@@ -58,37 +65,65 @@ class SolicitudServicioContainer extends Component {
         <H1>{'Solicitud de Servicio'}</H1>
         <IsClientForm />
         {/* RFC si es cliente */}
-        <SolicitudRFC />
+        <SolicitudRFC
+          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
+        />
         {/* Generales de la empresa */}
         <SolicitudGeneralesEmpresa
           dataSource={this.state.dataSource}
           handle={this.handleUpdateInput}
+          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
         />
         {/* Agricola */}
-        <SolicitudServicioAgricola />
+        <SolicitudServicioAgricola
+          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
+        />
         {/* Acuicola */}
-        <SolicitudServicioAcuicola />
+        <SolicitudServicioAcuicola
+          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
+        />
         {/* Procesadora */}
-        <SolicitudServicioProcesadora />
+        <SolicitudServicioProcesadora
+          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
+        />
         {/* Distribuidora */}
-        <SolicitudServiciodistrbuidora />
+        <SolicitudServiciodistrbuidora
+          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
+        />
         {/* Restaurante */}
-        <SolicitudServicioRestaurante />
+        <SolicitudServicioRestaurante
+          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
+        />
         {/* Transporte */}
-        <SolicitudServicioTransporte />
+        <SolicitudServicioTransporte
+          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
+        />
         {/* Laboratorio */}
-        <SolicitudServicioLaboratorio />
+        <SolicitudServicioLaboratorio
+          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
+        />
         {/*  Servicio Requerido */}
-        <SolicitudServicioRequerido />
+        <SolicitudServicioRequerido
+          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
+        />
       </FormsContainer>
     )
   }
 }
 
-function mapStateToProps ({services}) {
+const {object} = React.PropTypes
+
+SolicitudServicioContainer.proptypes = {
+  company: object.isRequired
+}
+
+const  mapStateToProps = ({services}) => {
+  const servicesJS = services.toJS()
   return {
-    compare: getRequiredFields(services.toJS())
+    //compare: getRequiredFields(services.toJS())
+    company: servicesJS.company,
+    saludo: 'hello'
   }
 }
 
-export default connect(mapStateToProps, null)(SolicitudServicioContainer)
+export default connect(mapStateToProps, servicesActions)(SolicitudServicioContainer)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import { TextField } from 'material-ui'
 import styled from 'styled-components'
 
@@ -17,14 +17,25 @@ const TextFieldWrapper = styled(TextField)`
   }}
 `
 
-function GenericTextField({floating, width, hintText}) {
+function GenericTextField({floating, width, hintText, onChange}) {
   return (
     <TextFieldWrapper
       floatingLabelText={floating}
       width={width}
       hintText={hintText}
+      onChange={onChange}
     />
   )
+}
+
+const {string, func} = PropTypes
+
+GenericTextField.propTypes = {
+  floating: string.isRequired,
+  width: string,
+  hintText: string,
+  onChange: func,
+  // onChange: func.isRequired
 }
 
 export default GenericTextField
