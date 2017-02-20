@@ -9,6 +9,8 @@ import {
   SolicitudServicioTransporte
 } from 'components'
 
+import {getRequiredFields} from 'selectors/example'
+
 import Logo from 'commons/logo.svg'
 
 const FormsContainer = styled.div`
@@ -84,9 +86,8 @@ class SolicitudServicioContainer extends Component {
 }
 
 function mapStateToProps ({services}) {
-  console.log('esss', services.toJS());
   return {
-    hola: 'holaaa'
+    compare: getRequiredFields(services.toJS())
   }
 }
 

@@ -11,7 +11,7 @@ export const servicesActions = {
 // Reducer
 const initialState = fromJS({
   isClient: false,
-  chale: null,
+  chale: 'oscar',
 })
 
 function servicesReducer(state = initialState, action) {
