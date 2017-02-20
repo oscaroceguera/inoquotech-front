@@ -1,6 +1,5 @@
 import React from 'react'
-import { TextField } from 'material-ui'
-import { FormRequestWrapper } from 'components'
+import { FormRequestWrapper, GenericTextField } from 'components'
 
 function SolicitudServicioProcesadora() {
   return (
@@ -8,10 +7,16 @@ function SolicitudServicioProcesadora() {
       icon={'procesadora'}
       title={'Datos de procesadora'}
     >
-      <TextField floatingLabelText={'¿Qué productos fabrican?'} />
-      <TextField floatingLabelText={'Turnos de producción'} />
-      <TextField floatingLabelText={'¿Qué productos o especies producen?'} />
-      <TextField floatingLabelText={'Número de plantas procesadoras'} />
+      <GenericTextField
+        floating={'¿Qué productos fabrican?'}
+      />
+      <GenericTextField
+        floating={'Turnos de producción'}
+      />
+      <GenericTextField
+        floating={'Nº de plantas'}
+        width={'small'}
+      />
     </FormRequestWrapper>
   )
 }

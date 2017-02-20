@@ -1,10 +1,17 @@
 import React from 'react'
-import { FormRequestWrapper, FormRadiobuttomGeneric } from 'components'
-import { RadioButton, RadioButtonGroup, TextField, AutoComplete } from 'material-ui'
+import { FormRequestWrapper, FormRadiobuttomGeneric, GenericTextField } from 'components'
+import { RadioButton, RadioButtonGroup, AutoComplete } from 'material-ui'
 import * as Colors from 'material-ui/styles/colors'
 
 const AUTOCOMPLETE = {
   marginRight: '.5em'
+}
+
+const {array, func} = React.PropTypes
+
+SolicitudGeneralesEmpresa.proptypes = {
+  dataSource: array.isRequired,
+  handle: func.isRequired
 }
 
 function SolicitudGeneralesEmpresa ({dataSource, handle}) {
@@ -13,8 +20,14 @@ function SolicitudGeneralesEmpresa ({dataSource, handle}) {
       icon={'empresa'}
       title={'Datos de la empresa'}
     >
-      <TextField floatingLabelText={'Nombre de la empresa'} />
-      <TextField floatingLabelText={'RFC'} />
+      <GenericTextField
+        floating={'Nombre de la empresa'}
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'RFC'}
+        width={'small'}
+      />
       <AutoComplete
         floatingLabelText="País"
         dataSource={dataSource}
@@ -33,19 +46,47 @@ function SolicitudGeneralesEmpresa ({dataSource, handle}) {
         onUpdateInput={handle}
         style={AUTOCOMPLETE}
       />
-    <TextField floatingLabelText={'Localidad'} />
-      <TextField floatingLabelText={'Calle y número'} />
-      <TextField floatingLabelText={'Colonia'} />
-      <TextField floatingLabelText={'C.P.'} />
-      <TextField floatingLabelText={'Teléfono de la empresa'} />
-      <TextField floatingLabelText={'Email de la empresa'} />
-      <TextField floatingLabelText={'Nombre de representante legal'} />
-      <TextField floatingLabelText={'Teléfono de representante legal'} />
-      <TextField floatingLabelText={'Email de representante legal'} />
-      <TextField floatingLabelText={'Nombre de contacto'} />
-      <TextField floatingLabelText={'Teléfono de contacto'} />
-      <TextField floatingLabelText={'Email de contacto'} />
-      <TextField floatingLabelText={'Cargo de contacto'} />
+      <GenericTextField
+        floating={'Localidad'}
+      />
+      <GenericTextField
+        floating={'Calle y número'}
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'Colonia'}
+      />
+      <GenericTextField
+        floating={'C.P.'}
+        width={'xSmall'}
+      />
+      <GenericTextField
+        floating={'Teléfono de la empresa'}
+      />
+      <GenericTextField
+        floating={'Email de la empresa'}
+      />
+      <GenericTextField
+        floating={'Nombre de representante legal'}
+      />
+      <GenericTextField
+        floating={'Teléfono de representante legal'}
+      />
+      <GenericTextField
+        floating={'Email de representante legal'}
+      />
+      <GenericTextField
+        floating={'Nombre de contacto'}
+      />
+      <GenericTextField
+        floating={'Teléfono de contacto'}
+      />
+      <GenericTextField
+        floating={'Email de contacto'}
+      />
+      <GenericTextField
+        floating={'Cargo de contacto'}
+      />
       <FormRadiobuttomGeneric title='Giro de la empresa'>
         <RadioButtonGroup name='giro' style={{display: 'flex', width: '300px'}}>
           <RadioButton

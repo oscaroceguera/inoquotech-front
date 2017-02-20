@@ -26,7 +26,6 @@ const H1 = styled.h1`
   color: ${Colors.deepPurple500};
 `
 
-
 class SolicitudServicioContainer extends Component {
 
   constructor (props) {
@@ -61,7 +60,7 @@ class SolicitudServicioContainer extends Component {
         <SolicitudGeneralesEmpresa
           dataSource={this.state.dataSource}
           handle={this.handleUpdateInput}
-          />
+        />
         {/* Agricola */}
         <SolicitudServicioAgricola />
         {/* Acuicola */}

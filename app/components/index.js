@@ -1,6 +1,9 @@
 export Home from './Home/Home'
+// Commons
 export FormRequestWrapper from './commons/FormRequestWrapper'
 export FormRadiobuttomGeneric from './commons/FormRadiobuttomGeneric'
+export GenericTextField from './commons/GenericTextField'
+// Solicitud de servicio
 export IsClientForm from './SolicitudServicio/IsClientForm'
 export SolicitudRFC from './SolicitudServicio/SolicitudRFC'
 export SolicitudGeneralesEmpresa from './SolicitudServicio/SolicitudGeneralesEmpresa'

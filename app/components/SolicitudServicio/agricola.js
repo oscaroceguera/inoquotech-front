@@ -1,6 +1,5 @@
 import React from 'react'
-import { TextField } from 'material-ui'
-import { FormRequestWrapper } from 'components'
+import { FormRequestWrapper, GenericTextField } from 'components'
 
 function SolicitudServicioAgricola() {
   return (
@@ -8,10 +7,21 @@ function SolicitudServicioAgricola() {
       icon={'agricola'}
       title={'Datos de agrícola'}
     >
-      <TextField floatingLabelText={'¿Cuantas hectáreas de producción tiene la empresa?'} />
-      <TextField floatingLabelText={'¿Qué productos producen?'} />
-      <TextField floatingLabelText={'¿Llevan a cabo proceso de empacado?'} />
-      <TextField floatingLabelText={'¿Cuántos albergues tiene la empresa?'} />
+      <GenericTextField
+        floating={'¿Cuantas hectáreas de producción tiene la empresa?'}
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'¿Qué productos producen?'}
+      />
+      <GenericTextField
+        floating={'¿Llevan a cabo proceso de empacado?'}
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'¿Cuántos albergues tiene la empresa?'}
+        width={'large'}
+      />
     </FormRequestWrapper>
   )
 }

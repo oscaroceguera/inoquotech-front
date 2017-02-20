@@ -1,6 +1,6 @@
 import React from 'react'
-import { FormRequestWrapper } from 'components'
-import { TextField, Checkbox } from 'material-ui'
+import { FormRequestWrapper, GenericTextField } from 'components'
+import { Checkbox } from 'material-ui'
 import * as Colors from 'material-ui/styles/colors'
 
 function SolicitudServicioRequerido () {
@@ -19,17 +19,55 @@ function SolicitudServicioRequerido () {
           <Checkbox labelStyle={{color: Colors.grey500}} label="Capacitación" />
         </div>
       </div>
-      <TextField floatingLabelText={'Esquema requerido'} />
-      <TextField floatingLabelText={'¿Tienen certificado en inocuidad, cuales?'} />
-      <TextField floatingLabelText={'¿Tema de capacitación?'} />
-      <TextField floatingLabelText={'Nivel jeráquico'} hintText="General, Mando medios, ..." />
-      <TextField floatingLabelText={'¿Objetivos de muestras?'} hintText="Microbiólogico, Toxicológico, Alérgenos, ..." />
-      <TextField floatingLabelText={'¿Para que require el muestreo?'} hintText="Rutinario, Retiro de producto, ..." />
-      <TextField floatingLabelText={'Tipo de muestreo que requiere:'} hintText="Muestreo dirigido, Muestreo aleatorio, ..." />
-      <TextField floatingLabelText={'¿Cuenta con programa de vigilancia y monitoreo?'} hintText="Si/No" />
-      <TextField floatingLabelText={'¿Tiene fecha del último muestreo realizado?'} hintText="Si/No" />
-      <TextField floatingLabelText={'¿Tiene resultados del último análisis?'} hintText="Si/No" />
-      <TextField floatingLabelText={'¿El análisis se realizó en un laboratorio acreditado?'} hintText="Si/No" />
+      <GenericTextField
+        floating={'Esquema requerido'}
+      />
+      <GenericTextField
+        floating={'¿Tienen certificado en inocuidad, cuales?'}
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'¿Tema de capacitación?'}
+      />
+      <GenericTextField
+        floating={'Nivel jeráquico'}
+        hintText="General, Mando medios, ..."
+      />
+      <GenericTextField
+        floating={'¿Objetivos de muestras?'}
+        hintText="Microbiólogico, Toxicológico, Alérgenos, ..."
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'¿Para que require el muestreo?'}
+        hintText="Rutinario, Retiro de producto, ..."
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'Tipo de muestreo que requiere:'}
+        hintText="Muestreo dirigido, Muestreo aleatorio, ..."
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'¿Cuenta con programa de vigilancia y monitoreo?'}
+        width={'large'}
+        hintText="Si/No"
+      />
+      <GenericTextField
+        floating={'¿Tiene fecha del último muestreo realizado?'}
+        width={'large'}
+        hintText="Si/No"
+      />
+      <GenericTextField
+        floating={'¿Tiene resultados del último análisis?'}
+        width={'large'}
+        hintText="Si/No"
+      />
+      <GenericTextField
+        floating={'¿El análisis se realizó en un laboratorio acreditado?'}
+        width={'large'}
+        hintText="Si/No"
+      />
     </FormRequestWrapper>
   )
 }

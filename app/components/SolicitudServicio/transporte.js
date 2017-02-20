@@ -1,6 +1,5 @@
 import React from 'react'
-import { TextField } from 'material-ui'
-import { FormRequestWrapper } from 'components'
+import { FormRequestWrapper, GenericTextField } from 'components'
 
 function SolicitudServicioTransporte() {
   return (
@@ -8,14 +7,38 @@ function SolicitudServicioTransporte() {
       icon={'transporte'}
       title={'Datos de transporte'}
     >
-      <TextField floatingLabelText={'¿Qué productos transportan?'} />
-      <TextField floatingLabelText={'¿Cuentan con algún tipo de certificación?'} />
-      <TextField floatingLabelText={'¿Llevan a cabo un programa de seguridad e higiene?'} />
-      <TextField floatingLabelText={'Cuentan con permisos para el transporte de la mercancía (nacional/internacional SCT)'} />
-      <TextField floatingLabelText={'Número de flotillas/vehículos'} />
-      <TextField floatingLabelText={'¿Cuentan con talleres mecánicos propios?'} />
-      <TextField floatingLabelText={'¿Cuentan con documentación necesaria para registro de actividades (trazabilidad)?'} />
-      <TextField floatingLabelText={'¿Realiza frecuentemente exámenes toxicológicos a los choferes?'} />
+      <GenericTextField
+        floating={'¿Qué productos transportan?'}
+      />
+      <GenericTextField
+        floating={'¿Cuentan con algún tipo de certificación?'}
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'¿Llevan a cabo un programa de seguridad e higiene?'}
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'¿Cuentan con permisos para el transporte de la mercancía?'}
+        hintText={'Nacional e Internacional SCT'}
+        width={'xLarge'}
+      />
+      <GenericTextField
+        floating={'Nº flotillas/vehículos'}
+      />
+      <GenericTextField
+        floating={'¿Cuentan con talleres mecánicos propios?'}
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'¿Cuentan con registros de actividades?'}
+        hintText={'Documentación necesaria para registro de actividades (Trazabilidad)'}
+        width={'xLarge'}
+      />
+      <GenericTextField
+        floating={'¿Realiza frecuentemente exámenes toxicológicos a los choferes?'}
+        width={'xLarge'}
+      />
     </FormRequestWrapper>
   )
 }

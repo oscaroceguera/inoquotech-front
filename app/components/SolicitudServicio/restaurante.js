@@ -1,6 +1,5 @@
 import React from 'react'
-import { TextField } from 'material-ui'
-import { FormRequestWrapper } from 'components'
+import { FormRequestWrapper, GenericTextField } from 'components'
 
 function SolicitudServicioRestaurante() {
   return (
@@ -8,11 +7,37 @@ function SolicitudServicioRestaurante() {
       icon={'restaurante'}
       title={'Datos de restaurante'}
     >
-      <TextField floatingLabelText={'¿Que tipo de sistema de producción tiene?'} />
-      <TextField floatingLabelText={'¿Tiene juntas todas sus unidades de producción, en caso de si donde?'} />
-      <TextField floatingLabelText={'¿Qué productos o especies producen?'} />
-      <TextField floatingLabelText={'¿Llevan a cabo proceso de empacado?'} />
-      <TextField floatingLabelText={'¿Cuántos albergues tiene la empresa?'} />
+      <GenericTextField
+        floating={'¿Qué productos venden?'}
+      />
+      <GenericTextField
+        floating={'Horarios de servicio de la empresa'}
+        width={'medium'}
+      />
+      <GenericTextField
+        floating={'Nº de sucursales'}
+        width={'small'}
+      />
+      <GenericTextField
+        floating={'¿Las instalaciones son propias o rentadas?'}
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'¿Cuenta con sistemas de congelación para sus materias primas?'}
+        width={'xLarge'}
+      />
+      <GenericTextField
+        floating={'¿Cuenta con servicio de verificacion de la NOM-251?'}
+        width={'xLarge'}
+      />
+      <GenericTextField
+        floating={'¿Cuenta con sanitarios exclusivos para sus empleados?'}
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'¿El personal cuanta con capacitacón de manejo de alimentos?'}
+        width={'xLarge'}
+      />
     </FormRequestWrapper>
   )
 }

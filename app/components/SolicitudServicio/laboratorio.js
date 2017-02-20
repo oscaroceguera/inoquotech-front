@@ -1,6 +1,5 @@
 import React from 'react'
-import { TextField } from 'material-ui'
-import { FormRequestWrapper } from 'components'
+import { FormRequestWrapper, GenericTextField } from 'components'
 
 function SolicitudServicioLaboratorio() {
   return (
@@ -8,9 +7,18 @@ function SolicitudServicioLaboratorio() {
       icon={'laboratorio'}
       title={'Datos de laboratorio'}
     >
-      <TextField floatingLabelText={'Giro del laboratorio'} />
-      <TextField floatingLabelText={'Normatividad en la que requiere acreditarse'} />
-      <TextField floatingLabelText={'¿Qué ensayos requiere acreditar?'} />
+      <GenericTextField
+        floating={'Giro del laboratorio'}
+        width={'xLarge'}
+        hintText={'Fitosanitaria, Residuos Toxicológicos, Inocuidad alimentaria, ...etc)'}
+      />
+      <GenericTextField
+        floating={'Normatividad en la que requiere acreditarse'}
+        width={'large'}
+      />
+      <GenericTextField
+        floating={'¿Qué ensayos requiere acreditar?'}
+      />
     </FormRequestWrapper>
   )
 }

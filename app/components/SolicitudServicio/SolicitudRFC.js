@@ -1,10 +1,13 @@
 import React from 'react'
-import { TextField } from 'material-ui'
+import { GenericTextField } from 'components'
 
 function SolicitudRFC () {
   return (
     <div>
-      <TextField floatingLabelText={'RFC de cliente'} />
+      <GenericTextField
+        floating={'RFC de cliente'}
+        width={'small'}
+      />
     </div>
   )
 }
