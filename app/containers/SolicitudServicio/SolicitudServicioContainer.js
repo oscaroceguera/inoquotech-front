@@ -85,37 +85,45 @@ class SolicitudServicioContainer extends Component {
           handleError={this.handleErrorText}
         />
         {/* Agricola */}
-        {/* <SolicitudServicioAgricola
-          handleTextChange={this.handleTextChange}
-        /> */}
+        <SolicitudServicioAgricola
+          handleTextChange={this.onTextChange}
+          handleError={this.handleErrorText}
+        />
         {/* Acuicola */}
-        {/* <SolicitudServicioAcuicola
-          handleTextChange={this.handleTextChange}
-        /> */}
+        <SolicitudServicioAcuicola
+          handleTextChange={this.onTextChange}
+          handleError={this.handleErrorText}
+        />
         {/* Procesadora */}
-        {/* <SolicitudServicioProcesadora
-          handleTextChange={this.handleTextChange}
-        /> */}
+        <SolicitudServicioProcesadora
+          handleTextChange={this.onTextChange}
+          handleError={this.handleErrorText}
+        />
         {/* Distribuidora */}
-        {/* <SolicitudServiciodistrbuidora
-          handleTextChange={this.handleTextChange}
-        /> */}
+        <SolicitudServiciodistrbuidora
+          handleTextChange={this.onTextChange}
+          handleError={this.handleErrorText}
+        />
         {/* Restaurante */}
-        {/* <SolicitudServicioRestaurante
-          handleTextChange={this.handleTextChange}
-        /> */}
+        <SolicitudServicioRestaurante
+          handleTextChange={this.onTextChange}
+          handleError={this.handleErrorText}
+        />
         {/* Transporte */}
-        {/* <SolicitudServicioTransporte
-          handleTextChange={this.handleTextChange}
-        /> */}
+        <SolicitudServicioTransporte
+          handleTextChange={this.onTextChange}
+          handleError={this.handleErrorText}
+        />
         {/* Laboratorio */}
-        {/* <SolicitudServicioLaboratorio
-          handleTextChange={this.handleTextChange}
-        /> */}
+        <SolicitudServicioLaboratorio
+          handleTextChange={this.onTextChange}
+          handleError={this.handleErrorText}
+        />
         {/*  Servicio Requerido */}
-        {/* <SolicitudServicioRequerido
-          handleTextChange={this.handleTextChange}
-        /> */}
+        <SolicitudServicioRequerido
+          handleTextChange={this.onTextChange}
+          handleError={this.handleErrorText}
+        />
       </FormsContainer>
     )
   }
@@ -134,6 +142,14 @@ const  mapStateToProps = ({services}) => {
     //compare: getRequiredFields(services.toJS())
     company: servicesJS.company,
     client: servicesJS.client,
+    agricola: servicesJS.agricola,
+    acuicola: servicesJS.acuicola,
+    procesadora: servicesJS.procesadora,
+    distribuidora: servicesJS.distribuidora,
+    restaurante: servicesJS.restaurante,
+    transporte: servicesJS.transporte,
+    laboratorio: servicesJS.laboratorio,
+    servicio: servicesJS.servicio,
   }
 }
 

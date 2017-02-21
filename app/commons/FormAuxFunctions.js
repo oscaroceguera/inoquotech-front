@@ -10,7 +10,7 @@ export default {
     return item.length === 0 ? '' : emailValidator.validate(item) ? '' : 'Formato email invalido'
   },
   hasText (item) {
-    return item.length === 0 ? '' : item.length > 3 ? '' : 'Requerido'
+    return item.length === 0 ? '' : item.length > 1 ? '' : 'Requerido'
   },
   errorTextMessage (item, type) {
     if (type === 'rfc') return this.isRFC(item)

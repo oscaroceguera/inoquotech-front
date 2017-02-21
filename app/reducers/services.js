@@ -32,7 +32,7 @@ const initialState = fromJS({
     contactPosition: ''
   },
   agricola: {
-    ha: '',
+    hectarea: '',
     productos: '',
     empacado: '',
     albergues: ''
