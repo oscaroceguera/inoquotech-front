@@ -10,6 +10,7 @@ import {
   SolicitudServicioTransporte
 } from 'components'
 
+import aux from 'commons/FormAuxFunctions'
 import {servicesActions} from 'reducers/services'
 
 // import {getRequiredFields} from 'selectors/example'
@@ -52,8 +53,15 @@ class SolicitudServicioContainer extends Component {
     })
   }
 
-  onTextChange (e, value, section, field) {
+  onTextChange = (e, value, section, field) => {
     this.props.listendFields(section, field, value)
+  }
+
+  handleErrorText  = (section, field, type) => {
+    const item = this.props[section][field]
+
+    return aux.errorTextMessage(item, type)
+
   }
 
   render () {
@@ -66,46 +74,48 @@ class SolicitudServicioContainer extends Component {
         <IsClientForm />
         {/* RFC si es cliente */}
         <SolicitudRFC
-          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
+          handleTextChange={this.onTextChange}
+          handleError={this.handleErrorText}
         />
         {/* Generales de la empresa */}
         <SolicitudGeneralesEmpresa
           dataSource={this.state.dataSource}
           handle={this.handleUpdateInput}
-          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
+          handleTextChange={this.onTextChange}
+          handleError={this.handleErrorText}
         />
         {/* Agricola */}
-        <SolicitudServicioAgricola
-          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
-        />
+        {/* <SolicitudServicioAgricola
+          handleTextChange={this.handleTextChange}
+        /> */}
         {/* Acuicola */}
-        <SolicitudServicioAcuicola
-          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
-        />
+        {/* <SolicitudServicioAcuicola
+          handleTextChange={this.handleTextChange}
+        /> */}
         {/* Procesadora */}
-        <SolicitudServicioProcesadora
-          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
-        />
+        {/* <SolicitudServicioProcesadora
+          handleTextChange={this.handleTextChange}
+        /> */}
         {/* Distribuidora */}
-        <SolicitudServiciodistrbuidora
-          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
-        />
+        {/* <SolicitudServiciodistrbuidora
+          handleTextChange={this.handleTextChange}
+        /> */}
         {/* Restaurante */}
-        <SolicitudServicioRestaurante
-          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
-        />
+        {/* <SolicitudServicioRestaurante
+          handleTextChange={this.handleTextChange}
+        /> */}
         {/* Transporte */}
-        <SolicitudServicioTransporte
-          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
-        />
+        {/* <SolicitudServicioTransporte
+          handleTextChange={this.handleTextChange}
+        /> */}
         {/* Laboratorio */}
-        <SolicitudServicioLaboratorio
-          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
-        />
+        {/* <SolicitudServicioLaboratorio
+          handleTextChange={this.handleTextChange}
+        /> */}
         {/*  Servicio Requerido */}
-        <SolicitudServicioRequerido
-          handleTextChange={(e, value, section, field) => this.onTextChange(e, value, section, field)}
-        />
+        {/* <SolicitudServicioRequerido
+          handleTextChange={this.handleTextChange}
+        /> */}
       </FormsContainer>
     )
   }
@@ -114,7 +124,8 @@ class SolicitudServicioContainer extends Component {
 const {object} = React.PropTypes
 
 SolicitudServicioContainer.proptypes = {
-  company: object.isRequired
+  company: object.isRequired,
+  client: object.isRequired
 }
 
 const  mapStateToProps = ({services}) => {
@@ -122,7 +133,7 @@ const  mapStateToProps = ({services}) => {
   return {
     //compare: getRequiredFields(services.toJS())
     company: servicesJS.company,
-    saludo: 'hello'
+    client: servicesJS.client,
   }
 }
 

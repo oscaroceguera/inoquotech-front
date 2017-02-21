@@ -12,87 +12,87 @@ export const servicesActions = {
 const initialState = fromJS({
   client: {
     isClient: false,
-    isClientRFC: null
+    isClientRFC: ''
   },
   company: {
-    companyName: null,
-    rfc: null,
-    locality: null,
-    address: null,
-    neighborhood: null,
-    zipCode: null,
-    companyPhone: null,
-    companyEmail: null,
-    legalName: null,
-    legalPhone: null,
-    legalEmail: null,
-    contactName: null,
-    contactPhone: null,
-    contactEmail: null,
-    contactPosition: null
+    companyName: '',
+    rfc:'',
+    locality: '',
+    address: '',
+    neighborhood: '',
+    zipCode: '',
+    companyPhone: '',
+    companyEmail: '',
+    legalName: '',
+    legalPhone: '',
+    legalEmail: '',
+    contactName: '',
+    contactPhone: '',
+    contactEmail: '',
+    contactPosition: ''
   },
   agricola: {
-    ha: null,
-    productos: null,
-    empacado: null,
-    albergues: null
+    ha: '',
+    productos: '',
+    empacado: '',
+    albergues: ''
   },
   acuicola: {
-    tipoSistemaProduccion: null,
-    ubicacionProduccion: null,
-    tipoProduccion: null,
-    empacado: null,
-    albergues: null
+    tipoSistemaProduccion: '',
+    ubicacionProduccion: '',
+    tipoProduccion: '',
+    empacado: '',
+    albergues: ''
   },
   procesadora: {
-    productos: null,
-    turnos: null,
-    plantas: null
+    productos: '',
+    turnos: '',
+    plantas: ''
   },
   distribuidora: {
-    almacenes: null,
-    productos: null,
-    mercado: null,
-    importa: null
+    almacenes: '',
+    productos: '',
+    mercado: '',
+    importa: ''
   },
   restaurante: {
-    productos: null,
-    horario: null,
-    sucursales: null,
-    tipoInstalacion: null,
-    congelacion: null,
-    verificacion: null,
-    sanitarios: null,
-    capacitacion: null
+    productos: '',
+    horario: '',
+    sucursales: '',
+    tipoInstalacion: '',
+    congelacion: '',
+    verificacion: '',
+    sanitarios: '',
+    capacitacion: ''
   },
   transporte: {
-    productos: null,
-    cetificado: null,
-    saludHigiene: null,
-    permisos: null,
-    noVehiculos: null,
-    talleres: null,
-    registros: null,
-    toxicologicos: null
+    productos: '',
+    cetificado: '',
+    saludHigiene: '',
+    permisos: '',
+    noVehiculos: '',
+    talleres: '',
+    registros: '',
+    toxicologicos: ''
   },
   laboratorio:  {
-    giro: null,
-    normativa: null,
-    ensayos: null
+    giro: '',
+    normativa: '',
+    ensayos: ''
   },
   servicio: {
     tipoServicio: [],
-    esquema: null,
-    hasCertificado: null,
-    capacitacionTema: null,
-    nivelJerarquico: null,
-    objetivoMuestras: null,
-    porqueMuestreo: null,
-    tipoMuestreo: null,
-    hasProgramaVigilanciaMonitoreo: null,
-    muestreoFecha: null,
-    analisisFecha: null,
-    laboratorioAcreditado: null
+    esquema: '',
+    hasCertificado: '',
+    capacitacionTema: '',
+    nivelJerarquico: '',
+    objetivoMuestras: '',
+    porqueMuestreo: '',
+    tipoMuestreo: '',
+    hasProgramaVigilanciaMonitoreo: '',
+    muestreoFecha: '',
+    analisisFecha: '',
+    laboratorioAcreditado: ''
   }
 })
 

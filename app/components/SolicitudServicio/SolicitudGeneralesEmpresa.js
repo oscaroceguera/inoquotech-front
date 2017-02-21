@@ -14,11 +14,16 @@ class SolicitudGeneralesEmpresa extends Component {
   static propTypes = {
     dataSource: array.isRequired,
     handle: func.isRequired,
-    handleTextChange: func.isRequired
+    handleTextChange: func.isRequired,
+    handleError: func
   }
 
   onChildChange (e, value, section, field) {
     this.props.handleTextChange(e, value, section, field)
+  }
+
+  onValidate (section, field, type) {
+    return this.props.handleError(section, field, type)
   }
 
   render () {
@@ -38,6 +43,7 @@ class SolicitudGeneralesEmpresa extends Component {
           floating={'RFC'}
           width={'small'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'rfc')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'rfc', 'rfc')} // eslint-disable-line
         />
         <AutoComplete
           floatingLabelText="País"

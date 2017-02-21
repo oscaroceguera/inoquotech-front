@@ -5,11 +5,16 @@ const {func} = PropTypes
 
 class SolicitudRFC extends Component {
   static propTypes = {
-    handleTextChange: func.isRequired
+    handleTextChange: func.isRequired,
+    handleError: func,
   }
 
   onChildChange (e, value, section, field) {
     this.props.handleTextChange(e, value, section, field)
+  }
+
+  onValidate (section, field, type) {
+    return this.props.handleError(section, field, type)
   }
 
   render () {
@@ -19,6 +24,7 @@ class SolicitudRFC extends Component {
           floating={'RFC de cliente'}
           width={'small'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'client', 'isClientRFC')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('client', 'isClientRFC', 'rfc')} // eslint-disable-line
         />
       </div>
     )
