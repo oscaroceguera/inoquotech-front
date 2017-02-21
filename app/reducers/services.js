@@ -15,6 +15,7 @@ const initialState = fromJS({
     isClientRFC: ''
   },
   company: {
+    companyGiro: '',
     companyName: '',
     rfc:'',
     locality: '',

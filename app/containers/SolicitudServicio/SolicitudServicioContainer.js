@@ -71,7 +71,8 @@ class SolicitudServicioContainer extends Component {
           <img src={Logo} />
         </IconHeaderContainer>
         <H1>{'Solicitud de Servicio'}</H1>
-        <IsClientForm />
+        <IsClientForm
+          handleRadioChange={this.onTextChange}/>
         {/* RFC si es cliente */}
         <SolicitudRFC
           handleTextChange={this.onTextChange}

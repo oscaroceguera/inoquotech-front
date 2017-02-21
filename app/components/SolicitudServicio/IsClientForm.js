@@ -1,26 +1,36 @@
-import React from 'react'
-import {RadioButton, RadioButtonGroup} from 'material-ui'
-import * as Colors from 'material-ui/styles/colors'
-import {FormRadiobuttomGeneric} from 'components'
+import React, {Component, PropTypes} from 'react'
+import {FormRadiobuttomWrapper, GenericRadioButton} from 'components'
 
-function IsClientForm () {
-  return (
-    <FormRadiobuttomGeneric title={'¿Ya eres cliente?'}>
-      <RadioButtonGroup name='isClient' style={{display: 'flex', width: '300px'}}>
-        <RadioButton
-          value='true'
-          label='Si'
-          style={{width: '30%'}}
-          labelStyle={{color: Colors.grey500}}/>
-        <RadioButton
-          value='false'
-          label='No'
-          style={{width: '30%'}}
-          labelStyle={{color: Colors.grey500}}
+const RADIOS_ITEMS = {
+  name: 'isClient',
+  question: '¿Ya eres cliente?',
+  radios: [ { value: true, label: 'Si' }, { value: false, label: 'No' } ],
+  radioDefault: false
+}
+
+const {func} = PropTypes
+
+class IsClientForm extends Component {
+  static propTypes = {
+    handleRadioChange: func.isRequired
+  }
+
+  onChildChange (e, value, section, field) {
+    this.props.handleRadioChange(e, value, section, field)
+  }
+
+  render () {
+    return (
+      <FormRadiobuttomWrapper title={RADIOS_ITEMS.question}>
+        <GenericRadioButton
+          onChange={(e, value, section, field) => this.onChildChange(e, value, 'client', 'isClient')} // eslint-disable-line
+          name={RADIOS_ITEMS.name}
+          radios={RADIOS_ITEMS.radios}
+          radioDefault={RADIOS_ITEMS.radioDefault}
         />
-      </RadioButtonGroup>
-    </FormRadiobuttomGeneric>
-  )
+      </FormRadiobuttomWrapper>
+    )
+  }
 }
 
 export default IsClientForm

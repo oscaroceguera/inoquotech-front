@@ -7,12 +7,12 @@ const Title = styled.p`
   font-size: 1.5em;
 `
 
-FormRadiobuttomGeneric.propTypes = {
+FormRadiobuttomWrapper.propTypes = {
   title: React.PropTypes.string.isRequired,
   children: React.PropTypes.object.isRequired
 }
 
-function FormRadiobuttomGeneric ({title, children}) {
+function FormRadiobuttomWrapper ({title, children}) {
   return (
     <div>
       <Title>{title}</Title>
@@ -21,4 +21,4 @@ function FormRadiobuttomGeneric ({title, children}) {
   )
 }
 
-export default FormRadiobuttomGeneric
+export default FormRadiobuttomWrapper

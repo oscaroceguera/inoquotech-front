@@ -1,10 +1,23 @@
 import React, {PropTypes, Component} from 'react'
-import { FormRequestWrapper, FormRadiobuttomGeneric, GenericTextField } from 'components'
-import { RadioButton, RadioButtonGroup, AutoComplete } from 'material-ui'
-import * as Colors from 'material-ui/styles/colors'
+import { FormRequestWrapper, FormRadiobuttomWrapper, GenericRadioButton, GenericTextField } from 'components'
+import { AutoComplete } from 'material-ui'
 
 const AUTOCOMPLETE = {
   marginRight: '.5em'
+}
+
+const RADIOS_ITEMS = {
+  name: 'giro',
+  question: 'Giro de la empresa',
+  radios: [
+    { value: 'eef691f0-eefe-431e-9864-23287feaf204', label: 'Agrícola' },
+    { value: 'ee96e205-7775-445f-9666-843595682629', label: 'Acuícola' },
+    { value: 'adc9e71c-9d41-4482-9b7e-4ae0a4339d95', label: 'Procesadora' },
+    { value: 'c5b5885b-58d4-4164-95a8-5ce10904d8cf', label: 'Distribuidora' },
+    { value: '48ddf850-317f-4cf7-84e2-2d0e5a89ba0c', label: 'Laboratorio' },
+    { value: '7a814d5a-ef2a-4699-965c-5f4edad7aa17', label: 'Restaurante' },
+    { value: '064a8e1f--46b8-9384-140c70563d71', label: 'Transporte' },
+  ]
 }
 
 const {array, func} = PropTypes
@@ -128,52 +141,13 @@ class SolicitudGeneralesEmpresa extends Component {
           floating={'Cargo de contacto'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'contactPosition')} // eslint-disable-line
         />
-        <FormRadiobuttomGeneric title='Giro de la empresa'>
-          <RadioButtonGroup name='giro' style={{display: 'flex', width: '300px'}}>
-            <RadioButton
-              value='a'
-              label='Agrícola'
-              style={{width: '30%', marginRight: '.5em'}}
-              labelStyle={{color: Colors.grey500}}
-            />
-            <RadioButton
-              value='b'
-              label='Acuícola'
-              style={{width: '30%', marginRight: '.5em'}}
-              labelStyle={{color: Colors.grey500}}
-            />
-            <RadioButton
-              value='c'
-              label='Laboratorio'
-              style={{width: '30%', marginRight: '.5em'}}
-              labelStyle={{color: Colors.grey500}}
-            />
-            <RadioButton
-              value='d'
-              label='Procesadora'
-              style={{width: '30%', marginRight: '.5em'}}
-              labelStyle={{color: Colors.grey500}}
-            />
-            <RadioButton
-              value='e'
-              label='Distibuidora'
-              style={{width: '30%', marginRight: '.5em'}}
-              labelStyle={{color: Colors.grey500}}
-            />
-            <RadioButton
-              value='f'
-              label='Restaurante'
-              style={{width: '30%', marginRight: '.5em'}}
-              labelStyle={{color: Colors.grey500}}
-            />
-            <RadioButton
-              value='g'
-              label='Transporte'
-              style={{width: '30%'}}
-              labelStyle={{color: Colors.grey500}}
-            />
-          </RadioButtonGroup>
-        </FormRadiobuttomGeneric>
+        <FormRadiobuttomWrapper title={RADIOS_ITEMS.question}>
+          <GenericRadioButton
+            onChange={(e, value, section, field) => this.onChildChange(e, value, 'client', 'isClient')} // eslint-disable-line
+            name={RADIOS_ITEMS.name}
+            radios={RADIOS_ITEMS.radios}
+          />
+        </FormRadiobuttomWrapper>
       </FormRequestWrapper>
     )
   }
