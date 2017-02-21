@@ -38,6 +38,7 @@ class SolicitudGeneralesEmpresa extends Component {
           floating={'Nombre de la empresa'}
           width={'large'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'companyName')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'companyName', 'text')} // eslint-disable-line
         />
         <GenericTextField
           floating={'RFC'}
@@ -71,6 +72,7 @@ class SolicitudGeneralesEmpresa extends Component {
           floating={'Calle y número'}
           width={'large'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'address')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'address', 'text')} // eslint-disable-line
         />
         <GenericTextField
           floating={'Colonia'}
@@ -80,38 +82,47 @@ class SolicitudGeneralesEmpresa extends Component {
           floating={'C.P.'}
           width={'xSmall'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'zipCode')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'zipCode', 'text')} // eslint-disable-line
         />
         <GenericTextField
           floating={'Teléfono de la empresa'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'companyPhone')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'companyPhone', 'text')} // eslint-disable-line
         />
         <GenericTextField
           floating={'Email de la empresa'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'companyEmail')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'companyEmail', 'email')} // eslint-disable-line
         />
         <GenericTextField
           floating={'Nombre de representante legal'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'legalName')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'legalName', 'text')} // eslint-disable-line
         />
         <GenericTextField
           floating={'Teléfono de representante legal'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'legalPhone')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'legalPhone', 'text')} // eslint-disable-line
         />
         <GenericTextField
           floating={'Email de representante legal'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'legalEmail')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'legalEmail', 'email')} // eslint-disable-line
         />
         <GenericTextField
           floating={'Nombre de contacto'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'contactName')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'contactName', 'text')} // eslint-disable-line
         />
         <GenericTextField
           floating={'Teléfono de contacto'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'contactPhone')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'contactPhone', 'text')} // eslint-disable-line
         />
         <GenericTextField
           floating={'Email de contacto'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'contactEmail')} // eslint-disable-line
+          onUpdateValidate={this.onValidate('company', 'contactEmail', 'email')} // eslint-disable-line
         />
         <GenericTextField
           floating={'Cargo de contacto'}
