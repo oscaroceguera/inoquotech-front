@@ -1,11 +1,15 @@
 import { fromJS, List } from 'immutable'
-
+import _ from 'lodash'
 // Actions
-const LISTEND_FIELDS_VALUE = 'app/reducers/LISTEND_FIELDS_VALUE'
+const LISTEND_FIELDS_VALUE = 'app/reducers/services/LISTEND_FIELDS_VALUE'
+const LISTEND_CHECKBOXES_VALUE = 'app/reducers/services/LISTEND_CHECKBOXES_VALUE'
+const UNCHECKED_CHECKBOXES = 'app/reducers/services/UNCHECKED_CHECKBOXES'
 
 // Actions Creators
 export const servicesActions = {
-  listendFields: (section, field, value) => ({ type: LISTEND_FIELDS_VALUE, section, field, value })
+  listendFields: (section, field, value) => ({ type: LISTEND_FIELDS_VALUE, section, field, value }),
+  listendCheckboxes: (section, field, value) => ({ type: LISTEND_CHECKBOXES_VALUE, section, field, value }),
+  uncheckedCheckboxes: (section, field, value) => ({ type: UNCHECKED_CHECKBOXES, section, field, value })
 }
 
 // Reducer
@@ -101,6 +105,15 @@ function servicesReducer (state = initialState, action) {
   switch (action.type) {
   case LISTEND_FIELDS_VALUE:
     return state.setIn([action.section, action.field], action.value)
+  case LISTEND_CHECKBOXES_VALUE:
+    return state
+      .setIn([action.section, action.field], state.getIn([action.section, action.field]).unshift(action.value))
+  case UNCHECKED_CHECKBOXES: // eslint-disable-line
+    const actionValue = action.value
+    const currentValues = state.getIn([action.section, action.field]).toJS()
+    const currentKeys = _.map(currentValues, (value, key) => value === actionValue && key)
+    const filter = _.find(currentKeys, (value) => value !== false)
+    return state.deleteIn([action.section, action.field, filter])
   default:
     return state
   }

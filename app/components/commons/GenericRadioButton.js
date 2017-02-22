@@ -8,6 +8,7 @@ const inlStyl = {
   labelStyle : { color: Colors.grey500 }
 }
 
+// TODO: Responsive radios
 const RadioButtonGroupStyled = styled(RadioButtonGroup)`
   display: flex;
   width: 300px;

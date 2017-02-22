@@ -1,14 +1,23 @@
 import React, {Component, PropTypes} from 'react'
-import { FormRequestWrapper, GenericTextField } from 'components'
-import { Checkbox } from 'material-ui'
-import * as Colors from 'material-ui/styles/colors'
+import {
+  FormRequestWrapper,
+  FormRadiobuttomWrapper,
+  GenericTextField,
+  GenericCheckbox
+} from 'components'
 
-const {func} = PropTypes
+const {func, array} = PropTypes
 
 class SolicitudServicioRequerido extends Component {
   static propTypes = {
     handleTextChange: func.isRequired,
-    handleError: func
+    handleError: func,
+    servicesTypes: array.isRequired,
+    handleCheckboxChange: func.isRequired
+  }
+
+  onChidCheckboxChange (e, checked, section, field) {
+    this.props.handleCheckboxChange(e, checked, section, field)
   }
 
   onChildChange (e, value, section, field) {
@@ -25,16 +34,12 @@ class SolicitudServicioRequerido extends Component {
         icon={'servicio'}
         title={'Solicitud de servicio'}
       >
-        <div>
-          <p>Servicio requerido:</p>
-          <div>
-            <Checkbox labelStyle={{color: Colors.grey500}} label="Diagnóstico" />
-            <Checkbox labelStyle={{color: Colors.grey500}} label="Pre-Auditoría" />
-            <Checkbox labelStyle={{color: Colors.grey500}} label="Implementación" />
-            <Checkbox labelStyle={{color: Colors.grey500}} label="Muestreo" />
-            <Checkbox labelStyle={{color: Colors.grey500}} label="Capacitación" />
-          </div>
-        </div>
+        <FormRadiobuttomWrapper title={'Servicio requerido'}>
+          <GenericCheckbox
+            items={this.props.servicesTypes}
+            onChange={(e, checked, section, field) => this.onChidCheckboxChange(e, checked, 'servicio', 'tipoServicio')} // eslint-disable-line
+          />
+        </FormRadiobuttomWrapper>
         <GenericTextField
           floating={'Esquema requerido'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'esquema')} // eslint-disable-line

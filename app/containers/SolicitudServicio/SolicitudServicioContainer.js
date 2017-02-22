@@ -35,6 +35,8 @@ const IconHeaderContainer = styled.div`
 const H1 = styled.h1`
   color: ${Colors.deepPurple500};
 `
+// TODO: generic para autocomple
+// TODO: Autocomplete dependientes
 
 class SolicitudServicioContainer extends Component {
 
@@ -64,14 +66,23 @@ class SolicitudServicioContainer extends Component {
     this.props.listendFields(section, field, value)
   }
 
-  handleErrorText  = (section, field, type) => {
-    const item = this.props[section][field]
+  onCheckboxChage = (e, checked, section, field) => {
+    const value = e.target.value
 
-    return aux.errorTextMessage(item, type)
+    if (!checked) {
+      this.props.uncheckedCheckboxes(section, field, value)
+      return
+    }
 
+    this.props.listendCheckboxes(section, field, value)
   }
 
+  handleErrorText  = (section, field, type) => {
+    const item = this.props[section][field]
+    return aux.errorTextMessage(item, type)
+  }
   render () {
+    const {servicesTypes, sectionsTypes} = this.props
     return (
       <FormsContainer>
         <IconHeaderContainer>
@@ -91,7 +102,7 @@ class SolicitudServicioContainer extends Component {
           handle={this.handleUpdateInput}
           handleTextChange={this.onTextChange}
           handleError={this.handleErrorText}
-          servicesTypes={this.props.serviceTypes}
+          servicesTypes={sectionsTypes}
         />
         {/* Agricola */}
         <SolicitudServicioAgricola
@@ -132,6 +143,8 @@ class SolicitudServicioContainer extends Component {
         <SolicitudServicioRequerido
           handleTextChange={this.onTextChange}
           handleError={this.handleErrorText}
+          servicesTypes={servicesTypes}
+          handleCheckboxChange={this.onCheckboxChage}
         />
       </FormsContainer>
     )
@@ -142,7 +155,17 @@ const {object} = React.PropTypes
 
 SolicitudServicioContainer.proptypes = {
   company: object.isRequired,
-  client: object.isRequired
+  client: object.isRequired,
+  agricola: object.isRequired,
+  acuicola: object.isRequired,
+  procesadora: object.isRequired,
+  distribuidora: object.isRequired,
+  restaurante: object.isRequired,
+  transporte: object.isRequired,
+  laboratorio: object.isRequired,
+  servicio: object.isRequired,
+  sectionsTypes: object.isRequired,
+  servicesTypes: object.isRequired,
 }
 
 const  mapStateToProps = ({services, catalogs}) => {
@@ -160,7 +183,8 @@ const  mapStateToProps = ({services, catalogs}) => {
     transporte: servicesJS.transporte,
     laboratorio: servicesJS.laboratorio,
     servicio: servicesJS.servicio,
-    serviceTypes: catalogsJS.sections
+    sectionsTypes: catalogsJS.sections,
+    servicesTypes: catalogsJS.services
   }
 }
 

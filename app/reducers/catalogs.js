@@ -1,9 +1,9 @@
 import { fromJS, List } from 'immutable'
 
 // Actions
-export const SOLICITUD_CATALOGS_REQUEST = 'app/reducers/SOLICITUD_CATALOGS_REQUEST'
-const SOLICITUD_CATALOGS_SUCCESS = 'app/reducers/SOLICITUD_CATALOGS_SUCCESS'
-const SOLICITUD_CATALOGS_FAIL = 'app/reducers/SOLICITUD_CATALOGS_FAIL'
+export const SOLICITUD_CATALOGS_REQUEST = 'app/reducers/catalogs/SOLICITUD_CATALOGS_REQUEST'
+const SOLICITUD_CATALOGS_SUCCESS = 'app/reducers/catalogs/SOLICITUD_CATALOGS_SUCCESS'
+const SOLICITUD_CATALOGS_FAIL = 'app/reducers/catalogs/SOLICITUD_CATALOGS_FAIL'
 
 
 // Actions Creators

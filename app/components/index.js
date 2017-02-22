@@ -4,6 +4,7 @@ export FormRequestWrapper from './commons/FormRequestWrapper'
 export FormRadiobuttomWrapper from './commons/FormRadiobuttomWrapper'
 export GenericRadioButton from './commons/GenericRadioButton'
 export GenericTextField from './commons/GenericTextField'
+export GenericCheckbox from './commons/GenericCheckbox'
 // Solicitud de servicio
 export IsClientForm from './SolicitudServicio/IsClientForm'
 export SolicitudRFC from './SolicitudServicio/SolicitudRFC'
