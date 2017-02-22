@@ -13,6 +13,7 @@ import {
 import { bindActionCreators } from 'redux'
 
 import aux from 'commons/FormAuxFunctions'
+import {GIRO_UUID} from 'commons/CatalogsUID'
 import {servicesActions} from 'reducers/services'
 import {catalogsActions} from 'reducers/catalogs'
 
@@ -35,8 +36,16 @@ const IconHeaderContainer = styled.div`
 const H1 = styled.h1`
   color: ${Colors.deepPurple500};
 `
+
+// TODO: Mostar/ocultar forms dependiendo el giro de la empresa
+// TODO: Mostrar/ocultar forms si es cliente
+// TODO: Mostrar/ocultar campos dependiendo de servicio seleccionado
 // TODO: generic para autocomple
 // TODO: Autocomplete dependientes
+// TODO: Cuando se guarde los datos mostrar mensaje de exitoso o fail
+// TODO: Mensaje cuando se selecciono como cliente pero no se encontro en la bd
+// TODO: Boton de guardar
+// TODO: validacion de boton guardar (usar reselctor para comprobacion de campos)
 
 class SolicitudServicioContainer extends Component {
 
@@ -82,7 +91,7 @@ class SolicitudServicioContainer extends Component {
     return aux.errorTextMessage(item, type)
   }
   render () {
-    const {servicesTypes, sectionsTypes} = this.props
+    const {servicesTypes, sectionsTypes, company} = this.props
     return (
       <FormsContainer>
         <IconHeaderContainer>
@@ -105,40 +114,33 @@ class SolicitudServicioContainer extends Component {
           servicesTypes={sectionsTypes}
         />
         {/* Agricola */}
-        <SolicitudServicioAgricola
-          handleTextChange={this.onTextChange}
-          handleError={this.handleErrorText}
-        />
+        {company.companyGiro === GIRO_UUID['agricola']
+          && <SolicitudServicioAgricola handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+
         {/* Acuicola */}
-        <SolicitudServicioAcuicola
-          handleTextChange={this.onTextChange}
-          handleError={this.handleErrorText}
-        />
+        {company.companyGiro === GIRO_UUID['acuicola']
+          && <SolicitudServicioAcuicola handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+
         {/* Procesadora */}
-        <SolicitudServicioProcesadora
-          handleTextChange={this.onTextChange}
-          handleError={this.handleErrorText}
-        />
+        {company.companyGiro === GIRO_UUID['procesadora']
+          && <SolicitudServicioProcesadora handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+
         {/* Distribuidora */}
-        <SolicitudServiciodistrbuidora
-          handleTextChange={this.onTextChange}
-          handleError={this.handleErrorText}
-        />
+        {company.companyGiro === GIRO_UUID['distribuidora']
+          && <SolicitudServiciodistrbuidora handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+
         {/* Restaurante */}
-        <SolicitudServicioRestaurante
-          handleTextChange={this.onTextChange}
-          handleError={this.handleErrorText}
-        />
+        {company.companyGiro === GIRO_UUID['restaurante']
+          && <SolicitudServicioRestaurante handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+
         {/* Transporte */}
-        <SolicitudServicioTransporte
-          handleTextChange={this.onTextChange}
-          handleError={this.handleErrorText}
-        />
+        {company.companyGiro === GIRO_UUID['transporte']
+          && <SolicitudServicioTransporte handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+
         {/* Laboratorio */}
-        <SolicitudServicioLaboratorio
-          handleTextChange={this.onTextChange}
-          handleError={this.handleErrorText}
-        />
+        {company.companyGiro === GIRO_UUID['laboratorio']
+          && <SolicitudServicioLaboratorio handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+
         {/*  Servicio Requerido */}
         <SolicitudServicioRequerido
           handleTextChange={this.onTextChange}

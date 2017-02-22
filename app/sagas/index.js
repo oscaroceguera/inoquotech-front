@@ -6,6 +6,8 @@ import { getSectionTypes, getServicesTypes } from 'config/api'
 import { SOLICITUD_CATALOGS_REQUEST, catalogsActions } from 'reducers/catalogs'
 
 // TODO: Crear llamadas al api para pais, estado, municipio
+// TODO: Crear llamado a autocomplete dependientes
+// TODO: Crear guardado de datos
 
 export function* watchSolicitudCatalogos() {
   // yield delay(3000)
