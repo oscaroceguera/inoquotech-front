@@ -47,7 +47,7 @@ class SolicitudServicioContainer extends Component {
   }
 
   componentWillMount () {
-    this.props.sectionTypesRequest()
+    this.props.solicitudCatalogsRequest()
   }
 
   handleUpdateInput = (value) => {

@@ -1,17 +1,17 @@
 import { takeLatest, delay } from 'redux-saga'
 import { call, put, select, fork } from 'redux-saga/effects'
 
-import { getSectionTypes } from 'config/api'
+import { getSectionTypes, getServicesTypes } from 'config/api'
 
-import { SECTION_TYPES_REQUEST, catalogsActions } from 'reducers/catalogs'
+import { SOLICITUD_CATALOGS_REQUEST, catalogsActions } from 'reducers/catalogs'
 
-export function* watchSectionTypes() {
+export function* watchSolicitudCatalogos() {
   // yield delay(3000)
   try {
-    const sectionTypes = yield call(getSectionTypes)
-    yield put(catalogsActions.sectionTypesSuccess(sectionTypes))
+    const [sectionTypes, servicesTypes] = yield [call(getSectionTypes), call(getServicesTypes)]
+    yield put(catalogsActions.solicitudCatalogsSuccess(sectionTypes, servicesTypes))
   } catch (error) {
-    yield put(catalogsActions.sectionTypesFail(error))
+    yield put(catalogsActions.solicitudCatalogsFail(error))
   }
 }
 
@@ -22,7 +22,7 @@ export function* watchSectionTypes() {
 export default function* rootSaga() {
   yield [
     // helloSaga(),
-    takeLatest(SECTION_TYPES_REQUEST, watchSectionTypes)
+    takeLatest(SOLICITUD_CATALOGS_REQUEST, watchSolicitudCatalogos)
 
   ]
 }

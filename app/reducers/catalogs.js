@@ -1,27 +1,32 @@
 import { fromJS, List } from 'immutable'
 
 // Actions
-export const SECTION_TYPES_REQUEST = 'app/reducers/SECTION_TYPES_REQUEST'
-const SECTION_TYPES_SUCCESS = 'app/reducers/SECTION_TYPES_SUCCESS'
-const SECTION_TYPES_FAIL = 'app/reducers/SECTION_TYPES_FAIL'
+export const SOLICITUD_CATALOGS_REQUEST = 'app/reducers/SOLICITUD_CATALOGS_REQUEST'
+const SOLICITUD_CATALOGS_SUCCESS = 'app/reducers/SOLICITUD_CATALOGS_SUCCESS'
+const SOLICITUD_CATALOGS_FAIL = 'app/reducers/SOLICITUD_CATALOGS_FAIL'
+
 
 // Actions Creators
 export const catalogsActions = {
-  sectionTypesRequest: () => ({ type: SECTION_TYPES_REQUEST }),
-  sectionTypesSuccess: (sections) => ({ type: SECTION_TYPES_SUCCESS, sections }),
-  sectionTypesFail: (error) => ({ type: SECTION_TYPES_FAIL, error })
+  solicitudCatalogsRequest: () => ({ type: SOLICITUD_CATALOGS_REQUEST }),
+  solicitudCatalogsSuccess: (sections, services) => ({ type: SOLICITUD_CATALOGS_SUCCESS, sections, services }),
+  solicitudCatalogsFail: (error) => ({ type: SOLICITUD_CATALOGS_FAIL, error })
 }
 
 const initialState = fromJS({
   sections: [],
-  sectionError: null,
+  services: [],
+  solicitudCatFail: null
 })
 
 function catalogsReducer (state = initialState, action) {
   switch (action.type) {
-  case SECTION_TYPES_SUCCESS:
-    return state.set('sections', List.of(...action.sections))
-  case SECTION_TYPES_FAIL:
+  case SOLICITUD_CATALOGS_SUCCESS:
+    return state.merge({
+      'sections' : List.of(...action.sections),
+      'services' : List.of(...action.services)
+    })
+  case SOLICITUD_CATALOGS_FAIL:
     return state
       .set('sectionError', action.error)
   default:

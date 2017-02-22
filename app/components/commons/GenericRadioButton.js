@@ -30,11 +30,11 @@ function GenericRadioButton ({name, radios, radioDefault, onChange}) {
       defaultSelected={radioDefault}
     >
       {
-        radios.map(({value, label}, index) =>
+        radios.map(({id, value}, index) =>
           <RadioButton
             key={index}
-            value={value}
-            label={label}
+            value={id}
+            label={value}
             style={inlStyl.style}
             labelStyle={inlStyl.labelStyle}
           />

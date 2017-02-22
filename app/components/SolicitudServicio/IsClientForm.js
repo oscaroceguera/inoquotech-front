@@ -4,7 +4,7 @@ import {FormRadiobuttomWrapper, GenericRadioButton} from 'components'
 const RADIOS_ITEMS = {
   name: 'isClient',
   question: '¿Ya eres cliente?',
-  radios: [ { value: true, label: 'Si' }, { value: false, label: 'No' } ],
+  radios: [ { id: true, value: 'Si' }, { id: false, value: 'No' } ],
   radioDefault: false
 }
 
