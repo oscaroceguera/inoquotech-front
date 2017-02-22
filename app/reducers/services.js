@@ -1,7 +1,7 @@
 import { fromJS, List } from 'immutable'
 
 // Actions
-const LISTEND_FIELDS_VALUE = 'app/redux/LISTEND_FIELDS_VALUE'
+const LISTEND_FIELDS_VALUE = 'app/reducers/LISTEND_FIELDS_VALUE'
 
 // Actions Creators
 export const servicesActions = {

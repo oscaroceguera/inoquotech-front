@@ -10,8 +10,11 @@ import {
   SolicitudServicioTransporte
 } from 'components'
 
+import { bindActionCreators } from 'redux'
+
 import aux from 'commons/FormAuxFunctions'
 import {servicesActions} from 'reducers/services'
+import {catalogsActions} from 'reducers/catalogs'
 
 // import {getRequiredFields} from 'selectors/example'
 
@@ -41,6 +44,10 @@ class SolicitudServicioContainer extends Component {
     this.state = {
       dataSource: []
     }
+  }
+
+  componentWillMount () {
+    this.props.sectionTypesRequest()
   }
 
   handleUpdateInput = (value) => {
@@ -84,6 +91,7 @@ class SolicitudServicioContainer extends Component {
           handle={this.handleUpdateInput}
           handleTextChange={this.onTextChange}
           handleError={this.handleErrorText}
+          servicesTypes={this.props.serviceTypes}
         />
         {/* Agricola */}
         <SolicitudServicioAgricola
@@ -137,8 +145,9 @@ SolicitudServicioContainer.proptypes = {
   client: object.isRequired
 }
 
-const  mapStateToProps = ({services}) => {
+const  mapStateToProps = ({services, catalogs}) => {
   const servicesJS = services.toJS()
+  const catalogsJS = catalogs.toJS()
   return {
     //compare: getRequiredFields(services.toJS())
     company: servicesJS.company,
@@ -151,7 +160,15 @@ const  mapStateToProps = ({services}) => {
     transporte: servicesJS.transporte,
     laboratorio: servicesJS.laboratorio,
     servicio: servicesJS.servicio,
+    serviceTypes: catalogsJS.sections
   }
 }
 
-export default connect(mapStateToProps, servicesActions)(SolicitudServicioContainer)
+const mapdispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    ...servicesActions,
+    ...catalogsActions
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapdispatchToProps)(SolicitudServicioContainer)

@@ -6,20 +6,6 @@ const AUTOCOMPLETE = {
   marginRight: '.5em'
 }
 
-const RADIOS_ITEMS = {
-  name: 'giro',
-  question: 'Giro de la empresa',
-  radios: [
-    { value: 'eef691f0-eefe-431e-9864-23287feaf204', label: 'Agrícola' },
-    { value: 'ee96e205-7775-445f-9666-843595682629', label: 'Acuícola' },
-    { value: 'adc9e71c-9d41-4482-9b7e-4ae0a4339d95', label: 'Procesadora' },
-    { value: 'c5b5885b-58d4-4164-95a8-5ce10904d8cf', label: 'Distribuidora' },
-    { value: '48ddf850-317f-4cf7-84e2-2d0e5a89ba0c', label: 'Laboratorio' },
-    { value: '7a814d5a-ef2a-4699-965c-5f4edad7aa17', label: 'Restaurante' },
-    { value: '064a8e1f--46b8-9384-140c70563d71', label: 'Transporte' },
-  ]
-}
-
 const {array, func} = PropTypes
 
 class SolicitudGeneralesEmpresa extends Component {
@@ -40,8 +26,7 @@ class SolicitudGeneralesEmpresa extends Component {
   }
 
   render () {
-    const { dataSource, handle } = this.props
-
+    const { dataSource, handle, servicesTypes } = this.props
     return (
       <FormRequestWrapper
         icon={'empresa'}
@@ -141,11 +126,11 @@ class SolicitudGeneralesEmpresa extends Component {
           floating={'Cargo de contacto'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'contactPosition')} // eslint-disable-line
         />
-        <FormRadiobuttomWrapper title={RADIOS_ITEMS.question}>
+        <FormRadiobuttomWrapper title={'Giro de la empresa'}>
           <GenericRadioButton
-            onChange={(e, value, section, field) => this.onChildChange(e, value, 'client', 'isClient')} // eslint-disable-line
-            name={RADIOS_ITEMS.name}
-            radios={RADIOS_ITEMS.radios}
+            onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'companyGiro')} // eslint-disable-line
+            name={'giro'}
+            radios={servicesTypes}
           />
         </FormRadiobuttomWrapper>
       </FormRequestWrapper>
