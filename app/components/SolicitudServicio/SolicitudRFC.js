@@ -1,5 +1,6 @@
 import React, {PropTypes,Component} from 'react'
 import { GenericTextField } from 'components'
+import {RFC_FIELDS} from './RFCFormFields'
 
 const {func} = PropTypes
 
@@ -17,15 +18,24 @@ class SolicitudRFC extends Component {
     return this.props.handleError(section, field, type)
   }
 
+  mapItems () {
+    return RFC_FIELDS.map(({floating, hinText, width, sectionItem, fieldItem, requiredType}, key) => (
+      <GenericTextField
+        key={key}
+        floating={floating}
+        hintText={hinText}
+        width={width}
+        onChange={(e, value, section, field) => this.onChildChange(e, value, sectionItem, fieldItem)} // eslint-disable-line
+        onUpdateValidate={this.onValidate(sectionItem, fieldItem, requiredType)} // eslint-disable-line
+      />
+    ))
+  }
+
+
   render () {
     return (
       <div>
-        <GenericTextField
-          floating={'RFC de cliente'}
-          width={'small'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'client', 'isClientRFC')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('client', 'isClientRFC', 'rfc')} // eslint-disable-line
-        />
+        {this.mapItems()}
       </div>
     )
   }

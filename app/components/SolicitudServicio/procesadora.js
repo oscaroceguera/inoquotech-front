@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import { FormRequestWrapper, GenericTextField } from 'components'
+import {PROCESADORA_FIELDS} from './GiroFormsFields'
 
 const {func} = PropTypes
 
@@ -17,28 +18,27 @@ class SolicitudServicioProcesadora extends Component {
     return this.props.handleError(section, field, type)
   }
 
+  mapItems () {
+    return PROCESADORA_FIELDS.map(({floating, hinText, width, sectionItem, fieldItem, requiredType}, key) => (
+      <GenericTextField
+        key={key}
+        floating={floating}
+        hintText={hinText}
+        width={width}
+        onChange={(e, value, section, field) => this.onChildChange(e, value, sectionItem, fieldItem)} // eslint-disable-line
+        onUpdateValidate={this.onValidate(sectionItem, fieldItem, requiredType)} // eslint-disable-line
+      />
+    ))
+  }
+
+
   render () {
     return (
       <FormRequestWrapper
         icon={'procesadora'}
         title={'Datos de procesadora'}
       >
-        <GenericTextField
-          floating={'¿Qué productos fabrican?'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'procesadora', 'productos')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('procesadora', 'productos', 'text')} // eslint-disable-line
-        />
-        <GenericTextField
-          floating={'Turnos de producción'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'procesadora', 'turnos')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('procesadora', 'turnos', 'text')} // eslint-disable-line
-        />
-        <GenericTextField
-          floating={'Nº de plantas'}
-          width={'small'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'procesadora', 'plantas')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('procesadora', 'plantas', 'text')} // eslint-disable-line
-        />
+        {this.mapItems()}
       </FormRequestWrapper>
     )
   }

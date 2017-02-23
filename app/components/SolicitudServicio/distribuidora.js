@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import { FormRequestWrapper, GenericTextField } from 'components'
+import {DISTRIBUIDORA_FIELDS} from './GiroFormsFields'
 
 const {func} = PropTypes
 
@@ -17,32 +18,26 @@ class SolicitudServicioDistribuidora extends Component {
     return this.props.handleError(section, field, type)
   }
 
+  mapItems () {
+    return DISTRIBUIDORA_FIELDS.map(({floating, hinText, width, sectionItem, fieldItem, requiredType}, key) => (
+      <GenericTextField
+        key={key}
+        floating={floating}
+        hintText={hinText}
+        width={width}
+        onChange={(e, value, section, field) => this.onChildChange(e, value, sectionItem, fieldItem)} // eslint-disable-line
+        onUpdateValidate={this.onValidate(sectionItem, fieldItem, requiredType)} // eslint-disable-line
+      />
+    ))
+  }
+
   render () {
     return (
       <FormRequestWrapper
         icon={'distribuidora'}
         title={'Datos de distribuidora'}
       >
-        <GenericTextField
-          floating={'¿Cuántos almacenes tiene?'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'distribuidora', 'almacenes')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('distribuidora', 'almacenes', 'text')} // eslint-disable-line
-        />
-        <GenericTextField
-          floating={'¿Qué productos comercializa?'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'distribuidora', 'productos')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('distribuidora', 'productos', 'text')} // eslint-disable-line
-        />
-        <GenericTextField
-          floating={'¿Cuál es su mercado de destino?'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'distribuidora', 'mercado')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('distribuidora', 'mercado', 'text')} // eslint-disable-line
-        />
-        <GenericTextField
-          floating={'¿Es importador a USA?'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'distribuidora', 'importa')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('distribuidora', 'importa', 'text')} // eslint-disable-line
-        />
+        {this.mapItems()}
       </FormRequestWrapper>
     )
   }

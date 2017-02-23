@@ -7,7 +7,7 @@ import {
 } from 'components'
 
 import {TIPO_SERVICIO_UUID} from 'commons/CatalogsUID'
-import {FIELDS} from './ServicioRequeridoFields'
+import {DIAG_PRE_IMP_FIELDS, CAPACITACION_FIELDS, MUESTREO_FIELDS} from './ServicioRequeridoFields'
 import _ from 'lodash'
 import styled from 'styled-components'
 
@@ -49,7 +49,7 @@ class SolicitudServicioRequerido extends Component {
   mapItems (item) {
     return <MapItemsContainer>
       {
-        FIELDS[item].map(({floating, hinText, width, sectionItem, fieldItem, requiredType}, key) => {
+        item.map(({floating, hinText, width, sectionItem, fieldItem, requiredType}, key) => {
           return <GenericTextField
             key={key}
             floating={floating}
@@ -83,11 +83,11 @@ class SolicitudServicioRequerido extends Component {
           />
         </FormRadiobuttomWrapper>
 
-        {(isDiag || isPre || isImp) && this.mapItems('diagPreImp')}
+        {(isDiag || isPre || isImp) && this.mapItems(DIAG_PRE_IMP_FIELDS)}
 
-        {isCap && this.mapItems('capacitacion')}
+        {isCap && this.mapItems(CAPACITACION_FIELDS)}
 
-        {isMue && this.mapItems('muestreo')}
+        {isMue && this.mapItems(MUESTREO_FIELDS)}
       </FormRequestWrapper>
     )
   }

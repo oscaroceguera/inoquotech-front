@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import { FormRequestWrapper, GenericTextField } from 'components'
+import {LABORATORIO_FIELDS} from './GiroFormsFields'
 
 const {func} = PropTypes
 
@@ -17,30 +18,26 @@ class SolicitudServicioLaboratorio extends Component {
     return this.props.handleError(section, field, type)
   }
 
+  mapItems () {
+    return LABORATORIO_FIELDS.map(({floating, hinText, width, sectionItem, fieldItem, requiredType}, key) => (
+      <GenericTextField
+        key={key}
+        floating={floating}
+        hintText={hinText}
+        width={width}
+        onChange={(e, value, section, field) => this.onChildChange(e, value, sectionItem, fieldItem)} // eslint-disable-line
+        onUpdateValidate={this.onValidate(sectionItem, fieldItem, requiredType)} // eslint-disable-line
+      />
+    ))
+  }
+
   render () {
     return (
       <FormRequestWrapper
         icon={'laboratorio'}
         title={'Datos de laboratorio'}
       >
-        <GenericTextField
-          floating={'Giro del laboratorio'}
-          width={'xLarge'}
-          hintText={'Fitosanitaria, Residuos Toxicológicos, Inocuidad alimentaria, ...etc)'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'laboratorio', 'giro')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('laboratorio', 'giro', 'text')} // eslint-disable-line
-        />
-        <GenericTextField
-          floating={'Normatividad en la que requiere acreditarse'}
-          width={'large'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'laboratorio', 'normativa')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('laboratorio', 'normativa', 'text')} // eslint-disable-line
-        />
-        <GenericTextField
-          floating={'¿Qué ensayos requiere acreditar?'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'laboratorio', 'ensayos')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('laboratorio', 'ensayos', 'text')} // eslint-disable-line
-        />
+        {this.mapItems()}
       </FormRequestWrapper>
     )
   }
