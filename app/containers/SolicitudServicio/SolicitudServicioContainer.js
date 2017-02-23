@@ -37,8 +37,6 @@ const H1 = styled.h1`
   color: ${Colors.deepPurple500};
 `
 
-// TODO: Mostar/ocultar forms dependiendo el giro de la empresa
-// TODO: Mostrar/ocultar forms si es cliente
 // TODO: Mostrar/ocultar campos dependiendo de servicio seleccionado
 // TODO: generic para autocomple
 // TODO: Autocomplete dependientes
@@ -48,10 +46,8 @@ const H1 = styled.h1`
 // TODO: validacion de boton guardar (usar reselctor para comprobacion de campos)
 
 class SolicitudServicioContainer extends Component {
-
   constructor (props) {
     super(props)
-
     this.state = {
       dataSource: []
     }
@@ -91,55 +87,54 @@ class SolicitudServicioContainer extends Component {
     return aux.errorTextMessage(item, type)
   }
   render () {
-    const {servicesTypes, sectionsTypes, company} = this.props
+    const {servicesTypes, sectionsTypes, company, client} = this.props
+
     return (
       <FormsContainer>
         <IconHeaderContainer>
           <img src={Logo} />
         </IconHeaderContainer>
         <H1>{'Solicitud de Servicio'}</H1>
-        <IsClientForm
-          handleRadioChange={this.onTextChange}/>
+
+        <IsClientForm handleRadioChange={this.onTextChange}/>
+
         {/* RFC si es cliente */}
-        <SolicitudRFC
-          handleTextChange={this.onTextChange}
-          handleError={this.handleErrorText}
-        />
-        {/* Generales de la empresa */}
-        <SolicitudGeneralesEmpresa
-          dataSource={this.state.dataSource}
-          handle={this.handleUpdateInput}
-          handleTextChange={this.onTextChange}
-          handleError={this.handleErrorText}
-          servicesTypes={sectionsTypes}
-        />
-        {/* Agricola */}
-        {company.companyGiro === GIRO_UUID['agricola']
-          && <SolicitudServicioAgricola handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+        {client.isClient
+          && <SolicitudRFC handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
 
-        {/* Acuicola */}
-        {company.companyGiro === GIRO_UUID['acuicola']
-          && <SolicitudServicioAcuicola handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
-
-        {/* Procesadora */}
-        {company.companyGiro === GIRO_UUID['procesadora']
-          && <SolicitudServicioProcesadora handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
-
-        {/* Distribuidora */}
-        {company.companyGiro === GIRO_UUID['distribuidora']
-          && <SolicitudServiciodistrbuidora handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
-
-        {/* Restaurante */}
-        {company.companyGiro === GIRO_UUID['restaurante']
-          && <SolicitudServicioRestaurante handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
-
-        {/* Transporte */}
-        {company.companyGiro === GIRO_UUID['transporte']
-          && <SolicitudServicioTransporte handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
-
-        {/* Laboratorio */}
-        {company.companyGiro === GIRO_UUID['laboratorio']
-          && <SolicitudServicioLaboratorio handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+        {!client.isClient &&
+          <div>
+            {/* Generales de empresa */}
+            <SolicitudGeneralesEmpresa
+              dataSource={this.state.dataSource}
+              handle={this.handleUpdateInput}
+              handleTextChange={this.onTextChange}
+              handleError={this.handleErrorText}
+              servicesTypes={sectionsTypes}
+            />
+            {/* Agricola */}
+            {company.companyGiro === GIRO_UUID['agricola']
+              && <SolicitudServicioAgricola handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {/* Acuicola */}
+            {company.companyGiro === GIRO_UUID['acuicola']
+              && <SolicitudServicioAcuicola handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {/* Procesadora */}
+            {company.companyGiro === GIRO_UUID['procesadora']
+              && <SolicitudServicioProcesadora handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {/* Distribuidora */}
+            {company.companyGiro === GIRO_UUID['distribuidora']
+              && <SolicitudServiciodistrbuidora handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {/* Restaurante */}
+            {company.companyGiro === GIRO_UUID['restaurante']
+              && <SolicitudServicioRestaurante handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {/* Transporte */}
+            {company.companyGiro === GIRO_UUID['transporte']
+              && <SolicitudServicioTransporte handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {/* Laboratorio */}
+            {company.companyGiro === GIRO_UUID['laboratorio']
+              && <SolicitudServicioLaboratorio handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+          </div>
+        }
 
         {/*  Servicio Requerido */}
         <SolicitudServicioRequerido
