@@ -1,13 +1,20 @@
 import React, {Component, PropTypes} from 'react'
 import { FormRequestWrapper, GenericTextField } from 'components'
-import {DISTRIBUIDORA_FIELDS} from './GiroFormsFields'
 
-const {func} = PropTypes
+const {func, string, array} = PropTypes
 
-class SolicitudServicioDistribuidora extends Component {
+class GenericTextFieldForm extends Component {
+  static defaultProps = {
+    icon : '',
+    title: ''
+  }
+
   static propTypes = {
     handleTextChange: func.isRequired,
-    handleError: func
+    handleError: func,
+    fields: array.isRequired,
+    icon: string.isRequired,
+    title: string.isRequired
   }
 
   onChildChange (e, value, section, field) {
@@ -19,7 +26,8 @@ class SolicitudServicioDistribuidora extends Component {
   }
 
   mapItems () {
-    return DISTRIBUIDORA_FIELDS.map(({floating, hinText, width, sectionItem, fieldItem, requiredType}, key) => (
+    const {fields} = this.props
+    return fields.map(({floating, hinText, width, sectionItem, fieldItem, requiredType}, key) => (
       <GenericTextField
         key={key}
         floating={floating}
@@ -32,10 +40,11 @@ class SolicitudServicioDistribuidora extends Component {
   }
 
   render () {
+    const {icon, title} = this.props
     return (
       <FormRequestWrapper
-        icon={'distribuidora'}
-        title={'Datos de distribuidora'}
+        icon={icon}
+        title={title}
       >
         {this.mapItems()}
       </FormRequestWrapper>
@@ -43,4 +52,4 @@ class SolicitudServicioDistribuidora extends Component {
   }
 }
 
-export default SolicitudServicioDistribuidora
+export default GenericTextFieldForm

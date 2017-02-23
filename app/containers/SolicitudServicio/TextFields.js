@@ -53,3 +53,7 @@ export const TRANSPORTE_FIELDS = [
   { floating: '¿Cuentan con registros de actividades?', hinText: 'Documentación necesaria para registro de actividades (Trazabilidad)', width: 'xLarge', sectionItem: 'transporte', fieldItem: 'registros', requiredType: 'text' },
   { floating: '¿Realiza frecuentemente exámenes toxicológicos a los choferes?', hinText: '', width: 'xLarge', sectionItem: 'transporte', fieldItem: 'toxicologicos', requiredType: 'text' }
 ]
+
+export const RFC_FIELDS = [
+ { floating: 'RFC de cliente', hinText: '', width: 'small', sectionItem: 'client', fieldItem: 'isClientRFC', requiredType: 'rfc' }
+]

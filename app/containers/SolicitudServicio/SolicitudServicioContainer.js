@@ -2,22 +2,24 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as Colors from 'material-ui/styles/colors'
 import styled from 'styled-components'
+import { bindActionCreators } from 'redux'
+
+import {servicesActions} from 'reducers/services'
+import {catalogsActions} from 'reducers/catalogs'
+// import {getRequiredFields} from 'selectors/example'
 
 import {
-  IsClientForm, SolicitudRFC, SolicitudGeneralesEmpresa, SolicitudServicioRequerido,
-  SolicitudServicioAgricola, SolicitudServicioAcuicola, SolicitudServicioProcesadora,
-  SolicitudServiciodistrbuidora, SolicitudServicioRestaurante, SolicitudServicioLaboratorio,
-  SolicitudServicioTransporte
+  IsClientForm, SolicitudGeneralesEmpresa, SolicitudServicioRequerido,
+  GenericTextFieldForm
 } from 'components'
-
-import { bindActionCreators } from 'redux'
 
 import aux from 'commons/FormAuxFunctions'
 import {GIRO_UUID} from 'commons/CatalogsUID'
-import {servicesActions} from 'reducers/services'
-import {catalogsActions} from 'reducers/catalogs'
-
-// import {getRequiredFields} from 'selectors/example'
+import {
+  AGRICOLA_FIELDS, ACUICOLA_FIELDS, DISTRIBUIDORA_FIELDS,
+  LABORATORIO_FIELDS, PROCESADORA_FIELDS, RESTAURANTE_FIELDS,
+  TRANSPORTE_FIELDS, RFC_FIELDS
+} from './TextFields'
 
 import Logo from 'commons/logo.svg'
 
@@ -37,7 +39,6 @@ const H1 = styled.h1`
   color: ${Colors.deepPurple500};
 `
 
-// TODO: generic textField Form
 // TODO: generic para autocomple
 // TODO: Autocomplete dependientes
 // TODO: Cuando se guarde los datos mostrar mensaje de exitoso o fail
@@ -99,8 +100,12 @@ class SolicitudServicioContainer extends Component {
         <IsClientForm handleRadioChange={this.onTextChange}/>
 
         {/* RFC si es cliente */}
-        {client.isClient
-          && <SolicitudRFC handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+        {client.isClient &&
+          <GenericTextFieldForm
+            handleTextChange={this.onTextChange}
+            handleError={this.handleErrorText}
+            fields={RFC_FIELDS}
+          />}
 
         {!client.isClient &&
           <div>
@@ -112,27 +117,76 @@ class SolicitudServicioContainer extends Component {
               handleError={this.handleErrorText}
               servicesTypes={sectionsTypes}
             />
+
             {/* Agricola */}
-            {company.companyGiro === GIRO_UUID['agricola']
-              && <SolicitudServicioAgricola handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {company.companyGiro === GIRO_UUID['agricola'] &&
+              <GenericTextFieldForm
+                icon={'agricola'}
+                title={'Datos de agrícola'}
+                handleTextChange={this.onTextChange}
+                handleError={this.handleErrorText}
+                fields={AGRICOLA_FIELDS}
+              />}
+
             {/* Acuicola */}
-            {company.companyGiro === GIRO_UUID['acuicola']
-              && <SolicitudServicioAcuicola handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {company.companyGiro === GIRO_UUID['acuicola'] &&
+              <GenericTextFieldForm
+                icon={'acuicola'}
+                title={'Datos de acuícola'}
+                handleTextChange={this.onTextChange}
+                handleError={this.handleErrorText}
+                fields={ACUICOLA_FIELDS}
+              />}
+
             {/* Procesadora */}
-            {company.companyGiro === GIRO_UUID['procesadora']
-              && <SolicitudServicioProcesadora handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {company.companyGiro === GIRO_UUID['procesadora'] &&
+              <GenericTextFieldForm
+                icon={'procesadora'}
+                title={'Datos de procesadora'}
+                handleTextChange={this.onTextChange}
+                handleError={this.handleErrorText}
+                fields={PROCESADORA_FIELDS}
+              />}
+
             {/* Distribuidora */}
-            {company.companyGiro === GIRO_UUID['distribuidora']
-              && <SolicitudServiciodistrbuidora handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {company.companyGiro === GIRO_UUID['distribuidora'] &&
+              <GenericTextFieldForm
+                icon={'distribuidora'}
+                title={'Datos de distribuidora'}
+                handleTextChange={this.onTextChange}
+                handleError={this.handleErrorText}
+                fields={DISTRIBUIDORA_FIELDS}
+              />}
+
             {/* Restaurante */}
-            {company.companyGiro === GIRO_UUID['restaurante']
-              && <SolicitudServicioRestaurante handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {company.companyGiro === GIRO_UUID['restaurante'] &&
+              <GenericTextFieldForm
+                icon={'restaurante'}
+                title={'Datos de restaurante'}
+                handleTextChange={this.onTextChange}
+                handleError={this.handleErrorText}
+                fields={RESTAURANTE_FIELDS}
+              />}
+
             {/* Transporte */}
-            {company.companyGiro === GIRO_UUID['transporte']
-              && <SolicitudServicioTransporte handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {company.companyGiro === GIRO_UUID['transporte'] &&
+              <GenericTextFieldForm
+                icon={'transporte'}
+                title={'Datos de transporte'}
+                handleTextChange={this.onTextChange}
+                handleError={this.handleErrorText}
+                fields={TRANSPORTE_FIELDS}
+              />}
+
             {/* Laboratorio */}
-            {company.companyGiro === GIRO_UUID['laboratorio']
-              && <SolicitudServicioLaboratorio handleTextChange={this.onTextChange} handleError={this.handleErrorText} />}
+            {company.companyGiro === GIRO_UUID['laboratorio'] &&
+              <GenericTextFieldForm
+                icon={'laboratorio'}
+                title={'Datos de laboratorio'}
+                handleTextChange={this.onTextChange}
+                handleError={this.handleErrorText}
+                fields={LABORATORIO_FIELDS}
+              />}
           </div>
         }
 
