@@ -90,6 +90,7 @@ const initialState = fromJS({
     esquema: '',
     hasCertificado: '',
     capacitacionTema: '',
+    cantidadPersonas: '',
     nivelJerarquico: '',
     objetivoMuestras: '',
     porqueMuestreo: '',

@@ -87,7 +87,7 @@ class SolicitudServicioContainer extends Component {
     return aux.errorTextMessage(item, type)
   }
   render () {
-    const {servicesTypes, sectionsTypes, company, client} = this.props
+    const {servicesTypes, sectionsTypes, company, client, servicio} = this.props
 
     return (
       <FormsContainer>
@@ -142,6 +142,7 @@ class SolicitudServicioContainer extends Component {
           handleError={this.handleErrorText}
           servicesTypes={servicesTypes}
           handleCheckboxChange={this.onCheckboxChage}
+          data={servicio}
         />
       </FormsContainer>
     )

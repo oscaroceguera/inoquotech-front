@@ -6,14 +6,25 @@ import {
   GenericCheckbox
 } from 'components'
 
-const {func, array} = PropTypes
+import {TIPO_SERVICIO_UUID} from 'commons/CatalogsUID'
+import {FIELDS} from './ServicioRequeridoFields'
+import _ from 'lodash'
+import styled from 'styled-components'
+
+const {func, array, object} = PropTypes
+
+const MapItemsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
 
 class SolicitudServicioRequerido extends Component {
   static propTypes = {
     handleTextChange: func.isRequired,
     handleError: func,
     servicesTypes: array.isRequired,
-    handleCheckboxChange: func.isRequired
+    handleCheckboxChange: func.isRequired,
+    data: object.isRequired
   }
 
   onChidCheckboxChange (e, checked, section, field) {
@@ -28,7 +39,38 @@ class SolicitudServicioRequerido extends Component {
     return this.props.handleError(section, field, type)
   }
 
+  validateTipoServico (uuid) {
+    const {data} = this.props
+    const tipoServicio = data.tipoServicio
+    const validateUUID = _.find(tipoServicio, (x) => x === TIPO_SERVICIO_UUID[uuid])
+    return !!validateUUID
+  }
+
+  mapItems (item) {
+    return <MapItemsContainer>
+      {
+        FIELDS[item].map(({floating, hinText, width, sectionItem, fieldItem, requiredType}, key) => {
+          return <GenericTextField
+            key={key}
+            floating={floating}
+            hintText={hinText}
+            width={width}
+            onChange={(e, value, section, field) => this.onChildChange(e, value, sectionItem, fieldItem)} // eslint-disable-line
+            onUpdateValidate={this.onValidate(sectionItem, fieldItem, requiredType)} // eslint-disable-line
+          />
+        })
+      }
+    </MapItemsContainer>
+  }
+
   render () {
+    const {servicesTypes} = this.props
+    const isDiag = this.validateTipoServico('diagnostico')
+    const isPre = this.validateTipoServico('preauditoria')
+    const isImp = this.validateTipoServico('implementacion')
+    const isCap = this.validateTipoServico('capacitacion')
+    const isMue = this.validateTipoServico('muestreo')
+
     return (
       <FormRequestWrapper
         icon={'servicio'}
@@ -36,81 +78,16 @@ class SolicitudServicioRequerido extends Component {
       >
         <FormRadiobuttomWrapper title={'Servicio requerido'}>
           <GenericCheckbox
-            items={this.props.servicesTypes}
+            items={servicesTypes}
             onChange={(e, checked, section, field) => this.onChidCheckboxChange(e, checked, 'servicio', 'tipoServicio')} // eslint-disable-line
           />
         </FormRadiobuttomWrapper>
-        <GenericTextField
-          floating={'Esquema requerido'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'esquema')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('servicio', 'esquema', 'text')} // eslint-disable-line
-        />
-        <GenericTextField
-          floating={'¿Tienen certificado en inocuidad, cuales?'}
-          width={'large'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'hasCertificado')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('servicio', 'hasCertificado', 'text')} // eslint-disable-line
-        />
-        <GenericTextField
-          floating={'¿Tema de capacitación?'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'capacitacionTema')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('servicio', 'capacitacionTema', 'text')} // eslint-disable-line
-        />
-        <GenericTextField
-          floating={'Nivel jeráquico'}
-          hintText="General, Mando medios, ..."
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'nivelJerarquico')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('servicio', 'nivelJerarquico', 'text')} // eslint-disable-line
-        />
-        <GenericTextField
-          floating={'¿Objetivos de muestras?'}
-          hintText="Microbiólogico, Toxicológico, Alérgenos, ..."
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'objetivoMuestras')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('servicio', 'objetivoMuestras', 'text')} // eslint-disable-line
-          width={'large'}
-        />
-        <GenericTextField
-          floating={'¿Para que require el muestreo?'}
-          hintText="Rutinario, Retiro de producto, ..."
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'porqueMuestreo')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('servicio', 'porqueMuestreo', 'text')} // eslint-disable-line
-          width={'large'}
-        />
-        <GenericTextField
-          floating={'Tipo de muestreo que requiere:'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'tipoMuestreo')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('servicio', 'tipoMuestreo', 'text')} // eslint-disable-line
-          hintText="Muestreo dirigido, Muestreo aleatorio, ..."
-          width={'large'}
-        />
-        <GenericTextField
-          floating={'¿Cuenta con programa de vigilancia y monitoreo?'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'hasProgramaVigilanciaMonitoreo')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('servicio', 'hasProgramaVigilanciaMonitoreo', 'text')} // eslint-disable-line
-          width={'large'}
-          hintText="Si/No"
-        />
-        <GenericTextField
-          floating={'¿Tiene fecha del último muestreo realizado?'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'muestreoFecha')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('servicio', 'muestreoFecha', 'text')} // eslint-disable-line
-          width={'large'}
-          hintText="Si/No"
-        />
-        <GenericTextField
-          floating={'¿Tiene resultados del último análisis?'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'analisisFecha')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('servicio', 'analisisFecha', 'text')} // eslint-disable-line
-          width={'large'}
-          hintText="Si/No"
-        />
-        <GenericTextField
-          floating={'¿El análisis se realizó en un laboratorio acreditado?'}
-          onChange={(e, value, section, field) => this.onChildChange(e, value, 'servicio', 'laboratorioAcreditado')} // eslint-disable-line
-          onUpdateValidate={this.onValidate('servicio', 'laboratorioAcreditado', 'text')} // eslint-disable-line
-          width={'large'}
-          hintText="Si/No"
-        />
+
+        {(isDiag || isPre || isImp) && this.mapItems('diagPreImp')}
+
+        {isCap && this.mapItems('capacitacion')}
+
+        {isMue && this.mapItems('muestreo')}
       </FormRequestWrapper>
     )
   }
