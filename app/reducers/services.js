@@ -4,12 +4,14 @@ import _ from 'lodash'
 const LISTEND_FIELDS_VALUE = 'app/reducers/services/LISTEND_FIELDS_VALUE'
 const LISTEND_CHECKBOXES_VALUE = 'app/reducers/services/LISTEND_CHECKBOXES_VALUE'
 const UNCHECKED_CHECKBOXES = 'app/reducers/services/UNCHECKED_CHECKBOXES'
+const SET_COUNTRY = 'app/reducers/services/SET_COUNTRY'
 
 // Actions Creators
 export const servicesActions = {
   listendFields: (section, field, value) => ({ type: LISTEND_FIELDS_VALUE, section, field, value }),
   listendCheckboxes: (section, field, value) => ({ type: LISTEND_CHECKBOXES_VALUE, section, field, value }),
-  uncheckedCheckboxes: (section, field, value) => ({ type: UNCHECKED_CHECKBOXES, section, field, value })
+  uncheckedCheckboxes: (section, field, value) => ({ type: UNCHECKED_CHECKBOXES, section, field, value }),
+  setCountry: (country) => ({ type: SET_COUNTRY, country })
 }
 
 // Reducer
@@ -22,6 +24,7 @@ const initialState = fromJS({
     companyGiro: '',
     companyName: '',
     rfc:'',
+    country: '',
     locality: '',
     address: '',
     neighborhood: '',
@@ -115,6 +118,8 @@ function servicesReducer (state = initialState, action) {
     const currentKeys = _.map(currentValues, (value, key) => value === actionValue && key)
     const filter = _.find(currentKeys, (value) => value !== false)
     return state.deleteIn([action.section, action.field, filter])
+  case SET_COUNTRY:
+    return state.setIn(['company', 'country'], action.country)
   default:
     return state
   }

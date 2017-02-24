@@ -6,15 +6,17 @@ const AUTOCOMPLETE = {
   marginRight: '.5em'
 }
 
-const {array, func} = PropTypes
+const {array, object, func} = PropTypes
 
 class SolicitudGeneralesEmpresa extends Component {
-
   static propTypes = {
     dataSource: array.isRequired,
+    servicesTypes: array.isRequired,
     handle: func.isRequired,
     handleTextChange: func.isRequired,
-    handleError: func
+    handleError: func,
+    filter: func.isRequired,
+    dataSourceConfig: object.isRequired
   }
 
   onChildChange (e, value, section, field) {
@@ -26,7 +28,8 @@ class SolicitudGeneralesEmpresa extends Component {
   }
 
   render () {
-    const { dataSource, handle, servicesTypes } = this.props
+    const { dataSource, handle, servicesTypes, filter, dataSourceConfig } = this.props
+
     return (
       <FormRequestWrapper
         icon={'empresa'}
@@ -47,10 +50,12 @@ class SolicitudGeneralesEmpresa extends Component {
         <AutoComplete
           floatingLabelText="País"
           dataSource={dataSource}
+          dataSourceConfig={dataSourceConfig}
+          filter={filter}
           onUpdateInput={handle}
           style={AUTOCOMPLETE}
         />
-        <AutoComplete
+        {/* <AutoComplete
           floatingLabelText="Estado"
           dataSource={dataSource}
           onUpdateInput={handle}
@@ -61,7 +66,7 @@ class SolicitudGeneralesEmpresa extends Component {
           dataSource={dataSource}
           onUpdateInput={handle}
           style={AUTOCOMPLETE}
-        />
+        /> */}
         <GenericTextField
           floating={'Localidad'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'locality')} // eslint-disable-line

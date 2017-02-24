@@ -20,3 +20,8 @@ export const getServicesTypes = () =>
   axios
     .get(`${api}/services_types`)
     .then((items) => items.data)
+
+export const getCountriesAutocomplete = () =>
+  axios
+    .get(`${api}/countries`)
+    .then((items) => items.data)

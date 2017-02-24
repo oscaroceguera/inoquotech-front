@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import * as Colors from 'material-ui/styles/colors'
 import styled from 'styled-components'
 import { bindActionCreators } from 'redux'
-
+import _ from 'lodash'
 import {servicesActions} from 'reducers/services'
 import {catalogsActions} from 'reducers/catalogs'
 // import {getRequiredFields} from 'selectors/example'
+
+import { AutoComplete } from 'material-ui'
 
 import {
   IsClientForm, SolicitudGeneralesEmpresa, SolicitudServicioRequerido,
@@ -47,25 +49,16 @@ const H1 = styled.h1`
 // TODO: validacion de boton guardar (usar reselctor para comprobacion de campos)
 
 class SolicitudServicioContainer extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      dataSource: []
-    }
-  }
-
   componentWillMount () {
     this.props.solicitudCatalogsRequest()
   }
 
-  handleUpdateInput = (value) => {
-    this.setState({
-      dataSource: [
-        value,
-        value + value,
-        value + value + value,
-      ],
-    })
+  handleUpdateInput = (value, data) => {
+    const uuidCountry = _.find(data, item => item.value === value)
+
+    if (!uuidCountry) return
+
+    this.props.setCountry(uuidCountry.id)
   }
 
   onTextChange = (e, value, section, field) => {
@@ -88,7 +81,8 @@ class SolicitudServicioContainer extends Component {
     return aux.errorTextMessage(item, type)
   }
   render () {
-    const {servicesTypes, sectionsTypes, company, client, servicio} = this.props
+    const {servicesTypes, sectionsTypes, company, client, servicio, countries} = this.props
+    const dataSourceConfig = { text: 'value', value: 'id' }
 
     return (
       <FormsContainer>
@@ -111,7 +105,9 @@ class SolicitudServicioContainer extends Component {
           <div>
             {/* Generales de empresa */}
             <SolicitudGeneralesEmpresa
-              dataSource={this.state.dataSource}
+              dataSource={countries}
+              filter={AutoComplete.noFilter}
+              dataSourceConfig={dataSourceConfig}
               handle={this.handleUpdateInput}
               handleTextChange={this.onTextChange}
               handleError={this.handleErrorText}
@@ -205,6 +201,7 @@ class SolicitudServicioContainer extends Component {
 
 const {object} = React.PropTypes
 
+// TODO: proptypes
 SolicitudServicioContainer.proptypes = {
   company: object.isRequired,
   client: object.isRequired,
@@ -236,7 +233,8 @@ const  mapStateToProps = ({services, catalogs}) => {
     laboratorio: servicesJS.laboratorio,
     servicio: servicesJS.servicio,
     sectionsTypes: catalogsJS.sections,
-    servicesTypes: catalogsJS.services
+    servicesTypes: catalogsJS.services,
+    countries: catalogsJS.countries
   }
 }
 
