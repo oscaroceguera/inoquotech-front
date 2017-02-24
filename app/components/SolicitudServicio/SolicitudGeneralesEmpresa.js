@@ -10,13 +10,17 @@ const {array, object, func} = PropTypes
 
 class SolicitudGeneralesEmpresa extends Component {
   static propTypes = {
-    dataSource: array.isRequired,
+    dataSourceCountries: array.isRequired,
     servicesTypes: array.isRequired,
-    handle: func.isRequired,
+    handleCountry: func.isRequired,
+    handleState: func.isRequired,
     handleTextChange: func.isRequired,
     handleError: func,
     filter: func.isRequired,
-    dataSourceConfig: object.isRequired
+    dataSourceConfig: object.isRequired,
+    dataSourceStates: array,
+    dataSourceTowns: array,
+    handleTown: func.isRequired
   }
 
   onChildChange (e, value, section, field) {
@@ -28,7 +32,7 @@ class SolicitudGeneralesEmpresa extends Component {
   }
 
   render () {
-    const { dataSource, handle, servicesTypes, filter, dataSourceConfig } = this.props
+    const { dataSourceTowns, dataSourceCountries, dataSourceStates, handleCountry, handleState, servicesTypes, filter, dataSourceConfig, handleTown } = this.props
 
     return (
       <FormRequestWrapper
@@ -49,24 +53,28 @@ class SolicitudGeneralesEmpresa extends Component {
         />
         <AutoComplete
           floatingLabelText="País"
-          dataSource={dataSource}
+          dataSource={dataSourceCountries}
           dataSourceConfig={dataSourceConfig}
           filter={filter}
-          onUpdateInput={handle}
+          onUpdateInput={handleCountry}
           style={AUTOCOMPLETE}
         />
-        {/* <AutoComplete
+        <AutoComplete
           floatingLabelText="Estado"
-          dataSource={dataSource}
-          onUpdateInput={handle}
+          dataSource={dataSourceStates}
+          dataSourceConfig={dataSourceConfig}
+          filter={filter}
+          onUpdateInput={handleState}
           style={AUTOCOMPLETE}
         />
         <AutoComplete
           floatingLabelText="Municipio"
-          dataSource={dataSource}
-          onUpdateInput={handle}
+          dataSource={dataSourceTowns}
+          dataSourceConfig={dataSourceConfig}
+          filter={filter}
+          onUpdateInput={handleTown}
           style={AUTOCOMPLETE}
-        /> */}
+        />
         <GenericTextField
           floating={'Localidad'}
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'locality')} // eslint-disable-line

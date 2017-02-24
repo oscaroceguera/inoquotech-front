@@ -1,12 +1,31 @@
-import { takeLatest, delay } from 'redux-saga'
+import { takeEvery, takeLatest, delay } from 'redux-saga'
 import { call, put, select, fork } from 'redux-saga/effects'
-import { getSectionTypes, getServicesTypes, getCountriesAutocomplete } from 'config/api'
+import { getTownsAutocomplete, getSectionTypes, getServicesTypes, getCountriesAutocomplete, getStatesAutocomplete } from 'config/api'
 import { SOLICITUD_CATALOGS_REQUEST, catalogsActions } from 'reducers/catalogs'
+import { SET_COUNTRY, SET_STATE } from 'reducers/services'
 
-// TODO: Crear llamadas al api para pais, estado, municipio
-// TODO: Crear llamado a autocomplete dependientes
 // TODO: Crear guardado de datos
-// const pais = yield select((state) => state.catalogs.toJS().countriesAutocomplete)
+
+export function* watchAutocompleteTown () {
+  const stateUUID = yield select((state) => state.services.toJS().company.state)
+  const towns = yield call(getTownsAutocomplete, stateUUID)
+  try {
+    yield put(catalogsActions.nestedTownsSuccess(towns))
+  } catch (error) {
+    yield put(catalogsActions.nestedTownsFail(error))
+  }
+}
+
+export function* watchAutocompleteState () {
+  // yield delay(5000)
+  const countryUUID = yield select((state) => state.services.toJS().company.country)
+  const states = yield call(getStatesAutocomplete, countryUUID)
+  try {
+    yield put(catalogsActions.nestedStatesSuccess(states))
+  } catch (error) {
+    yield put(catalogsActions.nestedStatesFail(error))
+  }
+}
 
 export function* watchSolicitudCatalogos() {
   // yield delay(3000)
@@ -26,7 +45,8 @@ export default function* rootSaga() {
   yield [
     // helloSaga(),
     takeLatest(SOLICITUD_CATALOGS_REQUEST, watchSolicitudCatalogos),
-    //takeLatest(COUNTRIES_AUTOCOMPLETE_REQUEST, watchAutocompleteCountry)
+    takeEvery(SET_COUNTRY, watchAutocompleteState),
+    takeEvery(SET_STATE, watchAutocompleteTown)
 
   ]
 }

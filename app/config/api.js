@@ -25,3 +25,13 @@ export const getCountriesAutocomplete = () =>
   axios
     .get(`${api}/countries`)
     .then((items) => items.data)
+
+export const getStatesAutocomplete = (uuid) =>
+  axios
+    .get(`${api}/states?parent_id=${uuid}`)
+    .then((items) => items.data)
+
+export const getTownsAutocomplete = (uuid) =>
+  axios
+    .get(`${api}/towns?parent_id=${uuid}`)
+    .then((items) => items.data)

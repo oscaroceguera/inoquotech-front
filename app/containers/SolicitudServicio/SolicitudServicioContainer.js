@@ -42,7 +42,6 @@ const H1 = styled.h1`
 `
 
 // TODO: generic para autocomple
-// TODO: Autocomplete dependientes
 // TODO: Cuando se guarde los datos mostrar mensaje de exitoso o fail
 // TODO: Mensaje cuando se selecciono como cliente pero no se encontro en la bd
 // TODO: Boton de guardar
@@ -53,12 +52,26 @@ class SolicitudServicioContainer extends Component {
     this.props.solicitudCatalogsRequest()
   }
 
-  handleUpdateInput = (value, data) => {
+  countryHandleUpdateInput = (value, data) => {
     const uuidCountry = _.find(data, item => item.value === value)
 
     if (!uuidCountry) return
 
     this.props.setCountry(uuidCountry.id)
+  }
+
+  stateHandleUpdateInput = (value, data) => {
+    const uuidState = _.find(data, item => item.value === value)
+    if (!uuidState) return
+
+    this.props.setState(uuidState.id)
+  }
+
+  stownHandleUpdateInput = (value, data) => {
+    const uuidTown = _.find(data, item => item.value === value)
+    if (!uuidTown) return
+
+    this.props.setTown(uuidTown.id)
   }
 
   onTextChange = (e, value, section, field) => {
@@ -81,7 +94,7 @@ class SolicitudServicioContainer extends Component {
     return aux.errorTextMessage(item, type)
   }
   render () {
-    const {servicesTypes, sectionsTypes, company, client, servicio, countries} = this.props
+    const {servicesTypes, sectionsTypes, company, client, servicio, countries, states, towns} = this.props
     const dataSourceConfig = { text: 'value', value: 'id' }
 
     return (
@@ -105,10 +118,14 @@ class SolicitudServicioContainer extends Component {
           <div>
             {/* Generales de empresa */}
             <SolicitudGeneralesEmpresa
-              dataSource={countries}
-              filter={AutoComplete.noFilter}
+              dataSourceCountries={countries}
+              dataSourceStates={states}
+              dataSourceTowns={towns}
+              filter={AutoComplete.fuzzyFilter}
               dataSourceConfig={dataSourceConfig}
-              handle={this.handleUpdateInput}
+              handleCountry={this.countryHandleUpdateInput}
+              handleState={this.stateHandleUpdateInput}
+              handleTown={this.stownHandleUpdateInput}
               handleTextChange={this.onTextChange}
               handleError={this.handleErrorText}
               servicesTypes={sectionsTypes}
@@ -201,7 +218,6 @@ class SolicitudServicioContainer extends Component {
 
 const {object} = React.PropTypes
 
-// TODO: proptypes
 SolicitudServicioContainer.proptypes = {
   company: object.isRequired,
   client: object.isRequired,
@@ -215,6 +231,9 @@ SolicitudServicioContainer.proptypes = {
   servicio: object.isRequired,
   sectionsTypes: object.isRequired,
   servicesTypes: object.isRequired,
+  countries: object.isRequired,
+  states: object,
+  towns: object
 }
 
 const  mapStateToProps = ({services, catalogs}) => {
@@ -234,7 +253,9 @@ const  mapStateToProps = ({services, catalogs}) => {
     servicio: servicesJS.servicio,
     sectionsTypes: catalogsJS.sections,
     servicesTypes: catalogsJS.services,
-    countries: catalogsJS.countries
+    countries: catalogsJS.countries,
+    states: catalogsJS.states,
+    towns: catalogsJS.towns
   }
 }
 
