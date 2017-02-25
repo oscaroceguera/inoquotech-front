@@ -4,6 +4,7 @@ import { getTownsAutocomplete, getSectionTypes, getServicesTypes, getCountriesAu
 import { SOLICITUD_CATALOGS_REQUEST, catalogsActions } from 'reducers/catalogs'
 import { SET_COUNTRY, SET_STATE } from 'reducers/services'
 
+// TODO: Resetear valores de los hijos cuando cambie el valor del padre
 // TODO: Crear guardado de datos
 
 export function* watchAutocompleteTown () {

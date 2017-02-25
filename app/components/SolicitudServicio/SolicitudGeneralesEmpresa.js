@@ -1,10 +1,5 @@
 import React, {PropTypes, Component} from 'react'
-import { FormRequestWrapper, FormRadiobuttomWrapper, GenericRadioButton, GenericTextField } from 'components'
-import { AutoComplete } from 'material-ui'
-
-const AUTOCOMPLETE = {
-  marginRight: '.5em'
-}
+import { FormRequestWrapper, FormRadiobuttomWrapper, GenericRadioButton, GenericTextField, GenericAutoComplete } from 'components'
 
 const {array, object, func} = PropTypes
 
@@ -17,7 +12,6 @@ class SolicitudGeneralesEmpresa extends Component {
     handleTextChange: func.isRequired,
     handleError: func,
     filter: func.isRequired,
-    dataSourceConfig: object.isRequired,
     dataSourceStates: array,
     dataSourceTowns: array,
     handleTown: func.isRequired
@@ -32,7 +26,7 @@ class SolicitudGeneralesEmpresa extends Component {
   }
 
   render () {
-    const { dataSourceTowns, dataSourceCountries, dataSourceStates, handleCountry, handleState, servicesTypes, filter, dataSourceConfig, handleTown } = this.props
+    const { dataSourceTowns, dataSourceCountries, dataSourceStates, handleCountry, handleState, servicesTypes, handleTown } = this.props
 
     return (
       <FormRequestWrapper
@@ -51,29 +45,20 @@ class SolicitudGeneralesEmpresa extends Component {
           onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'rfc')} // eslint-disable-line
           onUpdateValidate={this.onValidate('company', 'rfc', 'rfc')} // eslint-disable-line
         />
-        <AutoComplete
-          floatingLabelText="País"
+        <GenericAutoComplete
+          label="País"
           dataSource={dataSourceCountries}
-          dataSourceConfig={dataSourceConfig}
-          filter={filter}
-          onUpdateInput={handleCountry}
-          style={AUTOCOMPLETE}
+          handle={handleCountry}
         />
-        <AutoComplete
-          floatingLabelText="Estado"
+        <GenericAutoComplete
+          label="Estado"
           dataSource={dataSourceStates}
-          dataSourceConfig={dataSourceConfig}
-          filter={filter}
-          onUpdateInput={handleState}
-          style={AUTOCOMPLETE}
+          handle={handleState}
         />
-        <AutoComplete
-          floatingLabelText="Municipio"
+        <GenericAutoComplete
+          label="Municipio"
           dataSource={dataSourceTowns}
-          dataSourceConfig={dataSourceConfig}
-          filter={filter}
-          onUpdateInput={handleTown}
-          style={AUTOCOMPLETE}
+          handle={handleTown}
         />
         <GenericTextField
           floating={'Localidad'}

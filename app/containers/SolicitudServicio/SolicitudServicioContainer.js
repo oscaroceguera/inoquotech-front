@@ -41,7 +41,6 @@ const H1 = styled.h1`
   color: ${Colors.deepPurple500};
 `
 
-// TODO: generic para autocomple
 // TODO: Cuando se guarde los datos mostrar mensaje de exitoso o fail
 // TODO: Mensaje cuando se selecciono como cliente pero no se encontro en la bd
 // TODO: Boton de guardar
@@ -95,7 +94,6 @@ class SolicitudServicioContainer extends Component {
   }
   render () {
     const {servicesTypes, sectionsTypes, company, client, servicio, countries, states, towns} = this.props
-    const dataSourceConfig = { text: 'value', value: 'id' }
 
     return (
       <FormsContainer>
@@ -122,7 +120,6 @@ class SolicitudServicioContainer extends Component {
               dataSourceStates={states}
               dataSourceTowns={towns}
               filter={AutoComplete.fuzzyFilter}
-              dataSourceConfig={dataSourceConfig}
               handleCountry={this.countryHandleUpdateInput}
               handleState={this.stateHandleUpdateInput}
               handleTown={this.stownHandleUpdateInput}
