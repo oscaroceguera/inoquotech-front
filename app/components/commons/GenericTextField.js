@@ -2,11 +2,12 @@ import React, {PropTypes} from 'react'
 import { TextField } from 'material-ui'
 import styled from 'styled-components'
 
-// TODO: Responsive textFields
-
 // large = 400; normal = 250; small = 150; xSmall = 100px
 const TextFieldWrapper = styled(TextField)`
   margin-right: .5em;
+  @media (max-width: 410px){
+    width: 100% !important;
+  };
   ${(props) => {
     switch (props.width) {
     case 'large': return 'width: 400px !important;'

@@ -28,6 +28,7 @@ import Logo from 'commons/logo.svg'
 const FormsContainer = styled.div`
   max-width: 1000px;
   margin: 2.5em auto;
+  overflow: hidden;
   @media (max-width: 1000px) {
     margin: 2.5em 1em;
   }
@@ -51,26 +52,21 @@ class SolicitudServicioContainer extends Component {
     this.props.solicitudCatalogsRequest()
   }
 
-  countryHandleUpdateInput = (value, data) => {
-    const uuidCountry = _.find(data, item => item.value === value)
-
-    if (!uuidCountry) return
-
-    this.props.setCountry(uuidCountry.id)
-  }
-
-  stateHandleUpdateInput = (value, data) => {
-    const uuidState = _.find(data, item => item.value === value)
-    if (!uuidState) return
-
-    this.props.setState(uuidState.id)
-  }
-
-  stownHandleUpdateInput = (value, data) => {
-    const uuidTown = _.find(data, item => item.value === value)
-    if (!uuidTown) return
-
-    this.props.setTown(uuidTown.id)
+  handleUpdateAutoComplete = (value, data, field) => {
+    const uuid = _.find(data, item => item.value === value)
+    if (!uuid) return
+    /* eslint-disable */
+    switch (field) {
+      case 'country':
+        return this.props.setCountry(uuid.id)
+      case 'state':
+        return this.props.setState(uuid.id)
+      case 'town':
+        return this.props.setTown(uuid.id)
+      default:
+        return
+    }
+    /* eslint-enable */
   }
 
   onTextChange = (e, value, section, field) => {
@@ -92,6 +88,7 @@ class SolicitudServicioContainer extends Component {
     const item = this.props[section][field]
     return aux.errorTextMessage(item, type)
   }
+
   render () {
     const {servicesTypes, sectionsTypes, company, client, servicio, countries, states, towns} = this.props
 
@@ -119,10 +116,8 @@ class SolicitudServicioContainer extends Component {
               dataSourceCountries={countries}
               dataSourceStates={states}
               dataSourceTowns={towns}
+              handleUpdate={this.handleUpdateAutoComplete}
               filter={AutoComplete.fuzzyFilter}
-              handleCountry={this.countryHandleUpdateInput}
-              handleState={this.stateHandleUpdateInput}
-              handleTown={this.stownHandleUpdateInput}
               handleTextChange={this.onTextChange}
               handleError={this.handleErrorText}
               servicesTypes={sectionsTypes}

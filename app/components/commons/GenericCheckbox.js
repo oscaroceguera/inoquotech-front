@@ -3,7 +3,6 @@ import {Checkbox} from 'material-ui'
 import * as Colors from 'material-ui/styles/colors'
 import styled from 'styled-components'
 
-// TODO: responsive cehcboxes
 const Container = styled.div`
   width: 1000px;
   display: flex;

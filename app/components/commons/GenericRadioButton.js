@@ -1,18 +1,11 @@
 import React, {PropTypes} from 'react'
 import {RadioButton, RadioButtonGroup} from 'material-ui'
 import * as Colors from 'material-ui/styles/colors'
-import styled from 'styled-components'
 
 const inlStyl = {
   style: { width: '30%', marginRight: '.5em' },
   labelStyle : { color: Colors.grey500 }
 }
-
-// TODO: Responsive radios
-const RadioButtonGroupStyled = styled(RadioButtonGroup)`
-  display: flex;
-  width: 300px;
-`
 
 const {string, array, bool, func} = PropTypes
 
@@ -25,7 +18,7 @@ GenericRadioButton.propTypes = {
 
 function GenericRadioButton ({name, radios, radioDefault, onChange}) {
   return (
-    <RadioButtonGroupStyled
+    <RadioButtonGroup
       name={name}
       onChange={onChange}
       defaultSelected={radioDefault}
@@ -41,7 +34,7 @@ function GenericRadioButton ({name, radios, radioDefault, onChange}) {
           />
         )
       }
-    </RadioButtonGroupStyled>
+    </RadioButtonGroup>
   )
 }
 

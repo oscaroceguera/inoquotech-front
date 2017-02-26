@@ -4,13 +4,13 @@ export default {
   isRFC (item) {
     const valid = '^[A-Za-z]{3,4}[0-9]{6}[A-Za-z0-9]{3}?$'
     const validRfc = new RegExp(valid)
-    return item.length === 0 ? '' : item.match(validRfc) ? '' : 'RFC invalido'
+    return item.match(validRfc) ? '' : 'RFC invalido'
   },
   isEmail (item) {
-    return item.length === 0 ? '' : emailValidator.validate(item) ? '' : 'Formato email invalido'
+    return emailValidator.validate(item) ? '' : 'Formato email invalido'
   },
   hasText (item) {
-    return item.length === 0 ? '' : item.length > 1 ? '' : 'Requerido'
+    return item.length > 1 ? '' : 'Requerido'
   },
   errorTextMessage (item, type) {
     if (type === 'rfc') return this.isRFC(item)

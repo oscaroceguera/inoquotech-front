@@ -125,7 +125,8 @@ function servicesReducer (state = initialState, action) {
     const filter = _.find(currentKeys, (value) => value !== false)
     return state.deleteIn([action.section, action.field, filter])
   case SET_COUNTRY:
-    return state.setIn(['company', 'country'], action.country)
+    return state
+      .setIn(['company', 'country'], action.country)
   case SET_STATE:
     return state.setIn(['company', 'state'], action.state)
   case SET_TOWN:
