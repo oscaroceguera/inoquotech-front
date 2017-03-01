@@ -6,9 +6,9 @@ import { bindActionCreators } from 'redux'
 import _ from 'lodash'
 import {servicesActions} from 'reducers/services'
 import {catalogsActions} from 'reducers/catalogs'
-// import {getRequiredFields} from 'selectors/example'
+import {validation} from 'selectors/SelectorSolicitudServicio'
 
-import { AutoComplete } from 'material-ui'
+import { AutoComplete, RaisedButton } from 'material-ui'
 
 import {
   IsClientForm, SolicitudGeneralesEmpresa, SolicitudServicioRequerido,
@@ -42,10 +42,13 @@ const H1 = styled.h1`
   color: ${Colors.deepPurple500};
 `
 
+const BtnContainer = styled.div`
+  text-align: right;
+  margin-top: 1.5em;
+`
+
 // TODO: Cuando se guarde los datos mostrar mensaje de exitoso o fail
 // TODO: Mensaje cuando se selecciono como cliente pero no se encontro en la bd
-// TODO: Boton de guardar
-// TODO: validacion de boton guardar (usar reselctor para comprobacion de campos)
 
 class SolicitudServicioContainer extends Component {
   componentWillMount () {
@@ -90,7 +93,7 @@ class SolicitudServicioContainer extends Component {
   }
 
   render () {
-    const {servicesTypes, sectionsTypes, company, client, servicio, countries, states, towns} = this.props
+    const {servicesTypes, sectionsTypes, company, client, servicio, countries, states, towns, disabled} = this.props
 
     return (
       <FormsContainer>
@@ -203,12 +206,19 @@ class SolicitudServicioContainer extends Component {
           handleCheckboxChange={this.onCheckboxChage}
           data={servicio}
         />
+      <BtnContainer>
+        <RaisedButton
+          label={'Guardar'}
+          disabled={disabled}
+          secondary
+        />
+      </BtnContainer>
       </FormsContainer>
     )
   }
 }
 
-const {object} = React.PropTypes
+const {object, bool} = React.PropTypes
 
 SolicitudServicioContainer.proptypes = {
   company: object.isRequired,
@@ -225,14 +235,15 @@ SolicitudServicioContainer.proptypes = {
   servicesTypes: object.isRequired,
   countries: object.isRequired,
   states: object,
-  towns: object
+  towns: object,
+  disabled: bool.isRequired
 }
 
-const  mapStateToProps = ({services, catalogs}) => {
-  const servicesJS = services.toJS()
-  const catalogsJS = catalogs.toJS()
+const  mapStateToProps = (state) => {
+  const servicesJS = state.services.toJS()
+  const catalogsJS = state.catalogs.toJS()
   return {
-    //compare: getRequiredFields(services.toJS())
+    disabled: !validation(state),
     company: servicesJS.company,
     client: servicesJS.client,
     agricola: servicesJS.agricola,
