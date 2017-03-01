@@ -1,6 +1,14 @@
 import emailValidator from 'email-validator'
 
 export default {
+  isRFCForSelector (item) {
+    const valid = '^[A-Za-z]{3,4}[0-9]{6}[A-Za-z0-9]{3}?$'
+    const validRfc = new RegExp(valid)
+    return item.match(validRfc)
+  },
+  isEmailForSelector (item) {
+    return emailValidator.validate(item)
+  },
   isRFC (item) {
     const valid = '^[A-Za-z]{3,4}[0-9]{6}[A-Za-z0-9]{3}?$'
     const validRfc = new RegExp(valid)
