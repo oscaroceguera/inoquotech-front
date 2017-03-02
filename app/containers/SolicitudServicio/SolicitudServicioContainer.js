@@ -6,13 +6,13 @@ import { bindActionCreators } from 'redux'
 import _ from 'lodash'
 import {servicesActions} from 'reducers/services'
 import {catalogsActions} from 'reducers/catalogs'
-import {validation} from 'selectors/SelectorSolicitudServicio'
+import {validation, dataFormSave} from 'selectors/SelectorSolicitudServicio'
 
 import { AutoComplete, RaisedButton } from 'material-ui'
 
 import {
   IsClientForm, SolicitudGeneralesEmpresa, SolicitudServicioRequerido,
-  GenericTextFieldForm
+  GenericTextFieldForm, GenericCircularProgress
 } from 'components'
 
 import aux from 'commons/FormAuxFunctions'
@@ -47,8 +47,8 @@ const BtnContainer = styled.div`
   margin-top: 1.5em;
 `
 
-// TODO: Cuando se guarde los datos mostrar mensaje de exitoso o fail
 // TODO: Mensaje cuando se selecciono como cliente pero no se encontro en la bd
+// TODO: Snackbar para el fail del save
 
 class SolicitudServicioContainer extends Component {
   componentWillMount () {
@@ -92,127 +92,142 @@ class SolicitudServicioContainer extends Component {
     return aux.errorTextMessage(item, type)
   }
 
+  onSave = (e) => {
+    e.preventDefault()
+    this.props.solicitudServicioReq(this.props.dataSave)
+  }
+
   render () {
-    const {servicesTypes, sectionsTypes, company, client, servicio, countries, states, towns, disabled} = this.props
+    const {
+      servicesTypes, sectionsTypes, company, client, servicio,
+      countries, states, towns, disabled, loading
+    } = this.props
+
+
 
     return (
       <FormsContainer>
         <IconHeaderContainer>
           <img src={Logo} />
         </IconHeaderContainer>
-        <H1>{'Solicitud de Servicio'}</H1>
+        { loading ?
+            <GenericCircularProgress /> :
+            <div>
+              <H1>{'Solicitud de Servicio'}</H1>
+              <IsClientForm handleRadioChange={this.onTextChange}/>
 
-        <IsClientForm handleRadioChange={this.onTextChange}/>
+              {/* RFC si es cliente */}
+              {client.isClient &&
+                <GenericTextFieldForm
+                  handleTextChange={this.onTextChange}
+                  handleError={this.handleErrorText}
+                  fields={RFC_FIELDS}
+                  />}
 
-        {/* RFC si es cliente */}
-        {client.isClient &&
-          <GenericTextFieldForm
-            handleTextChange={this.onTextChange}
-            handleError={this.handleErrorText}
-            fields={RFC_FIELDS}
-          />}
+              {!client.isClient &&
+              <div>
+                {/* Generales de empresa */}
+                <SolicitudGeneralesEmpresa
+                  dataSourceCountries={countries}
+                  dataSourceStates={states}
+                  dataSourceTowns={towns}
+                  handleUpdate={this.handleUpdateAutoComplete}
+                  filter={AutoComplete.fuzzyFilter}
+                  handleTextChange={this.onTextChange}
+                  handleError={this.handleErrorText}
+                  servicesTypes={sectionsTypes}
+                    />
 
-        {!client.isClient &&
-          <div>
-            {/* Generales de empresa */}
-            <SolicitudGeneralesEmpresa
-              dataSourceCountries={countries}
-              dataSourceStates={states}
-              dataSourceTowns={towns}
-              handleUpdate={this.handleUpdateAutoComplete}
-              filter={AutoComplete.fuzzyFilter}
-              handleTextChange={this.onTextChange}
-              handleError={this.handleErrorText}
-              servicesTypes={sectionsTypes}
-            />
+                {/* Agricola */}
+                {company.companyGiro === GIRO_UUID['agricola'] &&
+                  <GenericTextFieldForm
+                    icon={'agricola'}
+                    title={'Datos de agrícola'}
+                    handleTextChange={this.onTextChange}
+                    handleError={this.handleErrorText}
+                    fields={AGRICOLA_FIELDS}
+                    />}
 
-            {/* Agricola */}
-            {company.companyGiro === GIRO_UUID['agricola'] &&
-              <GenericTextFieldForm
-                icon={'agricola'}
-                title={'Datos de agrícola'}
-                handleTextChange={this.onTextChange}
-                handleError={this.handleErrorText}
-                fields={AGRICOLA_FIELDS}
-              />}
+                {/* Acuicola */}
+                {company.companyGiro === GIRO_UUID['acuicola'] &&
+                  <GenericTextFieldForm
+                    icon={'acuicola'}
+                    title={'Datos de acuícola'}
+                    handleTextChange={this.onTextChange}
+                    handleError={this.handleErrorText}
+                    fields={ACUICOLA_FIELDS}
+                    />}
 
-            {/* Acuicola */}
-            {company.companyGiro === GIRO_UUID['acuicola'] &&
-              <GenericTextFieldForm
-                icon={'acuicola'}
-                title={'Datos de acuícola'}
-                handleTextChange={this.onTextChange}
-                handleError={this.handleErrorText}
-                fields={ACUICOLA_FIELDS}
-              />}
+                {/* Procesadora */}
+                {company.companyGiro === GIRO_UUID['procesadora'] &&
+                  <GenericTextFieldForm
+                    icon={'procesadora'}
+                    title={'Datos de procesadora'}
+                    handleTextChange={this.onTextChange}
+                    handleError={this.handleErrorText}
+                    fields={PROCESADORA_FIELDS}
+                    />}
 
-            {/* Procesadora */}
-            {company.companyGiro === GIRO_UUID['procesadora'] &&
-              <GenericTextFieldForm
-                icon={'procesadora'}
-                title={'Datos de procesadora'}
-                handleTextChange={this.onTextChange}
-                handleError={this.handleErrorText}
-                fields={PROCESADORA_FIELDS}
-              />}
+                {/* Distribuidora */}
+                {company.companyGiro === GIRO_UUID['distribuidora'] &&
+                  <GenericTextFieldForm
+                    icon={'distribuidora'}
+                    title={'Datos de distribuidora'}
+                    handleTextChange={this.onTextChange}
+                    handleError={this.handleErrorText}
+                    fields={DISTRIBUIDORA_FIELDS}
+                    />}
 
-            {/* Distribuidora */}
-            {company.companyGiro === GIRO_UUID['distribuidora'] &&
-              <GenericTextFieldForm
-                icon={'distribuidora'}
-                title={'Datos de distribuidora'}
-                handleTextChange={this.onTextChange}
-                handleError={this.handleErrorText}
-                fields={DISTRIBUIDORA_FIELDS}
-              />}
+                {/* Restaurante */}
+                {company.companyGiro === GIRO_UUID['restaurante'] &&
+                  <GenericTextFieldForm
+                    icon={'restaurante'}
+                    title={'Datos de restaurante'}
+                    handleTextChange={this.onTextChange}
+                    handleError={this.handleErrorText}
+                    fields={RESTAURANTE_FIELDS}
+                    />}
 
-            {/* Restaurante */}
-            {company.companyGiro === GIRO_UUID['restaurante'] &&
-              <GenericTextFieldForm
-                icon={'restaurante'}
-                title={'Datos de restaurante'}
-                handleTextChange={this.onTextChange}
-                handleError={this.handleErrorText}
-                fields={RESTAURANTE_FIELDS}
-              />}
+                {/* Transporte */}
+                {company.companyGiro === GIRO_UUID['transporte'] &&
+                  <GenericTextFieldForm
+                    icon={'transporte'}
+                    title={'Datos de transporte'}
+                    handleTextChange={this.onTextChange}
+                    handleError={this.handleErrorText}
+                    fields={TRANSPORTE_FIELDS}
+                    />}
 
-            {/* Transporte */}
-            {company.companyGiro === GIRO_UUID['transporte'] &&
-              <GenericTextFieldForm
-                icon={'transporte'}
-                title={'Datos de transporte'}
-                handleTextChange={this.onTextChange}
-                handleError={this.handleErrorText}
-                fields={TRANSPORTE_FIELDS}
-              />}
+                {/* Laboratorio */}
+                {company.companyGiro === GIRO_UUID['laboratorio'] &&
+                  <GenericTextFieldForm
+                    icon={'laboratorio'}
+                    title={'Datos de laboratorio'}
+                    handleTextChange={this.onTextChange}
+                    handleError={this.handleErrorText}
+                    fields={LABORATORIO_FIELDS}
+                    />}
+                  </div>
+                }
 
-            {/* Laboratorio */}
-            {company.companyGiro === GIRO_UUID['laboratorio'] &&
-              <GenericTextFieldForm
-                icon={'laboratorio'}
-                title={'Datos de laboratorio'}
-                handleTextChange={this.onTextChange}
-                handleError={this.handleErrorText}
-                fields={LABORATORIO_FIELDS}
-              />}
-          </div>
-        }
+                {/*  Servicio Requerido */}
+                <SolicitudServicioRequerido
+                  handleTextChange={this.onTextChange}
+                  handleError={this.handleErrorText}
+                  servicesTypes={servicesTypes}
+                  handleCheckboxChange={this.onCheckboxChage}
+                  data={servicio}
+                  />
 
-        {/*  Servicio Requerido */}
-        <SolicitudServicioRequerido
-          handleTextChange={this.onTextChange}
-          handleError={this.handleErrorText}
-          servicesTypes={servicesTypes}
-          handleCheckboxChange={this.onCheckboxChage}
-          data={servicio}
-        />
-      <BtnContainer>
-        <RaisedButton
-          label={'Guardar'}
-          disabled={disabled}
-          secondary
-        />
-      </BtnContainer>
+              <BtnContainer>
+                <RaisedButton
+                  label={'Guardar'}
+                  disabled={disabled}
+                  onClick={this.onSave}
+                  secondary
+                  />
+              </BtnContainer>
+            </div>}
       </FormsContainer>
     )
   }
@@ -236,13 +251,16 @@ SolicitudServicioContainer.proptypes = {
   countries: object.isRequired,
   states: object,
   towns: object,
-  disabled: bool.isRequired
+  disabled: bool.isRequired,
+  dataSave: object.isRequired,
+  loading: bool.isRequired
 }
 
 const  mapStateToProps = (state) => {
   const servicesJS = state.services.toJS()
   const catalogsJS = state.catalogs.toJS()
   return {
+    loading: servicesJS.isSavedLoading,
     disabled: !validation(state),
     company: servicesJS.company,
     client: servicesJS.client,
@@ -258,7 +276,8 @@ const  mapStateToProps = (state) => {
     servicesTypes: catalogsJS.services,
     countries: catalogsJS.countries,
     states: catalogsJS.states,
-    towns: catalogsJS.towns
+    towns: catalogsJS.towns,
+    dataSave: dataFormSave(state)
   }
 }
 
