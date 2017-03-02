@@ -35,3 +35,8 @@ export const getTownsAutocomplete = (uuid) =>
   axios
     .get(`${api}/towns?parent_id=${uuid}`)
     .then((items) => items.data)
+
+export const addSolicitudServicio = (data) =>
+  axios
+    .post(`${api}/solicitud_servicio`, data)
+    .then((items) => items.data)
