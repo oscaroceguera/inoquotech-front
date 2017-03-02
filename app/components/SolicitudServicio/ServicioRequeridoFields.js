@@ -6,7 +6,7 @@ export const DIAG_PRE_IMP_FIELDS = [
 export const CAPACITACION_FIELDS = [
   { floating: '¿Tema de capacitación?', hinText: '', width: '', sectionItem: 'servicio', fieldItem: 'capacitacionTema', requiredType: 'text' },
   { floating: 'Cantidad de personas a capacitar', hinText: '', width: '', sectionItem: 'servicio', fieldItem: 'cantidadPersonas', requiredType: 'text' },
-  { floating: '¿Tema de capacitación?', hinText: 'General, Mando medios, ...', width: '', sectionItem: 'servicio', fieldItem: 'nivelJerarquico', requiredType: 'text' }
+  { floating: '¿Nivel jerarquico?', hinText: 'General, Mando medios, ...', width: '', sectionItem: 'servicio', fieldItem: 'nivelJerarquico', requiredType: 'text' }
 ]
 
 export const MUESTREO_FIELDS = [
