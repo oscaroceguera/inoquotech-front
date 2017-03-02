@@ -7,6 +7,10 @@ const UNCHECKED_CHECKBOXES = 'app/reducers/services/UNCHECKED_CHECKBOXES'
 export const SET_COUNTRY = 'app/reducers/services/SET_COUNTRY'
 export const SET_STATE = 'app/reducers/services/SET_STATE'
 export const SET_TOWN = 'app/reducers/services/SET_TOWN'
+export const SOLICITUD_SERVICIO_REQUEST = 'app/reducers/services/SOLICITUD_SERVICIO_REQUEST'
+export const SOLICITUD_SERVICIO_SUCCESS = 'app/reducers/services/SOLICITUD_SERVICIO_SUCCESS'
+export const SOLICITUD_SERVICIO_FAIL = 'app/reducers/services/SOLICITUD_SERVICIO_FAIL'
+
 
 // Actions Creators
 export const servicesActions = {
@@ -15,11 +19,16 @@ export const servicesActions = {
   uncheckedCheckboxes: (section, field, value) => ({ type: UNCHECKED_CHECKBOXES, section, field, value }),
   setCountry: (country) => ({ type: SET_COUNTRY, country }),
   setState: (state) => ({ type: SET_STATE, state }),
-  setTown: (town) => ({ type: SET_TOWN, town })
+  setTown: (town) => ({ type: SET_TOWN, town }),
+  solicitudServicioReq: (data) => ({ type: SOLICITUD_SERVICIO_REQUEST, data }),
+  solicitudServicioSuccess: () => ({ type: SOLICITUD_SERVICIO_SUCCESS }),
+  solicitudServicioFail: (error) => ({ type: SOLICITUD_SERVICIO_FAIL, error})
 }
 
 // Reducer
 const initialState = fromJS({
+  isSavedLoading: false,
+  isSavedFail: null,
   client: {
     isClient: false,
     isClientRFC: ''
@@ -131,6 +140,18 @@ function servicesReducer (state = initialState, action) {
     return state.setIn(['company', 'state'], action.state)
   case SET_TOWN:
     return state.setIn(['company', 'town'], action.town)
+  case SOLICITUD_SERVICIO_REQUEST:
+    return state.set('isSavedLoading', true)
+  case SOLICITUD_SERVICIO_SUCCESS:
+    return state.merge({
+      isSavedLoading: false,
+      isSavedFail: null
+    })
+  case SOLICITUD_SERVICIO_FAIL:
+    return state.merge({
+      isSavedLoading: false,
+      isSavedFail: action.error
+    })
   default:
     return state
   }
