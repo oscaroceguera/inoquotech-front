@@ -158,3 +158,47 @@ export const validation = createSelector(
   [isClient, isClientMainValidation, newClientMainValidation],
   (isClient, clientValidation, newClientValidation) => isClient ? clientValidation : newClientValidation
 )
+
+const isClientDataSave = createSelector(
+  getItems,
+  ({client, servicio}) => ({client, servicio})
+)
+
+const newClientDataSave = createSelector(
+  [getItems, getGiroEmpresa],
+  ({company, servicio, agricola, acuicola, procesadora, distribuidora, restaurante, transporte, laboratorio}, giro) => {
+    const fields = { company, servicio }
+
+    /* eslint-disable */
+    switch (giro) {
+      case GIRO_UUID['agricola']:
+        fields.agricola = agricola
+        return fields
+      case GIRO_UUID['acuicola']:
+        fields.acuicola = acuicola
+        return fields
+      case GIRO_UUID['procesadora']:
+        fields.procesadora = procesadora
+        return fields
+      case GIRO_UUID['distribuidora']:
+        fields.distribuidora = distribuidora
+        return fields
+      case GIRO_UUID['laboratorio']:
+        fields.laboratorio = laboratorio
+        return fields
+      case GIRO_UUID['restaurante']:
+        fields.restaurante = restaurante
+        return fields
+      case GIRO_UUID['transporte']:
+        fields.transporte = transporte
+        return fields
+    }
+    /* eslint-enable */
+  }
+)
+
+// Forms to saved
+export const dataFormSave = createSelector(
+  [isClient, isClientDataSave, newClientDataSave],
+  (isClient, isClientData, newClientData) => isClient ? isClientData : newClientData
+)
