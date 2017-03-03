@@ -10,7 +10,7 @@ export const SET_TOWN = 'app/reducers/services/SET_TOWN'
 export const SOLICITUD_SERVICIO_REQUEST = 'app/reducers/services/SOLICITUD_SERVICIO_REQUEST'
 export const SOLICITUD_SERVICIO_SUCCESS = 'app/reducers/services/SOLICITUD_SERVICIO_SUCCESS'
 export const SOLICITUD_SERVICIO_FAIL = 'app/reducers/services/SOLICITUD_SERVICIO_FAIL'
-
+export const RESET_FIELDS = 'app/reducers/services/RESET_FIELDS'
 
 // Actions Creators
 export const servicesActions = {
@@ -22,7 +22,8 @@ export const servicesActions = {
   setTown: (town) => ({ type: SET_TOWN, town }),
   solicitudServicioReq: (data) => ({ type: SOLICITUD_SERVICIO_REQUEST, data }),
   solicitudServicioSuccess: () => ({ type: SOLICITUD_SERVICIO_SUCCESS }),
-  solicitudServicioFail: (error) => ({ type: SOLICITUD_SERVICIO_FAIL, error})
+  solicitudServicioFail: (error) => ({ type: SOLICITUD_SERVICIO_FAIL, error}),
+  resetFieldsAction: () => ({ type: RESET_FIELDS })
 }
 
 // Reducer
@@ -151,6 +152,100 @@ function servicesReducer (state = initialState, action) {
     return state.merge({
       isSavedLoading: false,
       isSavedFail: action.error
+    })
+  case RESET_FIELDS:
+    return state.merge({
+      isSavedLoading: false,
+      isSavedFail: null,
+      client: {
+        isClient: false,
+        isClientRFC: ''
+      },
+      company: {
+        companyGiro: '',
+        companyName: '',
+        rfc:'',
+        country: '',
+        state: '',
+        town: '',
+        locality: '',
+        address: '',
+        neighborhood: '',
+        zipCode: '',
+        companyPhone: '',
+        companyEmail: '',
+        legalName: '',
+        legalPhone: '',
+        legalEmail: '',
+        contactName: '',
+        contactPhone: '',
+        contactEmail: '',
+        contactPosition: ''
+      },
+      agricola: {
+        hectarea: '',
+        productos: '',
+        empacado: '',
+        albergues: ''
+      },
+      acuicola: {
+        tipoSistemaProduccion: '',
+        ubicacionProduccion: '',
+        tipoProduccion: '',
+        empacado: '',
+        albergues: ''
+      },
+      procesadora: {
+        productos: '',
+        turnos: '',
+        plantas: ''
+      },
+      distribuidora: {
+        almacenes: '',
+        productos: '',
+        mercado: '',
+        importa: ''
+      },
+      restaurante: {
+        productos: '',
+        horario: '',
+        sucursales: '',
+        tipoInstalacion: '',
+        congelacion: '',
+        verificacion: '',
+        sanitarios: '',
+        capacitacion: ''
+      },
+      transporte: {
+        productos: '',
+        cetificado: '',
+        saludHigiene: '',
+        permisos: '',
+        noVehiculos: '',
+        talleres: '',
+        registros: '',
+        toxicologicos: ''
+      },
+      laboratorio:  {
+        giro: '',
+        normativa: '',
+        ensayos: ''
+      },
+      servicio: {
+        tipoServicio: [],
+        esquema: '',
+        hasCertificado: '',
+        capacitacionTema: '',
+        cantidadPersonas: '',
+        nivelJerarquico: '',
+        objetivoMuestras: '',
+        porqueMuestreo: '',
+        tipoMuestreo: '',
+        hasProgramaVigilanciaMonitoreo: '',
+        muestreoFecha: '',
+        analisisFecha: '',
+        laboratorioAcreditado: ''
+      }
     })
   default:
     return state

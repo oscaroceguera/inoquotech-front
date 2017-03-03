@@ -49,9 +49,9 @@ const BtnContainer = styled.div`
 
 // TODO: Mensaje cuando se selecciono como cliente pero no se encontro en la bd
 // TODO: Snackbar para el fail del save
-
 class SolicitudServicioContainer extends Component {
   componentWillMount () {
+    this.props.resetFieldsAction()
     this.props.solicitudCatalogsRequest()
   }
 
