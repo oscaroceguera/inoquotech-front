@@ -25,14 +25,13 @@ class SolicitudGeneralesEmpresa extends Component {
 
   render () {
     const { handleUpdate, dataSourceTowns, dataSourceCountries, dataSourceStates, servicesTypes } = this.props
-
     return (
       <div>
         <FormRequestWrapper
           icon={'empresa'}
           title={'Datos de la empresa'}
         >
-          <GenericTextField
+           <GenericTextField
             floating={'Nombre de la empresa'}
             width={'large'}
             onChange={(e, value, section, field) => this.onChildChange(e, value, 'company', 'companyName')} // eslint-disable-line

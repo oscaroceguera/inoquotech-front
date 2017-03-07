@@ -24,13 +24,13 @@ function GenericCheckbox({items, onChange}) {
   return (
     <Container>
       {
-        items.map(({id, value}, index) =>
+        items.map(({_id, value}, index) =>
           <Checkbox
             key={index}
             labelStyle={inlStyl}
             label={value}
             onCheck={onChange}
-            value={id}
+            value={_id}
           />
         )
       }

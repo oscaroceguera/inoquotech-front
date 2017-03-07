@@ -9,31 +9,31 @@
 // ]
 
 import axios from 'axios'
-const api = 'http://localhost:3004'
+const api = 'http://localhost:3000'
 
 export const getSectionTypes = () =>
   axios
-    .get(`${api}/sections_types`)
+    .get(`${api}/catalogs/sectionTypes`)
     .then((items) => items.data)
 
 export const getServicesTypes = () =>
   axios
-    .get(`${api}/services_types`)
+    .get(`${api}/catalogs/serviceTypes`)
     .then((items) => items.data)
 
 export const getCountriesAutocomplete = () =>
   axios
-    .get(`${api}/countries`)
+    .get(`${api}/catalogs/countries`)
     .then((items) => items.data)
 
 export const getStatesAutocomplete = (uuid) =>
   axios
-    .get(`${api}/states?parent_id=${uuid}`)
+    .get(`${api}/catalogs/states/${uuid}`)
     .then((items) => items.data)
 
 export const getTownsAutocomplete = (uuid) =>
   axios
-    .get(`${api}/towns?parent_id=${uuid}`)
+    .get(`${api}/catalogs/towns/${uuid}`)
     .then((items) => items.data)
 
 export const addSolicitudServicio = (data) =>

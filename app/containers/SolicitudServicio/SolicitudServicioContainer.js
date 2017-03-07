@@ -61,11 +61,11 @@ class SolicitudServicioContainer extends Component {
     /* eslint-disable */
     switch (field) {
       case 'country':
-        return this.props.setCountry(uuid.id)
+        return this.props.setCountry(uuid._id)
       case 'state':
-        return this.props.setState(uuid.id)
+        return this.props.setState(uuid._id)
       case 'town':
-        return this.props.setTown(uuid.id)
+        return this.props.setTown(uuid._id)
       default:
         return
     }
@@ -103,8 +103,6 @@ class SolicitudServicioContainer extends Component {
       countries, states, towns, disabled, loading
     } = this.props
 
-
-
     return (
       <FormsContainer>
         <IconHeaderContainer>
@@ -116,17 +114,16 @@ class SolicitudServicioContainer extends Component {
               <H1>{'Solicitud de Servicio'}</H1>
               <IsClientForm handleRadioChange={this.onTextChange}/>
 
-              {/* RFC si es cliente */}
-              {client.isClient &&
+               {client.isClient &&
                 <GenericTextFieldForm
                   handleTextChange={this.onTextChange}
                   handleError={this.handleErrorText}
                   fields={RFC_FIELDS}
                   />}
 
+
               {!client.isClient &&
               <div>
-                {/* Generales de empresa */}
                 <SolicitudGeneralesEmpresa
                   dataSourceCountries={countries}
                   dataSourceStates={states}
@@ -137,8 +134,6 @@ class SolicitudServicioContainer extends Component {
                   handleError={this.handleErrorText}
                   servicesTypes={sectionsTypes}
                     />
-
-                {/* Agricola */}
                 {company.companyGiro === GIRO_UUID['agricola'] &&
                   <GenericTextFieldForm
                     icon={'agricola'}
@@ -147,8 +142,6 @@ class SolicitudServicioContainer extends Component {
                     handleError={this.handleErrorText}
                     fields={AGRICOLA_FIELDS}
                     />}
-
-                {/* Acuicola */}
                 {company.companyGiro === GIRO_UUID['acuicola'] &&
                   <GenericTextFieldForm
                     icon={'acuicola'}
@@ -157,8 +150,6 @@ class SolicitudServicioContainer extends Component {
                     handleError={this.handleErrorText}
                     fields={ACUICOLA_FIELDS}
                     />}
-
-                {/* Procesadora */}
                 {company.companyGiro === GIRO_UUID['procesadora'] &&
                   <GenericTextFieldForm
                     icon={'procesadora'}
@@ -167,8 +158,6 @@ class SolicitudServicioContainer extends Component {
                     handleError={this.handleErrorText}
                     fields={PROCESADORA_FIELDS}
                     />}
-
-                {/* Distribuidora */}
                 {company.companyGiro === GIRO_UUID['distribuidora'] &&
                   <GenericTextFieldForm
                     icon={'distribuidora'}
@@ -177,8 +166,6 @@ class SolicitudServicioContainer extends Component {
                     handleError={this.handleErrorText}
                     fields={DISTRIBUIDORA_FIELDS}
                     />}
-
-                {/* Restaurante */}
                 {company.companyGiro === GIRO_UUID['restaurante'] &&
                   <GenericTextFieldForm
                     icon={'restaurante'}
@@ -187,8 +174,6 @@ class SolicitudServicioContainer extends Component {
                     handleError={this.handleErrorText}
                     fields={RESTAURANTE_FIELDS}
                     />}
-
-                {/* Transporte */}
                 {company.companyGiro === GIRO_UUID['transporte'] &&
                   <GenericTextFieldForm
                     icon={'transporte'}
@@ -197,8 +182,6 @@ class SolicitudServicioContainer extends Component {
                     handleError={this.handleErrorText}
                     fields={TRANSPORTE_FIELDS}
                     />}
-
-                {/* Laboratorio */}
                 {company.companyGiro === GIRO_UUID['laboratorio'] &&
                   <GenericTextFieldForm
                     icon={'laboratorio'}
@@ -210,7 +193,6 @@ class SolicitudServicioContainer extends Component {
                   </div>
                 }
 
-                {/*  Servicio Requerido */}
                 <SolicitudServicioRequerido
                   handleTextChange={this.onTextChange}
                   handleError={this.handleErrorText}

@@ -15,7 +15,7 @@ GenericAutoComplete.proptypes = {
   onUpdateValidate: any
 }
 
-function GenericAutoComplete ({ dataSource, dataSourceConfig = { text: 'value', value: 'id' }, handle, label, onUpdateValidate}) {
+function GenericAutoComplete ({ dataSource, dataSourceConfig = { text: 'value', value: '_id' }, handle, label, onUpdateValidate}) {
   return (
     <AutoComplete
       floatingLabelText={label}

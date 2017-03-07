@@ -5,7 +5,7 @@ export const GIRO_UUID = {
   distribuidora: 'c5b5885b-58d4-4164-95a8-5ce10904d8cf',
   laboratorio: '48ddf850-317f-4cf7-84e2-2d0e5a89ba0c',
   restaurante: '7a814d5a-ef2a-4699-965c-5f4edad7aa17',
-  transporte: '064a8e1f--46b8-9384-140c70563d71'
+  transporte: '1bf176d4-b193-456d-8f79-cea2a381b17e'
 }
 
 export const TIPO_SERVICIO_UUID = {
