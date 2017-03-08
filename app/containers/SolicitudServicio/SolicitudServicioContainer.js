@@ -47,9 +47,8 @@ const BtnContainer = styled.div`
   margin-top: 1.5em;
 `
 
-// TODO: Mensaje cuando se selecciono como cliente pero no se encontro en la bd
 // TODO: Snackbar para el fail del save
-// TODO: MODAL DE SALVADO SUCCESS FUL
+// TODO: MODAL DE SALVADO SUCCESSFUL
 class SolicitudServicioContainer extends Component {
   componentWillMount () {
     this.props.resetFieldsAction()
