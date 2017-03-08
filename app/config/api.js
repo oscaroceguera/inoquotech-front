@@ -38,5 +38,5 @@ export const getTownsAutocomplete = (uuid) =>
 
 export const addSolicitudServicio = (data) =>
   axios
-    .post(`${api}/solicitud_servicio`, data)
+    .post(`${api}/requestService`, data)
     .then((items) => items.data)

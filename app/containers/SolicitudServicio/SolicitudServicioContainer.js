@@ -8,7 +8,7 @@ import {servicesActions} from 'reducers/services'
 import {catalogsActions} from 'reducers/catalogs'
 import {validation, dataFormSave} from 'selectors/SelectorSolicitudServicio'
 
-import { AutoComplete, RaisedButton } from 'material-ui'
+import { AutoComplete, RaisedButton, Snackbar } from 'material-ui'
 
 import {
   IsClientForm, SolicitudGeneralesEmpresa, SolicitudServicioRequerido,
@@ -49,6 +49,7 @@ const BtnContainer = styled.div`
 
 // TODO: Mensaje cuando se selecciono como cliente pero no se encontro en la bd
 // TODO: Snackbar para el fail del save
+// TODO: MODAL DE SALVADO SUCCESS FUL
 class SolicitudServicioContainer extends Component {
   componentWillMount () {
     this.props.resetFieldsAction()
@@ -97,10 +98,15 @@ class SolicitudServicioContainer extends Component {
     this.props.solicitudServicioReq(this.props.dataSave)
   }
 
+  handleActionTouchTap = () => {
+    this.props.closeSnackBar()
+    this.props.resetFieldsAction()
+  }
+
   render () {
     const {
       servicesTypes, sectionsTypes, company, client, servicio,
-      countries, states, towns, disabled, loading
+      countries, states, towns, disabled, loading, snackBarOpen, savedFail
     } = this.props
 
     return (
@@ -210,12 +216,18 @@ class SolicitudServicioContainer extends Component {
                   />
               </BtnContainer>
             </div>}
+            <Snackbar
+              open={snackBarOpen}
+              message={savedFail}
+              action={'Aceptar'}
+              onActionTouchTap={this.handleActionTouchTap}
+            />
       </FormsContainer>
     )
   }
 }
 
-const {object, bool} = React.PropTypes
+const {object, bool, any} = React.PropTypes
 
 SolicitudServicioContainer.proptypes = {
   company: object.isRequired,
@@ -235,7 +247,8 @@ SolicitudServicioContainer.proptypes = {
   towns: object,
   disabled: bool.isRequired,
   dataSave: object.isRequired,
-  loading: bool.isRequired
+  loading: bool.isRequired,
+  savedFail: any
 }
 
 const  mapStateToProps = (state) => {
@@ -243,6 +256,8 @@ const  mapStateToProps = (state) => {
   const catalogsJS = state.catalogs.toJS()
   return {
     loading: servicesJS.isSavedLoading,
+    snackBarOpen: servicesJS.snackBarOpen,
+    savedFail: servicesJS.isSavedFail ? `Error ${servicesJS.isSavedFail.response.status}: ${servicesJS.isSavedFail.response.data}` : '',
     disabled: !validation(state),
     company: servicesJS.company,
     client: servicesJS.client,

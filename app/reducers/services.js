@@ -11,6 +11,7 @@ export const SOLICITUD_SERVICIO_REQUEST = 'app/reducers/services/SOLICITUD_SERVI
 export const SOLICITUD_SERVICIO_SUCCESS = 'app/reducers/services/SOLICITUD_SERVICIO_SUCCESS'
 export const SOLICITUD_SERVICIO_FAIL = 'app/reducers/services/SOLICITUD_SERVICIO_FAIL'
 export const RESET_FIELDS = 'app/reducers/services/RESET_FIELDS'
+export const CLOSE_SNACKBAR = 'app/reducers/services/CLOSE_SNACKBAR'
 
 // Actions Creators
 export const servicesActions = {
@@ -23,12 +24,14 @@ export const servicesActions = {
   solicitudServicioReq: (data) => ({ type: SOLICITUD_SERVICIO_REQUEST, data }),
   solicitudServicioSuccess: () => ({ type: SOLICITUD_SERVICIO_SUCCESS }),
   solicitudServicioFail: (error) => ({ type: SOLICITUD_SERVICIO_FAIL, error}),
-  resetFieldsAction: () => ({ type: RESET_FIELDS })
+  resetFieldsAction: () => ({ type: RESET_FIELDS }),
+  closeSnackBar: () => ({ type: CLOSE_SNACKBAR })
 }
 
 // Reducer
 const initialState = fromJS({
   isSavedLoading: false,
+  snackBarOpen: false,
   isSavedFail: null,
   client: {
     isClient: false,
@@ -151,12 +154,16 @@ function servicesReducer (state = initialState, action) {
   case SOLICITUD_SERVICIO_FAIL:
     return state.merge({
       isSavedLoading: false,
-      isSavedFail: action.error
+      isSavedFail: action.error,
+      snackBarOpen: true,
     })
+  case CLOSE_SNACKBAR:
+    return state.set('snackBarOpen', false)
   case RESET_FIELDS:
     return state.merge({
       isSavedLoading: false,
       isSavedFail: null,
+      snackBarOpen: false,
       client: {
         isClient: false,
         isClientRFC: ''
