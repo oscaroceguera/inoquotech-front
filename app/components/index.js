@@ -1,4 +1,5 @@
 export Home from './Home/Home'
+export TopBar from './TopBar/TopBar'
 // Commons
 export FormRequestWrapper from './commons/FormRequestWrapper'
 export FormRadiobuttomWrapper from './commons/FormRadiobuttomWrapper'

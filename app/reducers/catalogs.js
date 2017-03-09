@@ -8,6 +8,9 @@ const NESTED_STATES_SUCCESS = 'app/reducers/catalogs/NESTED_STATES_SUCCESS'
 const NESTED_STATES_FAIL = 'app/reducers/catalogs/NESTED_STATES_FAIL'
 const NESTED_TOWNS_SUCCESS = 'app/reducers/catalogs/NESTED_TOWNS_SUCCESS'
 const NESTED_TOWNS_FAIL = 'app/reducers/catalogs/NESTED_TOWNS_FAIL'
+export const SOLICITUD_CAT_FOR_DASHBOARD_REQUEST ='app/reducers/catalogs/SOLICITUD_CAT_FOR_DASHBOARD_REQUEST'
+const SOLICITUD_CAT_FOR_DASHBOARD_SUCCESS ='app/reducers/catalogs/SOLICITUD_CAT_FOR_DASHBOARD_SUCCESS'
+const SOLICITUD_CAT_FOR_DASHBOARD_FAIL ='app/reducers/catalogs/SOLICITUD_CAT_FOR_DASHBOARD_FAIL'
 
 // Actions Creators
 export const catalogsActions = {
@@ -17,7 +20,10 @@ export const catalogsActions = {
   nestedStatesSuccess: (states) => ({ type: NESTED_STATES_SUCCESS, states}),
   nestedStatesFail: (error) => ({ type: NESTED_STATES_FAIL, error}),
   nestedTownsSuccess: (towns) => ({ type: NESTED_TOWNS_SUCCESS, towns}),
-  nestedTownsFail: (error) => ({ type: NESTED_TOWNS_FAIL, error})
+  nestedTownsFail: (error) => ({ type: NESTED_TOWNS_FAIL, error}),
+  catForDashboardRequest: () => ({ type: SOLICITUD_CAT_FOR_DASHBOARD_REQUEST}),
+  catForDashboardSuccess: (modules) => ({ type: SOLICITUD_CAT_FOR_DASHBOARD_SUCCESS, modules}),
+  catForDashboardFail: (error) => ({ type: SOLICITUD_CAT_FOR_DASHBOARD_FAIL, error })
 }
 
 const initialState = fromJS({
@@ -28,7 +34,9 @@ const initialState = fromJS({
   statesFail: null,
   towns: [],
   townsFail: null,
-  solicitudCatFail: null
+  solicitudCatFail: null,
+  modules: [],
+  modulesFail: null
 })
 
 function catalogsReducer (state = initialState, action) {
@@ -49,6 +57,13 @@ function catalogsReducer (state = initialState, action) {
     return state.set('towns', action.towns)
   case NESTED_TOWNS_FAIL:
     return state.set('townsFail', action.error)
+  case SOLICITUD_CAT_FOR_DASHBOARD_SUCCESS:
+    return state.merge({
+      modules: List.of(...action.modules),
+      modulesFail: null
+    })
+  case SOLICITUD_CAT_FOR_DASHBOARD_FAIL:
+    return state.set('modulesFail', action.error)
   default:
     return state
   }
