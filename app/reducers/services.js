@@ -12,6 +12,7 @@ export const SOLICITUD_SERVICIO_SUCCESS = 'app/reducers/services/SOLICITUD_SERVI
 export const SOLICITUD_SERVICIO_FAIL = 'app/reducers/services/SOLICITUD_SERVICIO_FAIL'
 export const RESET_FIELDS = 'app/reducers/services/RESET_FIELDS'
 export const CLOSE_SNACKBAR = 'app/reducers/services/CLOSE_SNACKBAR'
+export const NOT_FOUND_USER = 'app/reducers/services/NOT_FOUND_USER'
 
 // Actions Creators
 export const servicesActions = {
@@ -25,14 +26,16 @@ export const servicesActions = {
   solicitudServicioSuccess: () => ({ type: SOLICITUD_SERVICIO_SUCCESS }),
   solicitudServicioFail: (error) => ({ type: SOLICITUD_SERVICIO_FAIL, error}),
   resetFieldsAction: () => ({ type: RESET_FIELDS }),
-  closeSnackBar: () => ({ type: CLOSE_SNACKBAR })
+  closeSnackBar: () => ({ type: CLOSE_SNACKBAR }),
+  notFoundUser: (message) => ({ type: NOT_FOUND_USER, message})
+
 }
 
 // Reducer
 const initialState = fromJS({
   isSavedLoading: false,
   snackBarOpen: false,
-  isSavedFail: null,
+  failMessage: null,
   client: {
     isClient: false,
     isClientRFC: ''
@@ -149,20 +152,25 @@ function servicesReducer (state = initialState, action) {
   case SOLICITUD_SERVICIO_SUCCESS:
     return state.merge({
       isSavedLoading: false,
-      isSavedFail: null
+      failMessage: null
     })
   case SOLICITUD_SERVICIO_FAIL:
     return state.merge({
       isSavedLoading: false,
-      isSavedFail: action.error,
+      failMessage: action.error,
       snackBarOpen: true,
     })
   case CLOSE_SNACKBAR:
     return state.set('snackBarOpen', false)
+  case NOT_FOUND_USER:
+    return state.merge({
+      snackBarOpen: true,
+      failMessage: action.message,
+    })
   case RESET_FIELDS:
     return state.merge({
       isSavedLoading: false,
-      isSavedFail: null,
+      failMessage: null,
       snackBarOpen: false,
       client: {
         isClient: false,

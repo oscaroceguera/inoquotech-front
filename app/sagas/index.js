@@ -5,17 +5,24 @@ import {
   getCountriesAutocomplete, getStatesAutocomplete, addSolicitudServicio,
 } from 'config/api'
 import { SOLICITUD_CATALOGS_REQUEST, catalogsActions } from 'reducers/catalogs'
-import { SET_COUNTRY, SET_STATE, SOLICITUD_SERVICIO_REQUEST, servicesActions } from 'reducers/services'
+import { SET_COUNTRY, SET_STATE, SOLICITUD_SERVICIO_REQUEST, CLOSE_SNACKBAR, servicesActions } from 'reducers/services'
 import { browserHistory } from 'react-router'
+
+export function* watchCloseSnakcBar() {
+  yield put(servicesActions.resetFieldsAction())
+}
 
 export function* watchSavedSolicitudServicio(action) {
   yield delay(1000)
   try {
-    yield call(addSolicitudServicio, action.data)
+    const data = yield call(addSolicitudServicio, action.data)
+    if (data.length === 0) {
+      return yield put(servicesActions.notFoundUser('No se encuetra registrado como cliente'))
+    }
     yield put(servicesActions.solicitudServicioSuccess())
     browserHistory.push('/')
   } catch (error) {
-    yield put(servicesActions.solicitudServicioFail(error))
+    yield put(servicesActions.solicitudServicioFail('Ups!, algo paso y no se guardo la solicitud.'))
   }
 }
 
@@ -54,6 +61,7 @@ export default function* rootSaga() {
     takeLatest(SOLICITUD_CATALOGS_REQUEST, watchSolicitudCatalogos),
     takeLatest(SET_COUNTRY, watchAutocompleteState),
     takeLatest(SET_STATE, watchAutocompleteTown),
-    takeLatest(SOLICITUD_SERVICIO_REQUEST, watchSavedSolicitudServicio)
+    takeLatest(SOLICITUD_SERVICIO_REQUEST, watchSavedSolicitudServicio),
+    takeLatest(CLOSE_SNACKBAR, watchCloseSnakcBar)
   ]
 }

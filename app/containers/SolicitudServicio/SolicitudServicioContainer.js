@@ -47,7 +47,6 @@ const BtnContainer = styled.div`
   margin-top: 1.5em;
 `
 
-// TODO: Snackbar para el fail del save
 // TODO: MODAL DE SALVADO SUCCESSFUL
 class SolicitudServicioContainer extends Component {
   componentWillMount () {
@@ -99,13 +98,12 @@ class SolicitudServicioContainer extends Component {
 
   handleActionTouchTap = () => {
     this.props.closeSnackBar()
-    this.props.resetFieldsAction()
   }
 
   render () {
     const {
       servicesTypes, sectionsTypes, company, client, servicio,
-      countries, states, towns, disabled, loading, snackBarOpen, savedFail
+      countries, states, towns, disabled, loading, snackBarOpen, failMessage
     } = this.props
 
     return (
@@ -217,7 +215,7 @@ class SolicitudServicioContainer extends Component {
             </div>}
             <Snackbar
               open={snackBarOpen}
-              message={savedFail}
+              message={failMessage}
               action={'Aceptar'}
               onActionTouchTap={this.handleActionTouchTap}
             />
@@ -256,7 +254,7 @@ const  mapStateToProps = (state) => {
   return {
     loading: servicesJS.isSavedLoading,
     snackBarOpen: servicesJS.snackBarOpen,
-    savedFail: servicesJS.isSavedFail ? `Error ${servicesJS.isSavedFail.response.status}: ${servicesJS.isSavedFail.response.data}` : '',
+    failMessage: servicesJS.failMessage || '',
     disabled: !validation(state),
     company: servicesJS.company,
     client: servicesJS.client,
