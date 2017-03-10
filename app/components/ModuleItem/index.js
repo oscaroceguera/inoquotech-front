@@ -29,12 +29,18 @@ const LinkStyled = styled(Link)`
   &:hover {
     opacity: 0.7;
   }
+  @media (max-width: 1025px){
+    margin: 0 auto;
+  }
 `
 
 const CardItem = styled(Paper)`
   width: 300px;
   margin: .5em;
   padding: .5em;
+  @media (max-width: 660px){
+    width: 345px;
+  }
 `
 
 const IconTitleContainer = styled.div`

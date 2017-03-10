@@ -12,6 +12,10 @@ const ListContainer = styled.div`
   padding: 1.5em 3em;
   margin: 0 auto;
   max-width: 1000px;
+  @media (max-width: 1025px){
+    max-width: 650px;
+    padding: 1.5em 0;
+  }
 `
 
 class ModulesListContainer extends Component {
