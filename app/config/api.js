@@ -40,3 +40,8 @@ export const addSolicitudServicio = (data) =>
   axios
     .post(`${api}/requestService`, data)
     .then((items) => items.data)
+
+export const getModulesTypes = () =>
+  axios
+    .get(`${api}/catalogs/moduleTypes`)
+    .then((items) => items.data)

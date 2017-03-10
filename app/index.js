@@ -5,11 +5,17 @@ import { Provider } from 'react-redux'
 import { routerReducer, syncHistoryWithStore } from 'react-router-redux'
 import { browserHistory } from 'react-router'
 import createSagaMiddleware from 'redux-saga'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 import * as reducers from 'reducers'
 import getRoutes from 'config/routes'
-import rootSagas from 'sagas'
+import allSagas from 'sagas'
 
+const muiTheme = getMuiTheme({
+  appBar: {
+    height: 60
+  }
+})
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -27,12 +33,12 @@ const store = createStore(
   )
 )
 
-sagaMiddleware.run(rootSagas)
+allSagas.forEach(saga => sagaMiddleware.run(saga))
 
 const history = syncHistoryWithStore(browserHistory, store)
 
 const App = () => (
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       {getRoutes(history)}
     </Provider>

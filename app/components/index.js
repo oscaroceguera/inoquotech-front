@@ -1,5 +1,5 @@
 export Home from './Home/Home'
-// Commons
+export TopBar from './TopBar/TopBar'
 export FormRequestWrapper from './commons/FormRequestWrapper'
 export FormRadiobuttomWrapper from './commons/FormRadiobuttomWrapper'
 export GenericRadioButton from './commons/GenericRadioButton'
@@ -8,7 +8,7 @@ export GenericCheckbox from './commons/GenericCheckbox'
 export GenericTextFieldForm from './commons/GenericTextFieldForm'
 export GenericAutoComplete from './commons/GenericAutoComplete'
 export GenericCircularProgress from './commons/GenericCircularProgress'
-// Solicitud de servicio
 export IsClientForm from './SolicitudServicio/IsClientForm'
 export SolicitudGeneralesEmpresa from './SolicitudServicio/SolicitudGeneralesEmpresa'
 export SolicitudServicioRequerido from './SolicitudServicio/SolicitudServicioRequerido'
+export ModuleItem from './ModuleItem'

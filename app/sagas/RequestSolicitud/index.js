@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { takeEvery, takeLatest, delay } from 'redux-saga'
 import { call, put, select, fork } from 'redux-saga/effects'
 import {
@@ -6,28 +5,21 @@ import {
   getCountriesAutocomplete, getStatesAutocomplete, addSolicitudServicio,
 } from 'config/api'
 import { SOLICITUD_CATALOGS_REQUEST, catalogsActions } from 'reducers/catalogs'
-import { SET_COUNTRY, SET_STATE, SOLICITUD_SERVICIO_REQUEST, CLOSE_SNACKBAR, servicesActions } from 'reducers/services'
+import { SET_COUNTRY, SET_STATE, SOLICITUD_SERVICIO_REQUEST, servicesActions } from 'reducers/services'
 import { browserHistory } from 'react-router'
 
-export function* watchCloseSnakcBar() {
-  yield put(servicesActions.resetFieldsAction())
-}
-
-export function* watchSavedSolicitudServicio(action) {
+function* watchSavedSolicitudServicio(action) {
   yield delay(1000)
   try {
-    const data = yield call(addSolicitudServicio, action.data)
-    if (data.length === 0) {
-      return yield put(servicesActions.notFoundUser('No se encuetra registrado como cliente'))
-    }
+    yield call(addSolicitudServicio, action.data)
     yield put(servicesActions.solicitudServicioSuccess())
     browserHistory.push('/')
   } catch (error) {
-    yield put(servicesActions.solicitudServicioFail('Ups!, algo paso y no se guardo la solicitud.'))
+    yield put(servicesActions.solicitudServicioFail(error))
   }
 }
 
-export function* watchAutocompleteTown () {
+function* watchAutocompleteTown () {
   const stateUUID = yield select((state) => state.services.toJS().company.state)
   const towns = yield call(getTownsAutocomplete, stateUUID)
   try {
@@ -37,7 +29,7 @@ export function* watchAutocompleteTown () {
   }
 }
 
-export function* watchAutocompleteState () {
+function* watchAutocompleteState () {
   const countryUUID = yield select((state) => state.services.toJS().company.country)
   const states = yield call(getStatesAutocomplete, countryUUID)
   try {
@@ -47,7 +39,7 @@ export function* watchAutocompleteState () {
   }
 }
 
-export function* watchSolicitudCatalogos() {
+function* watchSolicitudCatalogos() {
   try {
     const [sectionTypes, servicesTypes, countries] = yield [call(getSectionTypes), call(getServicesTypes), call(getCountriesAutocomplete)]
     yield put(catalogsActions.solicitudCatalogsSuccess(sectionTypes, servicesTypes, countries))
@@ -57,21 +49,15 @@ export function* watchSolicitudCatalogos() {
 }
 
 
-export default function* rootSaga() {
+function* defaultSaga() {
   yield [
     takeLatest(SOLICITUD_CATALOGS_REQUEST, watchSolicitudCatalogos),
     takeLatest(SET_COUNTRY, watchAutocompleteState),
     takeLatest(SET_STATE, watchAutocompleteTown),
-    takeLatest(SOLICITUD_SERVICIO_REQUEST, watchSavedSolicitudServicio),
-    takeLatest(CLOSE_SNACKBAR, watchCloseSnakcBar)
+    takeLatest(SOLICITUD_SERVICIO_REQUEST, watchSavedSolicitudServicio)
   ]
 }
-=======
-import { sagas as RSSagas } from './RequestSolicitud'
-import { sagas as MSagas } from './Modules'
 
-export default [
-  ...RSSagas,
-  ...MSagas
+export const sagas = [
+  defaultSaga
 ]
->>>>>>> dashboard
