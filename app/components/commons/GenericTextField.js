@@ -19,7 +19,7 @@ const TextFieldWrapper = styled(TextField)`
   }}
 `
 
-function GenericTextField({floating, width, hintText, onChange, onUpdateValidate}) {
+function GenericTextField({floating, width, hintText, onChange, onUpdateValidate, type}) {
   return (
     <TextFieldWrapper
       floatingLabelText={floating}
@@ -27,18 +27,24 @@ function GenericTextField({floating, width, hintText, onChange, onUpdateValidate
       hintText={hintText}
       onChange={onChange}
       errorText={onUpdateValidate}
+      type={type}
     />
   )
 }
 
 const {string, func, any } = PropTypes
 
+GenericTextField.defaultProps = {
+  type: 'text'
+}
+
 GenericTextField.propTypes = {
   floating: string.isRequired,
   width: string,
   hintText: string,
   onChange: func.isRequired,
-  onUpdateValidate: any
+  onUpdateValidate: any,
+  type: string.isRequired
 }
 
 export default GenericTextField

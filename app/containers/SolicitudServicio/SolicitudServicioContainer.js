@@ -248,7 +248,7 @@ SolicitudServicioContainer.proptypes = {
   savedFail: any
 }
 
-const  mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   const servicesJS = state.services.toJS()
   const catalogsJS = state.catalogs.toJS()
   return {

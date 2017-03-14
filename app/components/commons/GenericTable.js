@@ -83,7 +83,9 @@ const GenericTable = (props) => {
         </TableBody>
       </Table>
       <BtnContainer>
-        <FloatingActionButton backgroundColor={Colors.red500}>
+        <FloatingActionButton
+          onClick={props.goToUserAdd}
+          backgroundColor={Colors.red500}>
           <ContentAdd />
         </FloatingActionButton>
       </BtnContainer>

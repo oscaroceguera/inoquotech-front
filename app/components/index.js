@@ -14,3 +14,4 @@ export SolicitudServicioRequerido from './SolicitudServicio/SolicitudServicioReq
 export ModuleItem from './ModuleItem'
 export GenericTable from './commons/GenericTable'
 export GenericToolbar from './commons/GenericToolbar'
+export SimpleCRUWrapper from './commons/SimpleCRUWrapper'

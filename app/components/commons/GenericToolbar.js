@@ -13,12 +13,12 @@ const ToolbarContainer = styled(Toolbar)`
   align-items: center;
 `
 
-const GenericToolbar = ({title, path}) => (
+const GenericToolbar = ({title, returnPath}) => (
   <ToolbarContainer>
     <ToolbarGroup>
       <ToolbarTitle text={title} />
     </ToolbarGroup>
-    <Link to={path}>
+    <Link to={returnPath}>
       <Return />
     </Link>
   </ToolbarContainer>
@@ -26,7 +26,7 @@ const GenericToolbar = ({title, path}) => (
 
 GenericToolbar.propTypes = {
   title: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired
+  returnPath: PropTypes.string.isRequired
 }
 
 export default GenericToolbar

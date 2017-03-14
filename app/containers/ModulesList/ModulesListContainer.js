@@ -37,7 +37,7 @@ class ModulesListContainer extends Component {
               value={value}
               iconType={iconType}
               description={description}
-              path={path}
+              path={`/panel/${path}`}
             />
           ))
         }

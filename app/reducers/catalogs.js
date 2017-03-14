@@ -23,7 +23,7 @@ export const catalogsActions = {
   nestedTownsFail: (error) => ({ type: NESTED_TOWNS_FAIL, error}),
   catForDashboardRequest: () => ({ type: SOLICITUD_CAT_FOR_DASHBOARD_REQUEST}),
   catForDashboardSuccess: (modules) => ({ type: SOLICITUD_CAT_FOR_DASHBOARD_SUCCESS, modules}),
-  catForDashboardFail: (error) => ({ type: SOLICITUD_CAT_FOR_DASHBOARD_FAIL, error })
+  catForDashboardFail: (error) => ({ type: SOLICITUD_CAT_FOR_DASHBOARD_FAIL, error }),
 }
 
 const initialState = fromJS({
