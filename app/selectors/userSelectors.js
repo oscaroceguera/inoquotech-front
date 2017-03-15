@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import {every} from 'lodash/collection'
+import {every, orderBy} from 'lodash/collection'
 import aux from 'commons/FormAuxFunctions'
 
 const USER_FORM = [ 'name', 'firstName', 'secondName', 'email', 'password', 'confPassword' ]
@@ -41,5 +41,20 @@ export const showSubmitSelector = createSelector(
   ],
   (everyUserFields, modules, passEquals, isEmail) => {
     return everyUserFields && modules && passEquals && isEmail
+  }
+)
+
+export const usersForList = createSelector(
+  getItems,
+  ({users}) => {
+    const userList = users.map((user) => {
+      return {
+        id: user.id,
+        name: `${user.name} ${user.firstName} ${user.secondName}`,
+        email: user.email,
+        status: user.userStatus.value
+      }
+    })
+    return orderBy(userList, 'name', 'asc')
   }
 )

@@ -22,69 +22,30 @@ const BtnContainer = styled.div`
   bottom: 2em;
 `
 
-// TODO: PropTypes
-const GenericTable = (props) => {
+// TODO: PropTypes TableRow
+const DataRow = ({columns, item}) => (
+  <TableRow>
+    {columns.map(({keyName}, index) => <TableRowColumn key={index}>{item[keyName]}</TableRowColumn>)}
+  </TableRow>
+)
+
+// TODO: PropTypes GenericTable
+const GenericTable = ({goToUserAdd, data, columns}) => {
   return (
     <TableContainer>
       <Table>
-        <TableHeader>
+        <TableHeader displaySelectAll={false}>
           <TableRow>
-            <TableHeaderColumn>NOMBRE</TableHeaderColumn>
-            <TableHeaderColumn>EMAIL</TableHeaderColumn>
-            <TableHeaderColumn>STATUS</TableHeaderColumn>
+            {columns.map(({label}, index) => <TableHeaderColumn key={index}>{label}</TableHeaderColumn>)}
           </TableRow>
         </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableRowColumn>Oscar Eduardo Oceguera Bibriesca</TableRowColumn>
-            <TableRowColumn>oscaroceguera@gmail.com</TableRowColumn>
-            <TableRowColumn>Activo</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>Oscar Eduardo Oceguera Bibriesca</TableRowColumn>
-            <TableRowColumn>oscaroceguera@gmail.com</TableRowColumn>
-            <TableRowColumn>Activo</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>Oscar Eduardo Oceguera Bibriesca</TableRowColumn>
-            <TableRowColumn>oscaroceguera@gmail.com</TableRowColumn>
-            <TableRowColumn>Activo</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>Oscar Eduardo Oceguera Bibriesca</TableRowColumn>
-            <TableRowColumn>oscaroceguera@gmail.com</TableRowColumn>
-            <TableRowColumn>Activo</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>Oscar Eduardo Oceguera Bibriesca</TableRowColumn>
-            <TableRowColumn>oscaroceguera@gmail.com</TableRowColumn>
-            <TableRowColumn>Activo</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>Oscar Eduardo Oceguera Bibriesca</TableRowColumn>
-            <TableRowColumn>oscaroceguera@gmail.com</TableRowColumn>
-            <TableRowColumn>Activo</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>Oscar Eduardo Oceguera Bibriesca</TableRowColumn>
-            <TableRowColumn>oscaroceguera@gmail.com</TableRowColumn>
-            <TableRowColumn>Activo</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>Oscar Eduardo Oceguera Bibriesca</TableRowColumn>
-            <TableRowColumn>oscaroceguera@gmail.com</TableRowColumn>
-            <TableRowColumn>Activo</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>Oscar Eduardo Oceguera Bibriesca</TableRowColumn>
-            <TableRowColumn>oscaroceguera@gmail.com</TableRowColumn>
-            <TableRowColumn>Activo</TableRowColumn>
-          </TableRow>
+        <TableBody displayRowCheckbox={false}>
+          {data.map((item, key) => <DataRow key={key} columns={columns} item={item}/>)}
         </TableBody>
       </Table>
       <BtnContainer>
         <FloatingActionButton
-          onClick={props.goToUserAdd}
+          onClick={goToUserAdd}
           backgroundColor={Colors.red500}>
           <ContentAdd />
         </FloatingActionButton>

@@ -50,3 +50,9 @@ export const addUser = (data) =>
   axios
     .post(`${api}/users`, data)
     .then((items) => items.data)
+
+
+export const getUsers = () =>
+  axios
+    .get(`${api}/users`)
+    .then((items) => items.data)

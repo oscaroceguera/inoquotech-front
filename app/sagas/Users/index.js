@@ -1,9 +1,9 @@
 import { takeLatest, delay } from 'redux-saga'
 import { call, put, select } from 'redux-saga/effects'
 
-import {addUser} from 'config/api'
+import {addUser, getUsers} from 'config/api'
 
-import { SAVED_USER_RESQUEST, userActions } from 'reducers/users'
+import { SAVED_USER_RESQUEST, FETCH_USERS_REQUEST, userActions } from 'reducers/users'
 import { browserHistory } from 'react-router'
 
 
@@ -20,9 +20,20 @@ function* watchAddUser() {
   }
 }
 
+function* watchFetchUsers() {
+  yield delay(1000)
+  try {
+    const users = yield call(getUsers)
+    yield put(userActions.fetchUsersSuccess(users))
+  } catch (e) {
+    yield put(userActions.fetchUsersFail(e))
+  }
+}
+
 function* defaultSaga() {
   yield [
-    takeLatest(SAVED_USER_RESQUEST, watchAddUser)
+    takeLatest(SAVED_USER_RESQUEST, watchAddUser),
+    takeLatest(FETCH_USERS_REQUEST, watchFetchUsers)
   ]
 }
 

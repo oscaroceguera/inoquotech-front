@@ -9,6 +9,9 @@ const RESET_FIELDS = 'app/reducers/users/RESET_FIELDS'
 export const SAVED_USER_RESQUEST = 'app/reducers/users/SAVED_USER_RESQUEST'
 const SAVED_USER_SUCCESS = 'app/reducers/users/SAVED_USER_SUCCESS'
 const SAVED_USER_FAIL = 'app/reducers/users/SAVED_USER_FAIL'
+export const FETCH_USERS_REQUEST = 'app/reducers/users/FETCH_USERS_REQUEST'
+const FETCH_USERS_SUCCESS = 'app/reducers/users/FETCH_USERS_SUCCESS'
+const FETCH_USERS_FAIL = 'app/reducers/users/FETCH_USERS_FAIL'
 
 // Actions Creators
 export const userActions = {
@@ -18,7 +21,10 @@ export const userActions = {
   resetFields: () => ({ type: RESET_FIELDS }),
   savedUserResquest: () => ({ type: SAVED_USER_RESQUEST }),
   savedUserSuccess: (data) => ({ type: SAVED_USER_SUCCESS, data }),
-  savedUserFail: (err) => ({ type: SAVED_USER_FAIL, err })
+  savedUserFail: (err) => ({ type: SAVED_USER_FAIL, err }),
+  fetchUsersRequest: () => ({ type: FETCH_USERS_REQUEST }),
+  fetchUsersSuccess: (users) => ({ type: FETCH_USERS_SUCCESS, users }),
+  fetchUsersFail: (err) => ({ type: FETCH_USERS_FAIL, err })
 }
 
 
@@ -35,7 +41,10 @@ const initialState = fromJS({
   },
   isSavedLoading: false,
   isSaved: false,
-  savedFail: null
+  savedFail: null,
+  users: [],
+  usersLoading: false,
+  usersFail: null,
 })
 
 /* eslint-disable */
@@ -67,6 +76,21 @@ function userReducer (state = initialState, action) {
         savedFail: action.err,
         isSavedLoading: false,
         isSaved: false,
+      })
+    case FETCH_USERS_REQUEST:
+      return state.merge({
+        usersLoading: true,
+        usersFail: null
+      })
+    case FETCH_USERS_SUCCESS:
+      return state.merge({
+        usersLoading: true,
+        users: List.of(...action.users)
+      })
+    case FETCH_USERS_FAIL:
+      return state.merge({
+        usersLoading: false,
+        usersFail: action.err
       })
     case RESET_FIELDS:
       return state.merge({
