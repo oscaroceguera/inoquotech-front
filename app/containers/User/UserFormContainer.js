@@ -7,9 +7,7 @@ import * as Colors from 'material-ui/styles/colors'
 import { SimpleCRUWrapper, GenericTextField, FormRadiobuttomWrapper, GenericCheckbox } from 'components'
 import aux from 'commons/FormAuxFunctions'
 import styled from 'styled-components'
-
-// TODO: validacion para password
-// TODO: validacion para concidencia de password
+import {passwordsAreEqualsSelector, showSubmitSelector, modulesLengthSelector} from 'selectors/userSelectors'
 
 const FormContainer = styled.div`
   display: flex;
@@ -47,12 +45,16 @@ const FormCheckboxesItems = styled.div`
 
 const InstructionCheckboxex = styled.p`
   padding: 0;
-  color: ${Colors.blue500};
+  color: ${Colors.red500};
 `
 
 class UserFormContainer extends Component {
   static propTypes = {
-    moduleTypes: PropTypes.array.isRequired
+    moduleTypes: PropTypes.array.isRequired,
+    user: PropTypes.object.isRequired,
+    showSubmit: PropTypes.bool.isRequired,
+    showInstruction: PropTypes.bool.isRequired,
+    passwordsAreEquals: PropTypes.string.isRequired
   }
   componentWillMount () {
     const modulength = this.props.moduleTypes.length
@@ -82,11 +84,15 @@ class UserFormContainer extends Component {
   }
 
   render () {
-    const { moduleTypes } = this.props
+    const { moduleTypes, passwordsAreEquals, showSubmit, showInstruction } = this.props
     return (
       <SimpleCRUWrapper
         title={'CREAR USUARIO'}
-        returnPath={'/usuarios'}
+        returnPath={'/panel/usuarios'}
+        hasRBtn
+        // TODO: Cuando se actualiza este debera de decir actualizar
+        label={'Guardar'}
+        disabled={showSubmit}
         >
         <FormContainer>
           <FormTexFieldItems>
@@ -108,7 +114,7 @@ class UserFormContainer extends Component {
             <GenericTextField
               floating={'Email'}
               onChange={(e, value, section, field) => this.onTextChange(e, value, 'user', 'email')} // eslint-disable-line
-              onUpdateValidate={this.handleErrorText('user', 'email', 'text')} // eslint-disable-line
+              onUpdateValidate={this.handleErrorText('user', 'email', 'email')} // eslint-disable-line
               />
             <GenericTextField
               floating={'Password'}
@@ -120,11 +126,15 @@ class UserFormContainer extends Component {
               floating={'Confirmar password'}
               type={'password'}
               onChange={(e, value, section, field) => this.onTextChange(e, value, 'user', 'confPassword')} // eslint-disable-line
-              onUpdateValidate={this.handleErrorText('user', 'confPassword', 'text')} // eslint-disable-line
+              onUpdateValidate={passwordsAreEquals} // eslint-disable-line
               />
           </FormTexFieldItems>
           <FormCheckboxesItems>
-            <InstructionCheckboxex>{'Mínimo un módulo seleccionado'}</InstructionCheckboxex>
+            {/* TODO: if disabled is false no mostrar esto */}
+            {showInstruction
+              ? <InstructionCheckboxex>{'Mínimo un módulo seleccionado'}</InstructionCheckboxex>
+              : ''
+            }
             <FormRadiobuttomWrapper title=''>
               <GenericCheckbox
                 items={moduleTypes}
@@ -139,11 +149,13 @@ class UserFormContainer extends Component {
 }
 
 // TODO: proptypes
-
 const mapStateToProps = (state) => {
   const catalogsJS = state.catalogs.toJS()
   const userJS = state.users.toJS()
   return {
+    showSubmit: !showSubmitSelector(state),
+    passwordsAreEquals: passwordsAreEqualsSelector(state),
+    showInstruction: !modulesLengthSelector(state),
     user: userJS.user,
     moduleTypes: catalogsJS.modules
   }
