@@ -15,6 +15,7 @@ export default function getRoutes (history) {
           <IndexRoute component={ModulesListContainer} />
           <Route path='usuarios' component={UserListContainer} />
           <Route path='usuarios/new' component={UserFormContainer} />
+          <Route path='usuarios/update/:id' component={UserFormContainer} />
         </Route>
       </Route>
     </Router>

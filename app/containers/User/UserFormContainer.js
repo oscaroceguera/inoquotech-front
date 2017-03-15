@@ -4,7 +4,11 @@ import { userActions } from 'reducers/users'
 import { catalogsActions } from 'reducers/catalogs'
 import { bindActionCreators } from 'redux'
 import * as Colors from 'material-ui/styles/colors'
-import { SimpleCRUWrapper, GenericTextField, FormRadiobuttomWrapper, GenericCheckbox } from 'components'
+import {
+  SimpleCRUWrapper, GenericTextField,
+  FormRadiobuttomWrapper, GenericCheckbox,
+  GenericDisableTextField
+} from 'components'
 import aux from 'commons/FormAuxFunctions'
 import styled from 'styled-components'
 import {passwordsAreEqualsSelector, showSubmitSelector, modulesLengthSelector} from 'selectors/userSelectors'
@@ -54,6 +58,7 @@ class UserFormContainer extends Component {
     user: PropTypes.object.isRequired,
     showSubmit: PropTypes.bool.isRequired,
     showInstruction: PropTypes.bool.isRequired,
+    isSaved: PropTypes.bool.isRequired,
     passwordsAreEquals: PropTypes.string.isRequired
   }
   componentWillMount () {
@@ -65,6 +70,7 @@ class UserFormContainer extends Component {
 
     this.props.resetFields()
   }
+
   handleErrorText  = (section, field, type) => {
     const item = this.props[section][field]
     return aux.errorTextMessage(item, type)
@@ -83,19 +89,28 @@ class UserFormContainer extends Component {
     this.props.listendCheckboxes(section, field, value)
   }
 
+  onSaved = () => {
+    this.props.savedUserResquest()
+  }
+  onUpdate = () => {
+    console.log('ONUPDATE')
+  }
+
   render () {
-    const { moduleTypes, passwordsAreEquals, showSubmit, showInstruction } = this.props
+    const { user, moduleTypes, passwordsAreEquals, showSubmit, showInstruction, isSaved } = this.props
     return (
       <SimpleCRUWrapper
-        title={'CREAR USUARIO'}
+        title={isSaved ? 'ACTUALIZAR USUARIO' : 'CREAR USUARIO'}
         returnPath={'/panel/usuarios'}
         hasRBtn
         // TODO: Cuando se actualiza este debera de decir actualizar
-        label={'Guardar'}
+        label={isSaved ? 'Actualizar' : 'Guardar'}
         disabled={showSubmit}
+        onClick={isSaved ? this.onUpdate : this.onSaved}
         >
         <FormContainer>
           <FormTexFieldItems>
+            {user.id && <GenericDisableTextField label={'ID'} item={user.id} />}
             <GenericTextField
               floating={'Nombre'}
               onChange={(e, value, section, field) => this.onTextChange(e, value, 'user', 'name')} // eslint-disable-line
@@ -116,21 +131,22 @@ class UserFormContainer extends Component {
               onChange={(e, value, section, field) => this.onTextChange(e, value, 'user', 'email')} // eslint-disable-line
               onUpdateValidate={this.handleErrorText('user', 'email', 'email')} // eslint-disable-line
               />
-            <GenericTextField
-              floating={'Password'}
-              type={'password'}
-              onChange={(e, value, section, field) => this.onTextChange(e, value, 'user', 'password')} // eslint-disable-line
-              onUpdateValidate={this.handleErrorText('user', 'password', 'text')} // eslint-disable-line
-              />
-            <GenericTextField
-              floating={'Confirmar password'}
-              type={'password'}
-              onChange={(e, value, section, field) => this.onTextChange(e, value, 'user', 'confPassword')} // eslint-disable-line
-              onUpdateValidate={passwordsAreEquals} // eslint-disable-line
-              />
+            {!isSaved &&
+              <GenericTextField
+                floating={'Password'}
+                type={'password'}
+                onChange={(e, value, section, field) => this.onTextChange(e, value, 'user', 'password')} // eslint-disable-line
+                onUpdateValidate={this.handleErrorText('user', 'password', 'text')} // eslint-disable-line
+              />}
+            {!isSaved &&
+              <GenericTextField
+                floating={'Confirmar password'}
+                type={'password'}
+                onChange={(e, value, section, field) => this.onTextChange(e, value, 'user', 'confPassword')} // eslint-disable-line
+                onUpdateValidate={passwordsAreEquals} // eslint-disable-line
+              />}
           </FormTexFieldItems>
           <FormCheckboxesItems>
-            {/* TODO: if disabled is false no mostrar esto */}
             {showInstruction
               ? <InstructionCheckboxex>{'Mínimo un módulo seleccionado'}</InstructionCheckboxex>
               : ''
@@ -157,7 +173,8 @@ const mapStateToProps = (state) => {
     passwordsAreEquals: passwordsAreEqualsSelector(state),
     showInstruction: !modulesLengthSelector(state),
     user: userJS.user,
-    moduleTypes: catalogsJS.modules
+    moduleTypes: catalogsJS.modules,
+    isSaved: userJS.isSaved
   }
 }
 
