@@ -15,7 +15,7 @@ const TABLE_PARAMS = [
 ]
 
 // TODO: proptypes
-// TODO: cuando no se encuentren datos mostrar no datos
+// TODO: cuando no se encuentren datos mostrar modal de no datos
 // TODO: snackbar de error
 // TODO: progress load
 class UserListContainer extends Component {
@@ -36,7 +36,7 @@ class UserListContainer extends Component {
         <GenericTable
           data={usersList}
           columns={TABLE_PARAMS}
-          goToUserAdd={this.goToUserAdd} />
+          goToRoute={this.goToUserAdd} />
       </SimpleCRUWrapper>
     )
   }

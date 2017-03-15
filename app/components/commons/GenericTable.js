@@ -12,6 +12,12 @@ import * as Colors from 'material-ui/styles/colors'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import styled from 'styled-components'
 
+const Nofound = {
+  textAlign: 'center',
+  color: Colors.grey500,
+  fontSize: '2em'
+}
+
 const TableContainer = styled.div`
   position: relative;
 `
@@ -30,7 +36,8 @@ const DataRow = ({columns, item}) => (
 )
 
 // TODO: PropTypes GenericTable
-const GenericTable = ({goToUserAdd, data, columns}) => {
+const GenericTable = ({goToRoute, data, columns}) => {
+
   return (
     <TableContainer>
       <Table>
@@ -40,12 +47,15 @@ const GenericTable = ({goToUserAdd, data, columns}) => {
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
-          {data.map((item, key) => <DataRow key={key} columns={columns} item={item}/>)}
+          {data.length === 0
+            ? <TableRow><TableRowColumn style={Nofound}>{'No se encontraron registros'}</TableRowColumn></TableRow>
+            : data.map((item, key) => <DataRow key={key} columns={columns} item={item}/>)
+          }
         </TableBody>
       </Table>
       <BtnContainer>
         <FloatingActionButton
-          onClick={goToUserAdd}
+          onClick={goToRoute}
           backgroundColor={Colors.red500}>
           <ContentAdd />
         </FloatingActionButton>
